@@ -61,7 +61,7 @@ class Analyzer:
         self.sample_names = [] # list of sample names, readable names are generated from data in the fileList json
         self.sample_locs = {} # dictionary mapping sample name to file/directory location
         self.sample_info = {} # dictionary with sample metadata
-        self.max_samples = max_samples
+        self.max_samples = -1
         self.max_files_per_samp = max_files_per_samp
         self.nEvents = {}
         self.nEventsProcessed = {}
@@ -73,7 +73,7 @@ class Analyzer:
     def loadFiles(self):
         loaded = 0
         for sample in self.fileList:
-            if self.max_samples > 0 and loaded == self.max_samples:
+            if (self.max_samples) > 0 and loaded == self.max_samples:
                 break
             mode = sample['type']
             if mode == 'signal':
@@ -111,16 +111,16 @@ class Analyzer:
                     if self.max_files_per_samp > 0 and len(self.sample_locs[name]) > self.max_files_per_samp:
                         self.sample_locs[name] = self.sample_locs[name][:self.max_files_per_samp]
             else:
-                # if the location is a directory, use the xrootd client to get a list of files
+                # if the location is a directory, use the xrootd client to get a list of files 
                 xrdClient = client.FileSystem("root://cmseos.fnal.gov")
                 if type(loc) != list:
                     status, flist = xrdClient.dirlist(loc)
-                    fullList = ["root://cmsxrootd.fnal.gov/"+loc+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))]
+                    fullList = ["root://cmseos.fnal.gov/"+loc+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))]
                 else:
                     fullList = []
                     for l in loc:
                         status, flist = xrdClient.dirlist(l)
-                        fullList.extend(["root://cmsxrootd.fnal.gov/"+l+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))])
+                        fullList.extend(["root://cmseos.fnal.gov/"+l+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))])
                 if self.max_files_per_samp > 0 and len(fullList) > self.max_files_per_samp:
                     fullList = fullList[:self.max_files_per_samp]
                 if self.newCoffea:
@@ -212,7 +212,8 @@ class iDMeProcessor(processor.ProcessorABC):
         
         #histos = self.histoMod.make_histograms()
         #histos['cutDesc'] = defaultdict(str)
-        histObj = self.histoMod.make_histograms(info)
+        #histObj = self.histoMod.make_histograms(info)
+        histObj = self.histoMod.make_histograms()
         cutDesc = defaultdict(str)
 
         cutflow = defaultdict(float)               # efficiency
@@ -332,14 +333,14 @@ class iDMeProcessor(processor.ProcessorABC):
             else:
                 cutflow_counts[k] = sum_wgt*cutflow[k]
         
-        histos = histObj.histograms
-        histos['cutDesc'] = cutDesc
-        histos['cutflow'] = {samp:cutflow}
-        histos['cutflow_cts'] = {samp:cutflow_counts}
-        histos['cutflow_nevts'] = {samp:cutflow_nevts}
-        histos['cutflow_vtx_matched'] = {samp:cutflow_vtx_matched}
+        #histos = histObj.histograms()
+        histObj['cutDesc'] = cutDesc
+        histObj['cutflow'] = {samp:cutflow}
+        histObj['cutflow_cts'] = {samp:cutflow_counts}
+        histObj['cutflow_nevts'] = {samp:cutflow_nevts}
+        histObj['cutflow_vtx_matched'] = {samp:cutflow_vtx_matched}
 
-        return histos
+        return histObj
 
     def postprocess(self, accumulator):
         # only need one description per cut name -- adds many during parallel execution
