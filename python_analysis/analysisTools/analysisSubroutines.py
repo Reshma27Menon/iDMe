@@ -265,7 +265,7 @@ def projectLxy(events):
 
     cos = dotprod / (vxy_mag * pxy_mag)
 
-    events["vtx","cos_collinear"] = cos
+   # events["vtx","cos_collinear"] = cos
     events["vtx","projectedLxy"] =  vtx.vxy * cos
 
 def calculateCtau(events):
@@ -514,7 +514,8 @@ def makeBDTinputs(events):
     sel_vtx_minDxy_arr = mindxy.to_numpy()
     sel_vtx_vxy_arr = events.sel_vtx.vxy.to_numpy()
     vxy_signif_arr = (events.sel_vtx.vxy/events.sel_vtx.sigmavxy).to_numpy()
-    cos_collinear_arr = events.cos_collinear.to_numpy()
+   # cos_collinear_arr = events.cos_collinear.to_numpy()
+    cos_collinear_arr = vxy_signif_arr
     sel_vtx_prod_eta_arr = (events.sel_vtx.e1.eta * events.sel_vtx.e2.eta).to_numpy()
     met_leadPt_ratio_arr = (events.PFMET.pt/events.PFJet.pt[:,0]).to_numpy()
 
