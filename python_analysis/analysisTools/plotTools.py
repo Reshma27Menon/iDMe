@@ -371,6 +371,10 @@ def plot_signal_1D(ax, sig_histo, m1, delta, ctau, plot_dict, style_dict):
         xlim = style_dict['xlim']
         xbin_range = np.where((histo.axes.edges[0] > xlim[0]) & (histo.axes.edges[0] < xlim[1]))[0]
         histo = histo[ int(xbin_range[0])-1:int(xbin_range[-1]+1) ]
+    if style_dict['ylim'] != None:
+        ylim = style_dict['ylim']
+        ybin_range = np.where((histo.axes.edges[0] > ylim[0]) & (histo.axes.edges[0] < ylim[1]))[0]
+        histo = histo[ int(ybin_range[0])-1:int(ybin_range[-1]+1) ]
 
     # x and y labels
     if style_dict['xlabel'] != None:
@@ -380,7 +384,7 @@ def plot_signal_1D(ax, sig_histo, m1, delta, ctau, plot_dict, style_dict):
         ax.set_ylabel(style_dict['ylabel'])
     else:   
         binwidth = histo.axes.widths[0][0]
-        if style_dict['doDensity']:
+        if style_dict['doDensity']:      
             ax.set_ylabel(f'A.U./{binwidth:.3f}')
         else:
             ax.set_ylabel(f'Events/{binwidth:.3f}')
@@ -418,11 +422,7 @@ def plot_signal_2D(ax, sig_histo, m1, delta, ctau, plot_dict, style_dict):
         xlim = style_dict['xlim']
         xbin_range = np.where((histo.axes.edges[0] > xlim[0]) & (histo.axes.edges[0] < xlim[1]))[0]
         histo = histo[ int(xbin_range[0])-1:int(xbin_range[-1]+1), : ]
-    if style_dict['ylim'] != None:
-        ylim = style_dict['ylim']
-        ybin_range = np.where((histo.axes.edges[1] > ylim[0]) & (histo.axes.edges[1] < ylim[1]))[1]
-        histo = histo[ :, int(ybin_range[0]):int(ybin_range[-1]+1) ]
-    
+   
     # x and y labels
     if style_dict['xlabel'] != None:
         ax.set_xlabel(style_dict['xlabel'])
@@ -441,6 +441,9 @@ def plot_signal_2D(ax, sig_histo, m1, delta, ctau, plot_dict, style_dict):
         hep.hist2dplot(histo, flow=style_dict['flow'], ax=ax)
 
 
+
+   
+    
 def plot_bkg_1d(ax, bkg_histos, plot_dict, style_dict, isLegacy, processes = 'all'):
     if isLegacy:
         return plot_bkg_1d_legacy(ax, bkg_histos, plot_dict, style_dict, processes, isLegacy)
@@ -460,7 +463,7 @@ def plot_bkg_1d(ax, bkg_histos, plot_dict, style_dict, isLegacy, processes = 'al
         # Get histogram for each process
         bkg={}
         bkg[plot_dict['variable']] = {process:bkg_histos[plot_dict['variable']][{"samp":subprocess[process]}][{"samp": sum}] for process in processes}
-        
+        #print (bkg)
         # sort the histograms by the entries and stack
         for process in processes:
             entries = {process: bkg[plot_dict['variable']][process].sum().value for process in processes}
@@ -477,10 +480,28 @@ def plot_bkg_1d(ax, bkg_histos, plot_dict, style_dict, isLegacy, processes = 'al
             # set x range manually
             if style_dict['xlim'] != None:
                 xlim = style_dict['xlim']
+               # print (style_dict['xlim'])
+               # print (xlim) #what you give
+               # print (xlim)
+                print ("old:",bkg[plot_dict['variable']][process].axes.edges)
+                
                 xbin_range = np.where((bkg[plot_dict['variable']][process].axes.edges[0] > xlim[0]) & (bkg[plot_dict['variable']][process].axes.edges[0] < xlim[1]))[0]
+                cond = np.where((bkg[plot_dict['variable']][process].axes.edges[0] > xlim[0]))
+
+                print (cond)
                 bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][ int(xbin_range[0])-1:int(xbin_range[-1]+1) ]
+                #print (bkg[plot_dict['variable']][process])
+               # print (xbin_range)
+                
+
+            if style_dict['ylim'] != None:
+                ylim = style_dict['ylim']
+                ybin_range = np.where((bkg[plot_dict['variable']][process].axes.edges[0] > ylim[0]) & (bkg[plot_dict['variable']][process].axes.edges[0] < ylim[1]))[0]
+                bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][ int(ybin_range[0])-1:int(ybin_range[-1]+1) ]
+        
         
             bkg_stack[process] = bkg[plot_dict['variable']][process]
+            #print (bkg_stack[process])
         
         hb = hist.Stack.from_dict(bkg_stack)
             
@@ -496,6 +517,7 @@ def plot_bkg_1d(ax, bkg_histos, plot_dict, style_dict, isLegacy, processes = 'al
             binwidth = hb[0].axes.widths[0][0]
                 
             if style_dict['doDensity']:
+                
                 ax.set_ylabel(f'A.U./{binwidth:.3f}')
             else:
                 ax.set_ylabel(f'Events/{binwidth:.3f}')
