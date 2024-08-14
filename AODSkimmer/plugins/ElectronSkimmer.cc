@@ -99,8 +99,9 @@
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 
-#include "RecoEgamma/EgammaTools/interface/EffectiveAreas.h"
-#include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
+///RecoEgamma/EgammaTools/interface/EffectiveAreas.h
+#include "CommonTools/Egamma/interface/EffectiveAreas.h"
+#include "CommonTools/Egamma/interface/ConversionTools.h"
 
 #include "iDMe/CustomTools/interface/DisplacedDileptonAOD.hh"
 #include "iDMe/CustomTools/interface/JetCorrections.hh"
