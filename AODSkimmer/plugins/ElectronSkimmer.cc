@@ -147,27 +147,52 @@ class ElectronSkimmer : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::on
 
       // Tokens 
       const edm::EDGetTokenT<vector<pat::Electron> > recoElectronToken_;
-      const edm::EDGetTokenT<vector<pat::Electron> > recoNanoElectronToken_;
-      const edm::EDGetTokenT<vector<pat::Electron> >lowPtElectronToken_;
-      const edm::EDGetTokenT<vector<pat::Electron> >lowPtNanoElectronToken_;
-      const edm::EDGetTokenT<vector<pat::PackedCandidate> > packedPFCandToken_;
-      const edm::EDGetTokenT<vector<pat::Jet> > recoJetToken_;
-      const edm::EDGetTokenT<GenEventInfoProduct> genEvtInfoToken_;
-      const edm::EDGetTokenT<std::vector<PileupSummaryInfo> > pileupInfosToken_;
-      const edm::EDGetTokenT<double> rhoToken_;
-      const edm::EDGetTokenT<vector<reco::GenParticle> > genParticleToken_;
-      const edm::EDGetTokenT<vector<reco::GenJet> > genJetToken_;
-      const edm::EDGetTokenT<vector<reco::GenMET> > genMETToken_;
-      const edm::EDGetTokenT<vector<reco::Vertex> > primaryVertexToken_;
-      const edm::EDGetTokenT<reco::BeamSpot> beamspotToken_;
-      const edm::EDGetTokenT<vector<reco::Conversion> > conversionsToken_;
-      const edm::EDGetTokenT<vector<pat::Photon> > photonsToken_;
-      const edm::EDGetTokenT<vector<pat::Photon> > ootPhotonsToken_;
-      const edm::EDGetTokenT<vector<pat::MET> > METToken_;
-      const edm::EDGetTokenT<vector<pat::MET> > puppiMETToken_;
-      const edm::EDGetTokenT<edm::TriggerResults> trigResultsToken_;
-      const edm::EDGetTokenT<edm::TriggerResults> metFilterResultsToken_;
+
+      const edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> ttkToken_;
+
       const edm::EDGetTokenT<vector<pat::IsolatedTrack> > isoTrackToken_;
+      const edm::EDGetTokenT<edm::TriggerResults> metFilterResultsToken_;
+      const edm::EDGetTokenT<edm::TriggerResults> trigResultsToken_;
+      const edm::EDGetTokenT<vector<pat::MET> > puppiMETToken_;
+      const edm::EDGetTokenT<vector<pat::MET> > METToken_;
+      const edm::EDGetTokenT<vector<pat::Photon> > ootPhotonsToken_;
+      const edm::EDGetTokenT<vector<pat::Photon> > photonsToken_;
+      const edm::EDGetTokenT<vector<reco::Conversion> > conversionsToken_;
+      const edm::EDGetTokenT<reco::BeamSpot> beamspotToken_;
+      const edm::EDGetTokenT<vector<reco::Vertex> > primaryVertexToken_;
+      const edm::EDGetTokenT<vector<reco::GenMET> > genMETToken_;
+      const edm::EDGetTokenT<vector<reco::GenJet> > genJetToken_;
+      const edm::EDGetTokenT<vector<reco::GenParticle> > genParticleToken_;
+      const edm::EDGetTokenT<double> rhoToken_;
+      const edm::EDGetTokenT<std::vector<PileupSummaryInfo> > pileupInfosToken_;
+      const edm::EDGetTokenT<GenEventInfoProduct> genEvtInfoToken_;
+      const edm::EDGetTokenT<vector<pat::Jet> > recoJetToken_;
+      const edm::EDGetTokenT<vector<pat::PackedCandidate> > packedPFCandToken_;
+      const edm::EDGetTokenT<vector<pat::Electron> >lowPtNanoElectronToken_;
+      const edm::EDGetTokenT<vector<pat::Electron> >lowPtElectronToken_;
+      const edm::EDGetTokenT<vector<pat::Electron> > recoNanoElectronToken_;
+
+
+
+
+
+    //  const edm::EDGetTokenT<vector<pat::Electron> > recoNanoElectronToken_;
+    //
+     // const edm::EDGetTokenT<std::vector<PileupSummaryInfo> > pileupInfosToken_;
+     // const edm::EDGetTokenT<double> rhoToken_;
+     // const edm::EDGetTokenT<vector<reco::GenParticle> > genParticleToken_;
+      //const edm::EDGetTokenT<vector<reco::GenJet> > genJetToken_;
+      //const edm::EDGetTokenT<vector<reco::GenMET> > genMETToken_;
+    //  const edm::EDGetTokenT<vector<reco::Vertex> > primaryVertexToken_;
+    //  const edm::EDGetTokenT<reco::BeamSpot> beamspotToken_;
+    //  const edm::EDGetTokenT<vector<reco::Conversion> > conversionsToken_;
+    //  const edm::EDGetTokenT<vector<pat::Photon> > photonsToken_;
+     // const edm::EDGetTokenT<vector<pat::Photon> > ootPhotonsToken_;
+      //const edm::EDGetTokenT<vector<pat::MET> > METToken_;
+    //  const edm::EDGetTokenT<vector<pat::MET> > puppiMETToken_;
+     // const edm::EDGetTokenT<edm::TriggerResults> trigResultsToken_;
+     // const edm::EDGetTokenT<edm::TriggerResults> metFilterResultsToken_;
+     // const edm::EDGetTokenT<vector<pat::IsolatedTrack> > isoTrackToken_;
 
       // Handles
       edm::Handle<vector<pat::Electron> > recoElectronHandle_;
@@ -241,7 +266,8 @@ ElectronSkimmer::ElectronSkimmer(const edm::ParameterSet& ps)
    puppiMETToken_(consumes<vector<pat::MET> >(ps.getParameter<edm::InputTag>("puppiMET"))),
    trigResultsToken_(consumes<edm::TriggerResults>(ps.getParameter<edm::InputTag>("trigResults"))),
    metFilterResultsToken_(consumes<edm::TriggerResults>(ps.getParameter<edm::InputTag>("metFilterResults"))),
-   isoTrackToken_(consumes<vector<pat::IsolatedTrack> >(ps.getParameter<edm::InputTag>("isoTracks")))
+   isoTrackToken_(consumes<vector<pat::IsolatedTrack> >(ps.getParameter<edm::InputTag>("isoTracks"))),
+   ttkToken_(esConsumes(edm::ESInputTag{"", "TransientTrackBuilder"}))
 {
    usesResource("TFileService");
    m_random_generator = std::mt19937(37428479);
@@ -431,7 +457,8 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    nt.PV_z_ = pv.z();
    auto beamspot = *beamspotHandle_;
    // Set up objects for vertex reco
-   edm::ESHandle<TransientTrackBuilder> theB;
+   const TransientTrackBuilder* theB = &iSetup.getData(ttkToken_);
+   //edm::ESHandle<TransientTrackBuilder> theB;
    iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", theB);
    KalmanVertexFitter kvf(true);
 
