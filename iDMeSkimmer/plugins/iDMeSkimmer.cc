@@ -95,7 +95,10 @@ class iDMeSkimmer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
       bool isData;
 
       // Tokens 
+      
       const edm::EDGetTokenT<pat::ElectronCollection> recoElectronToken_;
+      const edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> ttkToken_;
+
       const edm::EDGetTokenT<pat::ElectronCollection> lowPtElectronToken_;
       const edm::EDGetTokenT<vector<pat::IsolatedTrack> > isoTracksToken_;
       const edm::EDGetTokenT<vector<pat::PackedCandidate> > packedPFCandToken_;
@@ -143,6 +146,8 @@ iDMeSkimmer::iDMeSkimmer(const edm::ParameterSet& ps)
  :
    isData(ps.getParameter<bool>("isData")),
    recoElectronToken_(consumes<pat::ElectronCollection>(ps.getParameter<edm::InputTag>("recoElectron"))),
+   ttkToken_(esConsumes(edm::ESInputTag{"", "TransientTrackBuilder"})),
+
    lowPtElectronToken_(consumes<pat::ElectronCollection>(ps.getParameter<edm::InputTag>("lowPtElectron"))),
    isoTracksToken_(consumes<vector<pat::IsolatedTrack> >(ps.getParameter<edm::InputTag>("isoTracks"))),
    packedPFCandToken_(consumes<vector<pat::PackedCandidate> >(ps.getParameter<edm::InputTag>("packedPFCands"))),
@@ -245,8 +250,9 @@ iDMeSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    reco::Vertex pv = *primaryVertexHandle_->begin();
    reco::BeamSpot beamspot = *beamspotHandle_;
    // Set up objects for vertex reco
-   edm::ESHandle<TransientTrackBuilder> theB;
-   iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", theB);
+  // edm::ESHandle<TransientTrackBuilder> theB;
+  // iSetup.getData<TransientTrackRecord>().getData(theB);
+   const TransientTrackBuilder* theB = &iSetup.getData(ttkToken_);
    KalmanVertexFitter kvf(true);
 
    // Handling Regular MET
