@@ -192,8 +192,8 @@ eleTrigs = list(set([
 triggerPaths = metTrigs + jetTrigs + eleTrigs
 
 # Electron effective area input file for PU-corrected PF isolation calculations
-effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt"
-
+#effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt"
+effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Run3_Winter22/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_122X.txt"
 process = cms.Process("USER",era,run2_miniAOD_UL)
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
