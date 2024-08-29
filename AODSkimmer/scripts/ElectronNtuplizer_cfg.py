@@ -2,11 +2,18 @@ import FWCore.ParameterSet.Config as cms
 import FWCore.ParameterSet.VarParsing as VarParsing
 import FWCore.Utilities.FileUtils as FileUtils
 from TrackingTools.TrackAssociator.default_cfi import TrackAssociatorParameterBlock
+
+#Run2 imports
 from Configuration.Eras.Era_Run2_2018_cff import Run2_2018
 from Configuration.Eras.Era_Run2_2017_cff import Run2_2017
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
 from Configuration.Eras.Era_Run2_2016_HIPM_cff import Run2_2016_HIPM
 from Configuration.ProcessModifiers.run2_miniAOD_UL_cff import run2_miniAOD_UL
+
+#Run3 imports
+from Configuration.Eras.Era_Run3_cff import Run3                   #corresponds to Run3 2022 (maybe)
+from Configuration.Eras.Era_Run3_2023_cff import Run3_2023         #corresponds to Run3 2023
+
 import json
 import sys
 
@@ -24,7 +31,7 @@ options.register('signal',
         VarParsing.VarParsing.varType.bool,
         "Run on signal (1) or not (0")
 options.register('year',
-        "2018",
+        "2022",
         VarParsing.VarParsing.multiplicity.singleton,
         VarParsing.VarParsing.varType.string,
         "Data/MC year")
@@ -35,7 +42,7 @@ options.register('numThreads',
         "Number of threads (for CRAB vs non-CRAB execution)")
 options.register("nEvents",
 	-1,
-	VarParsing.VarParsing.multiplicity.singleton,
+	    VarParsing.VarParsing.multiplicity.singleton,
         VarParsing.VarParsing.varType.int,
 	"Number of events to process (defaults to all)")
 options.register('flist',
@@ -78,8 +85,21 @@ elif options.year == '2018':
     globaltag = '106X_dataRun2_v37' if options.data else '106X_upgrade2018_realistic_v16_L1v1'
     era = Run2_2018
     recoEgammaTools_era = '2018-UL'
+    
+elif options.year == '2022':
+    globaltag = '130X_dataRun3_v2' if options.data else '130X_mcRun3_2022_realistic_v5'         
+    #For data, you can choose: 124X_dataRun3_PromptAnalysis_v1 
+    era = Run3
+    recoEgammaTools_era = '2022-Prompt'
+    
+elif options.year == '2023':
+    globaltag = '130X_dataRun3_PromptAnalysis_v1' if options.data else '130X_mcRun3_2023_realistic_v14'
+    era = Run3_2023
+    recoEgammaTools_era = '2023-Prompt'
+
+
 else:
-    print("Invalid year given for run 2 : {0}".format(options.year))
+    print("Invalid year: {0}".format(options.year))
     exit
 
 #######################
@@ -98,7 +118,7 @@ if options.year == '2016' or options.year == '2016APV':
         "Flag_eeBadScFilter",
         "Flag_hfNoisyHitsFilter"
     ]
-elif options.year == '2017' or options.year == '2018':
+elif options.year == '2017' or options.year == '2018' or options.year == '2022' or options.year == '2023':
     metFilters = [
         "Flag_goodVertices",
         "Flag_globalSuperTightHalo2016Filter",
@@ -192,9 +212,14 @@ eleTrigs = list(set([
 triggerPaths = metTrigs + jetTrigs + eleTrigs
 
 # Electron effective area input file for PU-corrected PF isolation calculations
+
 #effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt"
+
 effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Run3_Winter22/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_122X.txt"
-process = cms.Process("USER",era,run2_miniAOD_UL)
+
+#process = cms.Process("USER",era,run2_miniAOD_UL)  #run2_miniAOD_UL__cff.py has a modifier which is used for common settings to run miniAOD on top of  ultra-legacy (during LS2) Run-2 AOD.
+
+process = cms.Process("USER",era)
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.load('Configuration.StandardSequences.Services_cff')
