@@ -263,12 +263,14 @@ process.ntuples = ElectronSkimmer.clone(
     effAreasConfigFile = cms.FileInPath(effAreaInputPath)
 )
 
+#---------------------comment the lines only for Run3---------------------------------
 # import EGamma postreco tools
-from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
-setupEgammaPostRecoSeq(process,
-                       runEnergyCorrections=True,
-                       runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
-                       era=recoEgammaTools_era)
+#from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+#setupEgammaPostRecoSeq(process,
+ #                      runEnergyCorrections=True,
+ #                      runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
+   #                    era=recoEgammaTools_era
+#-------------------------------------------------------------------------------------
 
 # load nanoAOD producer chain for low-pT electrons -- computes mini iso
 process.load('PhysicsTools.NanoAOD.lowPtElectrons_cff')
@@ -303,10 +305,10 @@ process.nanoElectronSequence = cms.Sequence(process.isoForEleRelative+\
 process.ntupleSequence = cms.Sequence(process.ntuples)
 process.ntuplePath = cms.Path(process.ntupleSequence)
 
-process.iDMEgammaPostRecoSequence = cms.Sequence(process.egammaPostRecoSeq)
-process.iDMEgammaPostReco = cms.Path(process.iDMEgammaPostRecoSequence)
+#process.iDMEgammaPostRecoSequence = cms.Sequence(process.egammaPostRecoSeq)
+#process.iDMEgammaPostReco = cms.Path(process.iDMEgammaPostRecoSequence)
 
 process.iDMNanoElectronSequence = cms.Sequence(process.lowPtNanoElectronSequence + process.nanoElectronSequence)
 process.iDMNanoElectron = cms.Path(process.iDMNanoElectronSequence)
 
-process.schedule = cms.Schedule(process.iDMEgammaPostReco,process.iDMNanoElectron,process.ntuplePath)
+#process.schedule = cms.Schedule(process.iDMEgammaPostReco,process.iDMNanoElectron,process.ntuplePath)
