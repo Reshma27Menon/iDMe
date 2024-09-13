@@ -24,7 +24,7 @@ def parseArguments():
     parser.add_option('-y', '--year',
                       dest = 'year',
                       default = '',
-                      help = "Which year to process ('2018'(default)/'2017'/'2016'/'2016APV')",
+                      help = "Which year to process ('2023'/'2022'/'2018'(default)/'2017'/'2016'/'2016APV')",
                       metavar = 'YEAR')
 
     parser.add_option("-f","--inFile",
