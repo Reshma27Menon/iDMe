@@ -291,9 +291,9 @@ process.slimmedElectronsWithUserDataMinimal = process.slimmedElectronsWithUserDa
     userFloats = cms.PSet(
         miniIsoChg = cms.InputTag("isoForEleRelative:miniIsoChg"),
         miniIsoAll = cms.InputTag("isoForEleRelative:miniIsoAll"),
-        PFIsoChg = cms.InputTag("isoForEleRelative:PFIsoChg"),
-        PFIsoAll = cms.InputTag("isoForEleRelative:PFIsoAll"),
-        PFIsoAll04 = cms.InputTag("isoForEleRelative:PFIsoAll04"),
+       # PFIsoChg = cms.InputTag("isoForEleRelative:PFIsoChg"),
+     #   PFIsoAll = cms.InputTag("isoForEleRelative:PFIsoAll"),
+     #   PFIsoAll04 = cms.InputTag("isoForEleRelative:PFIsoAll04"),
     ),
     userIntFromBools = cms.PSet(),
     userInts = cms.PSet(),
