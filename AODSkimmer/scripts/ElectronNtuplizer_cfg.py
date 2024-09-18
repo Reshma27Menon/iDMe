@@ -63,6 +63,7 @@ if ".txt" in options.flist:
     # list of files
     print("reading input file list: "+options.flist)
     options.inputFiles = FileUtils.loadListFromFile(options.flist)
+    print ("success")
 else:
     # we have passed a file name directly
     options.inputFiles = options.flist
@@ -135,12 +136,12 @@ elif options.year == '2017' or options.year == '2018' or options.year == '2022' 
 #######################
 ###### Triggers #######
 #######################
-# record all trigger paths that might be useful acrcoss all years - some will not always be available,
+# record all trigger paths that might be useful across all years - some will not always be available,
 # but what's available will get written out to the ntuples
 # Jet triggers (for MET trigger eff)
 metTrigs = [
-    "HLT_PFMET90_PFMHT90_IDTight",
-    "HLT_PFMET100_PFMHT100_IDTight",
+   # "HLT_PFMET90_PFMHT90_IDTight",
+    #"HLT_PFMET100_PFMHT100_IDTight",
     "HLT_PFMET110_PFMHT110_IDTight",
     "HLT_PFMET120_PFMHT120_IDTight",
     "HLT_PFMET130_PFMHT130_IDTight",
@@ -149,7 +150,7 @@ metTrigs = [
     "HLT_PFMETTypeOne120_PFMHT120_IDTight",
     "HLT_PFMETTypeOne130_PFMHT130_IDTight",
     "HLT_PFMETTypeOne140_PFMHT140_IDTight",
-    "HLT_PFMET100_PFMHT100_IDTight_PFHT60_v9"
+   # "HLT_PFMET100_PFMHT100_IDTight_PFHT60_v9"
 ]
 jetTrigs = [
     "HLT_PFJet15",
@@ -175,8 +176,8 @@ eleTrigs = list(set([
     "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165",
     "HLT_Ele30_eta2p1_WPTight_Gsf_CentralPFJet35_EleCleaned",
     "HLT_Ele28_eta2p1_WPTight_Gsf_HT150",
-    "HLT_Ele27_Ele37_CaloIdL_MW"
-    "HLT_DoubleEle25_CaloIdL_MW",
+   # "HLT_Ele27_Ele37_CaloIdL_MW"
+    #"HLT_DoubleEle25_CaloIdL_MW",
     "HLT_DoubleEle27_CaloIdL_MW",
     "HLT_DoubleEle33_CaloIdL_MW",
     "HLT_DoubleEle24_eta2p1_WPTight_Gsf",
