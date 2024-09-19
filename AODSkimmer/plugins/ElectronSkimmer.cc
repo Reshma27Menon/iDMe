@@ -245,12 +245,15 @@ ElectronSkimmer::ElectronSkimmer(const edm::ParameterSet& ps)
    metFilters_(ps.getParameter<std::vector<std::string> >("metFilters")),
    trigPaths_(ps.getParameter<std::vector<std::string> >("triggerPaths")),
    effectiveAreas_((ps.getParameter<edm::FileInPath>("effAreasConfigFile")).fullPath()),
+
+   //effectiveAreas_(std::make_unique<EffectiveAreas>((ps.getParameter<edm::FileInPath>("effAreasConfigFile")).fullPath()) );
+
    
    recoElectronToken_(consumes<vector<pat::Electron> >(ps.getParameter<edm::InputTag>("recoElectron"))),
 
   
    ttkToken_(esConsumes(edm::ESInputTag{"", "TransientTrackBuilder"})),
-    isoTrackToken_(consumes<vector<pat::IsolatedTrack> >(ps.getParameter<edm::InputTag>("isoTracks"))),
+   isoTrackToken_(consumes<vector<pat::IsolatedTrack> >(ps.getParameter<edm::InputTag>("isoTracks"))),
    metFilterResultsToken_(consumes<edm::TriggerResults>(ps.getParameter<edm::InputTag>("metFilterResults"))),
    trigResultsToken_(consumes<edm::TriggerResults>(ps.getParameter<edm::InputTag>("trigResults"))),
 
@@ -272,9 +275,9 @@ ElectronSkimmer::ElectronSkimmer(const edm::ParameterSet& ps)
 
    genParticleToken_(consumes<vector<reco::GenParticle> >(ps.getParameter<edm::InputTag>("genParticle"))),
 
-    rhoToken_(consumes<double>(ps.getParameter<edm::InputTag>("rho"))),
+   rhoToken_(consumes<double>(ps.getParameter<edm::InputTag>("rho"))),
 
-    pileupInfosToken_(consumes<std::vector<PileupSummaryInfo> >(ps.getParameter<edm::InputTag>("pileups"))),
+   pileupInfosToken_(consumes<std::vector<PileupSummaryInfo> >(ps.getParameter<edm::InputTag>("pileups"))),
    genEvtInfoToken_(consumes<GenEventInfoProduct>(ps.getParameter<edm::InputTag>("genEvt"))),
 
    recoJetToken_(consumes<vector<pat::Jet> >(ps.getParameter<edm::InputTag>("jets"))),
@@ -502,7 +505,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    // Set up objects for vertex reco
    const TransientTrackBuilder* theB = &iSetup.getData(ttkToken_);
    //edm::ESHandle<TransientTrackBuilder> theB;
-   iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", theB);
+  // iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", theB);
    KalmanVertexFitter kvf(true);
 
    // MET Filters (as recommended here https://twiki.cern.ch/twiki/bin/view/CMS/MissingETOptionalFiltersRun2#UL_data)
@@ -628,13 +631,13 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       const float rho = rhoHandle_.isValid() ? (float)(*rhoHandle_) : 0.0;
       const float eA = effectiveAreas_.getEffectiveArea(std::abs(ele.superCluster()->eta()));
       float iso = pfIso.sumChargedHadronPt + std::max(0.0f,pfIso.sumNeutralHadronEt + pfIso.sumPhotonEt  - rho*eA);
-      nt.recoElectronPFIso_.push_back(iso);
-      nt.recoElectronPFRelIso_.push_back(iso/ele.pt());
+     // nt.recoElectronPFIso_.push_back(iso);
+      //nt.recoElectronPFRelIso_.push_back(iso/ele.pt());
       nt.recoElectronMiniIso_.push_back(ele.pt()*ele.userFloat("miniIsoAll"));
       nt.recoElectronMiniRelIso_.push_back(ele.userFloat("miniIsoAll"));
       // dummy values for corrected isolation
-      nt.recoElectronPFIsoEleCorr_.push_back(-999.);
-      nt.recoElectronPFRelIsoEleCorr_.push_back(-999.);
+     // nt.recoElectronPFIsoEleCorr_.push_back(-999.);
+    //  nt.recoElectronPFRelIsoEleCorr_.push_back(-999.);
       nt.recoElectronMiniIsoEleCorr_.push_back(-999.);
       nt.recoElectronMiniRelIsoEleCorr_.push_back(-999.);
       // Saving individual isolation components
@@ -752,12 +755,12 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       const float rho = rhoHandle_.isValid() ? (float)(*rhoHandle_) : 0.0;
       const float eA = effectiveAreas_.getEffectiveArea(std::abs(ele.superCluster()->eta()));
       float iso = pfIso.sumChargedHadronPt + std::max(0.0f,pfIso.sumNeutralHadronEt + pfIso.sumPhotonEt  - rho*eA);
-      nt.recoLowPtElectronPFIso_.push_back(iso);
+     // nt.recoLowPtElectronPFIso_.push_back(iso);
       nt.recoLowPtElectronPFRelIso_.push_back(iso/ele.pt());
-      nt.recoLowPtElectronMiniIso_.push_back(ele.pt()*ele.userFloat("miniIsoAll"));
-      nt.recoLowPtElectronMiniRelIso_.push_back(ele.userFloat("miniIsoAll"));
+    //  nt.recoLowPtElectronMiniIso_.push_back(ele.pt()*ele.userFloat("miniIsoAll"));
+    //  nt.recoLowPtElectronMiniRelIso_.push_back(ele.userFloat("miniIsoAll"));
       // dummy values for corrected isolation 
-      nt.recoLowPtElectronPFIsoEleCorr_.push_back(-999.);
+    //  nt.recoLowPtElectronPFIsoEleCorr_.push_back(-999.);
       nt.recoLowPtElectronPFRelIsoEleCorr_.push_back(-999.);
       nt.recoLowPtElectronMiniIsoEleCorr_.push_back(-999.);
       nt.recoLowPtElectronMiniRelIsoEleCorr_.push_back(-999.);
@@ -858,7 +861,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       }
       float isoCutoff = 0.0;
 
-      float pfIsoCorr = nt.recoElectronPFIso_[i] - pfIsoCorrection;
+     // float pfIsoCorr = nt.recoElectronPFIso_[i] - pfIsoCorrection;
       nt.recoElectronPFIsoEleCorr_[i] = std::max(pfIsoCorr,isoCutoff);
       nt.recoElectronPFRelIsoEleCorr_[i] = nt.recoElectronPFIsoEleCorr_[i]/ele.pt();
 
