@@ -631,13 +631,13 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       const float rho = rhoHandle_.isValid() ? (float)(*rhoHandle_) : 0.0;
       const float eA = effectiveAreas_.getEffectiveArea(std::abs(ele.superCluster()->eta()));
       float iso = pfIso.sumChargedHadronPt + std::max(0.0f,pfIso.sumNeutralHadronEt + pfIso.sumPhotonEt  - rho*eA);
-     // nt.recoElectronPFIso_.push_back(iso);
-      //nt.recoElectronPFRelIso_.push_back(iso/ele.pt());
+      nt.recoElectronPFIso_.push_back(iso);
+      nt.recoElectronPFRelIso_.push_back(iso/ele.pt());
       nt.recoElectronMiniIso_.push_back(ele.pt()*ele.userFloat("miniIsoAll"));
       nt.recoElectronMiniRelIso_.push_back(ele.userFloat("miniIsoAll"));
       // dummy values for corrected isolation
-     // nt.recoElectronPFIsoEleCorr_.push_back(-999.);
-    //  nt.recoElectronPFRelIsoEleCorr_.push_back(-999.);
+      nt.recoElectronPFIsoEleCorr_.push_back(-999.);
+      nt.recoElectronPFRelIsoEleCorr_.push_back(-999.);
       nt.recoElectronMiniIsoEleCorr_.push_back(-999.);
       nt.recoElectronMiniRelIsoEleCorr_.push_back(-999.);
       // Saving individual isolation components
@@ -740,7 +740,9 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       nt.recoLowPtElectronIsPF_.push_back(ele.isPF());
       nt.recoLowPtElectronGenMatched_.push_back(false);
       nt.recoLowPtElectronMatchType_.push_back(0);
-      nt.recoLowPtElectronID_.push_back(ele.userFloat("ID"));
+     // nt.recoLowPtElectronID_.push_back(ele.userFloat("ID"));
+      nt.recoLowPtElectronID_.push_back(ele.electronID("ID"));
+
       nt.recoLowPtElectronAngularRes_.push_back(sqrt(track->phiError()*track->phiError() + track->etaError()*track->etaError()));
       nt.recoLowPtElectronE_.push_back(ele.energy());
       nt.recoLowPtElectronVxy_.push_back(ele.trackPositionAtVtx().rho());
@@ -755,12 +757,12 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       const float rho = rhoHandle_.isValid() ? (float)(*rhoHandle_) : 0.0;
       const float eA = effectiveAreas_.getEffectiveArea(std::abs(ele.superCluster()->eta()));
       float iso = pfIso.sumChargedHadronPt + std::max(0.0f,pfIso.sumNeutralHadronEt + pfIso.sumPhotonEt  - rho*eA);
-     // nt.recoLowPtElectronPFIso_.push_back(iso);
+      nt.recoLowPtElectronPFIso_.push_back(iso);
       nt.recoLowPtElectronPFRelIso_.push_back(iso/ele.pt());
-    //  nt.recoLowPtElectronMiniIso_.push_back(ele.pt()*ele.userFloat("miniIsoAll"));
-    //  nt.recoLowPtElectronMiniRelIso_.push_back(ele.userFloat("miniIsoAll"));
+      nt.recoLowPtElectronMiniIso_.push_back(ele.pt()*ele.userFloat("miniIsoAll"));
+      nt.recoLowPtElectronMiniRelIso_.push_back(ele.userFloat("miniIsoAll"));
       // dummy values for corrected isolation 
-    //  nt.recoLowPtElectronPFIsoEleCorr_.push_back(-999.);
+      nt.recoLowPtElectronPFIsoEleCorr_.push_back(-999.);
       nt.recoLowPtElectronPFRelIsoEleCorr_.push_back(-999.);
       nt.recoLowPtElectronMiniIsoEleCorr_.push_back(-999.);
       nt.recoLowPtElectronMiniRelIsoEleCorr_.push_back(-999.);
@@ -861,7 +863,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       }
       float isoCutoff = 0.0;
 
-     // float pfIsoCorr = nt.recoElectronPFIso_[i] - pfIsoCorrection;
+      float pfIsoCorr = nt.recoElectronPFIso_[i] - pfIsoCorrection;
       nt.recoElectronPFIsoEleCorr_[i] = std::max(pfIsoCorr,isoCutoff);
       nt.recoElectronPFRelIsoEleCorr_[i] = nt.recoElectronPFIsoEleCorr_[i]/ele.pt();
 
