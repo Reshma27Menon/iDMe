@@ -691,7 +691,9 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    int ilpt_all = 0;
    for (auto & ele : *lowPtNanoElectronHandle_) {
       // basic cut (should be applied by default in miniAOD stage, but repeating here)
-      if (ele.pt() < 1 || ele.userFloat("ID") < -0.25) {
+      if (ele.pt() < 1)
+          //|| ele.userFloat("ID") < -0.25) 
+      {
          ilpt_all++;
          continue;
       }
@@ -741,8 +743,8 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       nt.recoLowPtElectronGenMatched_.push_back(false);
       nt.recoLowPtElectronMatchType_.push_back(0);
      // nt.recoLowPtElectronID_.push_back(ele.userFloat("ID"));
-     // nt.recoLowPtElectronID_.push_back(ele.electronID("ID"));
-      nt.recoLowPtElectronID_.push_back(ele.electronID("2020Nov28"));
+      nt.recoLowPtElectronID_.push_back(ele.electronID("ID"));
+     // nt.recoLowPtElectronID_.push_back(ele.electronID("2020Nov28"));
 
 
       nt.recoLowPtElectronAngularRes_.push_back(sqrt(track->phiError()*track->phiError() + track->etaError()*track->etaError()));
