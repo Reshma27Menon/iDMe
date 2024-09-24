@@ -691,7 +691,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    int ilpt_all = 0;
    for (auto & ele : *lowPtNanoElectronHandle_) {
       // basic cut (should be applied by default in miniAOD stage, but repeating here)
-      if (ele.pt() < 1)
+      if (ele.pt() < 1 || ele.electronID("ID") < -0.25)
           //|| ele.userFloat("ID") < -0.25) 
       {
          ilpt_all++;
