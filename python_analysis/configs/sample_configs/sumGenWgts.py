@@ -46,6 +46,7 @@ for samp in samples:
     sum_evt = []
     if '.root' in loc:
         nFiles = 1
+        print ("loc:", loc)
         tree = uproot.open(loc)['ntuples/outT']
         if tree.num_entries == 0:
             sum_wgt = 0
@@ -59,11 +60,14 @@ for samp in samples:
         xrdClient = client.FileSystem("root://cmseos.fnal.gov")
         if type(loc) != list:
             status, flist = xrdClient.dirlist(loc)
+           
             fullList = ["root://cmsxrootd.fnal.gov/"+loc+"/"+item.name for item in flist if '.root' in item.name]
         else:
             fullList = []
             for l in loc:
                 status, flist = xrdClient.dirlist(l)
+                print ("status:", status)
+                print ("flist:", flist)
                 fullList.extend(["root://cmsxrootd.fnal.gov/"+l+"/"+item.name for item in flist if '.root' in item.name])
         nFiles = len(fullList)
         if has_blacklist:
