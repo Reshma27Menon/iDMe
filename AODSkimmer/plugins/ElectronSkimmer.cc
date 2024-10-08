@@ -553,12 +553,15 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
    // Handling Jets
    for (auto & jet : *recoJetHandle_) {
+     
       nt.PFNJetAll_++;
+      cout<<"New and latest JetAll:"<<nt.PFNJetAll_;
       if (helper.JetID(jet,year) && jet.pt() > 30) {
          nt.PFNJet_++;
          nt.PFJetPt_.push_back(jet.pt());
          nt.PFJetEta_.push_back(jet.eta());
          nt.PFJetPhi_.push_back(jet.phi());
+	 
          auto bTag = jet.bDiscriminator("pfDeepFlavourJetTags:probb") + 
                      jet.bDiscriminator("pfDeepFlavourJetTags:probbb") + 
                      jet.bDiscriminator("pfDeepFlavourJetTags:problepb");
