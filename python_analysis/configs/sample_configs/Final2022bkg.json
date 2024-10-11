@@ -1,0 +1,14 @@
+[
+    {
+        "name": "0000",
+        "location": "/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/AODSkimmer/Final_DYJets_2022_output.root",
+        "type": "bkg",
+        "year": 2022,
+        "xsec": 10,
+        "nFile": 1,
+        "blacklist": [],
+        "sum_wgt": 1000,
+        "num_events": 1000,
+        "nFiles": 1
+    }
+]
