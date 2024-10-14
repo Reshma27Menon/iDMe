@@ -555,18 +555,20 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    for (auto & jet : *recoJetHandle_) {
      
       nt.PFNJetAll_++;
-      cout<<"New and latest JetAll:"<<nt.PFNJetAll_<<endl;
+      cout<<"Total number of jets:"<<nt.PFNJetAll_<<endl;
       if (helper.JetID(jet,year) && jet.pt() > 30) {
          nt.PFNJet_++;
          nt.PFJetPt_.push_back(jet.pt());
          nt.PFJetEta_.push_back(jet.eta());
          nt.PFJetPhi_.push_back(jet.phi());
-	 cout<<"new PHIs:"<<endl; 
+         cout << "Jet pt: " << jet.pt() << " eta: " << jet.eta() << " phi: " << jet.phi() << endl;
+         cout<<"Something interesting!"<<endl;
          auto bTag = jet.bDiscriminator("pfDeepFlavourJetTags:probb") + 
                      jet.bDiscriminator("pfDeepFlavourJetTags:probbb") + 
                      jet.bDiscriminator("pfDeepFlavourJetTags:problepb");
          nt.PFJetBTag_.push_back(bTag);
          nt.PFJetMETdPhi_.push_back(reco::deltaPhi(jet.phi(),nt.PFMET_Phi_));
+         //cout<<"METdPhi:"<<nt.PFJetMETdPhi_<<endl;
          if ((jet.pt() > 30) && (jet.eta() > -3.0) && (jet.eta() < -1.3) && (jet.phi() > -1.57) && (jet.phi() < -0.87)) {
             nt.PFHEMFlag_ = true;
          }
