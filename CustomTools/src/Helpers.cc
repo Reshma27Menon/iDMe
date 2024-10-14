@@ -30,7 +30,7 @@ bool Helper::JetID(const pat::Jet &jet, std::string year) {
             passID = (neutHadFrac > 0.2) && (neutEmFrac < 0.9) && (neutMult > 10);
         }
     }
-    else if ((year == "2017") || (year == "2018")) {
+    else if ((year == "2017") || (year == "2018") || (year == "2022") || (year == "2023") ){
         if (abs(eta) <= 2.6) {
             passID = (neutHadFrac < 0.9) && (neutEmFrac < 0.9) && (nConstit > 1) && (muonFrac < 0.8) && (chargedHadFrac > 0) && (chargedMult > 0) && (chEmFrac < 0.80);
         }
