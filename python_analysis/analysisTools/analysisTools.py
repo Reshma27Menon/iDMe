@@ -19,6 +19,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import json
 import os
+import sys
+#sys.path.append("../configs/histo_configs/SR_studies.py")
+#sys.path.append(os.path.dirname(os.path.abspath(../configs/histo_configs/SR_studies.py)))
 import time
 import importlib
 import pandas as pd
@@ -32,6 +35,12 @@ from hist import Hist
 from hist.axis import StrCategory, Regular, Integer, IntCategory
 import hist
 
+#current_dir = os.path.dirname(os.path.abspath("../analysisTools/analysisTools.py"))
+
+#histo_module_path = os.path.join(current_dir, '../configs/histo_configs/SR_studies')
+
+#sys.path.append(os.path.dirname(histo_module_path))
+
 match_names = {"Default":"match0","lowpt":"match1"}
 vxy_range = {1:[0,20],10:[0,50],100:[0,50],1000:[0,50]}
 vxy_rebin = {1:5,10:20,100:20,1000:20}
@@ -40,18 +49,23 @@ class Analyzer:
     def __init__(self,fileList,histoList,cuts,model_json=None,max_samples=-1,max_files_per_samp=-1,newCoffea=False):
         # flag to see if we're using new coffea
         self.newCoffea = newCoffea
+        print ("Statement 1")
 
         # load in file config
         if type(fileList) == str and ".json" in fileList:
+            print ("fileList:", fileList)
             with open(fileList) as f:
                 self.fileList = json.load(f)
+               
         else:
             self.fileList = fileList
         
         #load in histogram config
         if "/" in histoList: # if cut file is in a different directory
+            
             sys.path.append("/".join(histoList.split("/")[:-1]))
             self.histoFile = histoList.split("/")[-1].split(".")[0]
+            print ("histoList:", histoList)
         else: # cut file is in the same directory (e.g. running on condor)
             self.histoFile = histoList.split(".")[0]
 
@@ -59,6 +73,7 @@ class Analyzer:
         self.cuts = cuts
 
         self.sample_names = [] # list of sample names, readable names are generated from data in the fileList json
+        
         self.sample_locs = {} # dictionary mapping sample name to file/directory location
         self.sample_info = {} # dictionary with sample metadata
         self.max_samples = max_samples
@@ -97,13 +112,17 @@ class Analyzer:
                     exit()
             
             loc = sample['location']
+            print ("loc:",loc)
+            
             if '.root' in loc:
+                print ("Check loc 2:", loc)
                 # if the location is just a single file, load it in
                 if self.newCoffea:
                     self.sample_locs[name] = {'files':{sample['location']:'ntuples/outT'}}
                 else:
                     self.sample_locs[name] = [sample['location']]
             elif 'fileset' in sample.keys():
+                print ("Check 3:", loc)  #This failed (as expected!) makes sense!
                 if self.newCoffea:
                     self.sample_locs[name] = {'files':{f:'ntuples/outT' for f in sample['fileset'] if f.split("/")[-1] not in sample['blacklist']}}
                     if self.max_files_per_samp > 0 and len(self.sample_locs[name]['files']) > self.max_files_per_samp:
@@ -125,10 +144,14 @@ class Analyzer:
                         fullList.extend(["root://cmsxrootd.fnal.gov/"+l+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))])
                 if self.max_files_per_samp > 0 and len(fullList) > self.max_files_per_samp:
                     fullList = fullList[:self.max_files_per_samp]
+                    
                 if self.newCoffea:
                     self.sample_locs[name] = {'files':{f:'ntuples/outT' for f in fullList}}
+                    print ("new or not:") #As expected
+                    
                 else:
                     self.sample_locs[name] = fullList
+                    print ("new or not:", self.sample_locs[name])  #As expected
             
             self.sample_info[name] = sample
             self.sample_names.append(name)
@@ -136,7 +159,9 @@ class Analyzer:
 
     def process(self,treename='ntuples/outT',execr="iterative",workers=4,dask_client=None,procType='default',**kwargs):
         fileset = self.sample_locs
+        print ("Hello!")
         if procType == 'default':
+            print ("I exist")
             proc = iDMeProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,model_json=self.model, **kwargs)
         elif procType == 'gen':
             proc = genProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,**kwargs)
@@ -147,9 +172,11 @@ class Analyzer:
         
         if not self.newCoffea:
             if execr == "iterative":
+                print ("iterative:)")
                 executor = processor.IterativeExecutor()
             elif execr == "futures":
                 executor = processor.FuturesExecutor(workers=workers)
+                print ("futures!")
             elif execr == "dask":
                 if dask_client is None:
                     print("Need to supply a dask client!")
@@ -159,10 +186,12 @@ class Analyzer:
             else:
                 print("Invalid executor type specification!")
                 return
+                
             runner = processor.Runner(executor=executor,schema=MySchema,savemetrics=True)
-            accumulator = runner(fileset,
-                                treename=treename,
-                                processor_instance=proc)
+            print ("Hey, runner!")
+            accumulator = runner(fileset, treename=treename, processor_instance=proc)
+            print("accumulator=", accumulator)
+           
         else:
             print("Preprocessing")
             dataset_runnable, dataset_updated = preprocess(fileset,step_size=100_000,files_per_batch=1)
@@ -173,7 +202,7 @@ class Analyzer:
         return accumulator
 
 class iDMeProcessor(processor.ProcessorABC):
-    def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='signal',model_json=None,**kwargs):
+    def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='bkg',model_json=None,**kwargs):
         self.samples = samples
         self.sampleInfo = sampleInfo
         self.sampleLocs = fileSet
@@ -181,10 +210,20 @@ class iDMeProcessor(processor.ProcessorABC):
         self.model = model_json
         
         # load in histogram config
+        #self.histoFile = histoFile
+        #if "/" in histoFile:  # if the cut file is in a different directory
+           # histo_dir = os.path.dirname(self.histoFile)
+           # sys.path.append(histo_dir)  # append the directory to sys.path
+
+           # histoFileName = os.path.basename(self.histoFile).split(".")[0]  # get the module name
+           # print("histoFile:", histoFile)
+            
+        # Import module by its file name (without extension)
         self.histoMod = importlib.import_module(histoFile)
+        print ("To check histoMod inside process():", self.histoMod)
         self.histoFill = self.histoMod.fillHistos
         self.subroutines = self.histoMod.subroutines
-        
+
         # load in cuts module
         self.cutFile = cutFile
         if "/" in self.cutFile: # if cut file is in a different directory
@@ -217,7 +256,9 @@ class iDMeProcessor(processor.ProcessorABC):
         
         #histos = self.histoMod.make_histograms()
         #histos['cutDesc'] = defaultdict(str)
-        histObj = self.histoMod.make_histograms(info)
+       # histObj = self.histoMod.make_histograms(info)
+        histObj = self.histoMod.make_histograms()
+        print ("histObj:", histObj)
         cutDesc = defaultdict(str)
 
         cutflow = defaultdict(float)               # efficiency
@@ -233,6 +274,7 @@ class iDMeProcessor(processor.ProcessorABC):
             # Apply NLO k-factor for W/Z
             if 'DY' in info['name']:
                 xsec = xsec * 1.23
+                print ("DY")
             elif 'WJet' in info['name']:
                 xsec = xsec * 1.21
             elif 'ZJet' in info['name']:
@@ -244,6 +286,7 @@ class iDMeProcessor(processor.ProcessorABC):
             events.__setitem__("eventWgt",xsec*lumi*events.genWgt)
         else:
             sum_wgt = info["num_events"]
+            
 
         # Initial number of events
         if isMC:
@@ -334,14 +377,15 @@ class iDMeProcessor(processor.ProcessorABC):
             else:
                 cutflow_counts[k] = sum_wgt*cutflow[k]
         
-        histos = histObj.histograms
-        histos['cutDesc'] = cutDesc
-        histos['cutflow'] = {samp:cutflow}
-        histos['cutflow_cts'] = {samp:cutflow_counts}
-        histos['cutflow_nevts'] = {samp:cutflow_nevts}
-        histos['cutflow_vtx_matched'] = {samp:cutflow_vtx_matched}
+        print ("All well till here!")
+        #histos = histObj['histograms']
+        histObj['cutDesc'] = cutDesc
+        histObj['cutflow'] = {samp:cutflow}
+        histObj['cutflow_cts'] = {samp:cutflow_counts}
+        histObj['cutflow_nevts'] = {samp:cutflow_nevts}
+        histObj['cutflow_vtx_matched'] = {samp:cutflow_vtx_matched}
 
-        return histos
+        return histObj
 
     def postprocess(self, accumulator):
         # only need one description per cut name -- adds many during parallel execution
