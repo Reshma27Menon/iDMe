@@ -256,8 +256,8 @@ class iDMeProcessor(processor.ProcessorABC):
         
         #histos = self.histoMod.make_histograms()
         #histos['cutDesc'] = defaultdict(str)
-       # histObj = self.histoMod.make_histograms(info)
-        histObj = self.histoMod.make_histograms()
+        histObj = self.histoMod.make_histograms(info)
+       # histObj = self.histoMod.make_histograms()
         print ("histObj:", histObj)
         cutDesc = defaultdict(str)
 
@@ -378,14 +378,15 @@ class iDMeProcessor(processor.ProcessorABC):
                 cutflow_counts[k] = sum_wgt*cutflow[k]
         
         print ("All well till here!")
-        #histos = histObj['histograms']
-        histObj['cutDesc'] = cutDesc
-        histObj['cutflow'] = {samp:cutflow}
-        histObj['cutflow_cts'] = {samp:cutflow_counts}
-        histObj['cutflow_nevts'] = {samp:cutflow_nevts}
-        histObj['cutflow_vtx_matched'] = {samp:cutflow_vtx_matched}
+        
+        histos = histObj.histograms
+        histos['cutDesc'] = cutDesc
+        histos['cutflow'] = {samp:cutflow}
+        histos['cutflow_cts'] = {samp:cutflow_counts}
+        histos['cutflow_nevts'] = {samp:cutflow_nevts}
+        histos['cutflow_vtx_matched'] = {samp:cutflow_vtx_matched}
 
-        return histObj
+        return histos
 
     def postprocess(self, accumulator):
         # only need one description per cut name -- adds many during parallel execution
