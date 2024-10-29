@@ -122,22 +122,22 @@ def electronID(events,info):
     events["Electron","passID"] = ele_kinematic_cut & ele_id_cut & (eles.mindRj > 0.4)
     events["Electron","passIDBasic"] = ele_kinematic_cut & ele_id_cut
     
-def jetBtag(events,year):
-    loose,med,tight = getBtagWPs(year)
-    events["PFJet","passLooseID"] = events.PFJet.bTag > loose
-    events["PFJet","passMedID"] = events.PFJet.bTag > med
-    events["PFJet","passTightID"] = events.PFJet.bTag > tight
+#def jetBtag(events,year):
+ #   loose,med,tight = getBtagWPs(year)
+  #  events["PFJet","passLooseID"] = events.PFJet.bTag > loose
+   # events["PFJet","passMedID"] = events.PFJet.bTag > med
+    #events["PFJet","passTightID"] = events.PFJet.bTag > tight
 
-def getBtagWPs(year):
-    if year == 2018:
-        loose,med,tight = 0.0490, 0.2783, 0.7100
-    if year == 2017:
-        loose,med,tight = 0.0532, 0.3040, 0.7476
-    if year == 2016:
-        loose,med,tight = 0.0480, 0.2489, 0.6377
-    if year == "2016APV":
-        loose,med,tight = 0.0508, 0.2598, 0.6502
-    return loose,med,tight
+#def getBtagWPs(year):
+ #   if year == 2018:
+  #      loose,med,tight = 0.0490, 0.2783, 0.7100
+   # if year == 2017:
+    #    loose,med,tight = 0.0532, 0.3040, 0.7476
+    #if year == 2016:
+     #   loose,med,tight = 0.0480, 0.2489, 0.6377
+    #if year == "2016APV":
+     #   loose,med,tight = 0.0508, 0.2598, 0.6502
+    #return loose,med,tight
 
 def electronIsoConePtSum(events):
     all_eles = ak.concatenate((events.Electron,events.LptElectron),axis=1)
@@ -221,7 +221,7 @@ def computeExtraVariables(events,info):
     events['vtx','corrMinDxy'] = ak.fill_none(np.minimum(np.abs(events.vtx.e1_refit_dxy),np.abs(events.vtx.e2_refit_dxy)),999)
     projectLxy(events)
     electronID(events,info) # electron kinematic/ID definition
-    jetBtag(events,info['year'])
+#    jetBtag(events,info['year'])
     if info['type'] == "signal":
         events['GenJetMETdPhi'] = np.abs(deltaPhi(events.GenJet.phi[:,0],events.GenMET.phi))
         events['GenEle','dr'] = events.genEE.dr
