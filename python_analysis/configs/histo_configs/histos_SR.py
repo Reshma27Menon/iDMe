@@ -1,6 +1,8 @@
 import numpy as np
+import sys
 import awkward as ak
 from histoBinning import myHisto
+import time
 
 def make_histograms(info):
     h = myHisto()
@@ -89,11 +91,16 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     h.samp = samp
     h.cut = cut
     if info["type"] == "signal" or info["type"] == "bkg":
+        
         wgt = events.eventWgt/sum_wgt
+        
     else:
         wgt = 1
 
     sel_vtx = events.sel_vtx
+    
+    time.sleep(3)
+    
     ### FILLING HISTOGRAMS ###
     
     #
@@ -170,4 +177,4 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     h.fill("lead_jet_eta",eta=events.PFJet.eta[:,0],weight=wgt)
     h.fill("jetMETratio",jetMETratio=events.PFJet.pt[:,0]/events.PFMET.pt,weight=wgt)
 
-    h.fill("bdtscore",bdtscore=events.BDTScore,weight=wgt)
+#    h.fill("bdtscore",bdtscore=events.BDTScore,weight=wgt)
