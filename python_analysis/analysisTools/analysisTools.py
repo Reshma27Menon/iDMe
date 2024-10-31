@@ -20,8 +20,6 @@ import matplotlib.pyplot as plt
 import json
 import os
 import sys
-#sys.path.append("../configs/histo_configs/SR_studies.py")
-#sys.path.append(os.path.dirname(os.path.abspath(../configs/histo_configs/SR_studies.py)))
 import time
 import importlib
 import pandas as pd
@@ -35,11 +33,6 @@ from hist import Hist
 from hist.axis import StrCategory, Regular, Integer, IntCategory
 import hist
 
-#current_dir = os.path.dirname(os.path.abspath("../analysisTools/analysisTools.py"))
-
-#histo_module_path = os.path.join(current_dir, '../configs/histo_configs/SR_studies')
-
-#sys.path.append(os.path.dirname(histo_module_path))
 
 match_names = {"Default":"match0","lowpt":"match1"}
 vxy_range = {1:[0,20],10:[0,50],100:[0,50],1000:[0,50]}
@@ -49,11 +42,11 @@ class Analyzer:
     def __init__(self,fileList,histoList,cuts,model_json=None,max_samples=-1,max_files_per_samp=-1,newCoffea=False):
         # flag to see if we're using new coffea
         self.newCoffea = newCoffea
-        print ("Statement 1")
+       
 
         # load in file config
         if type(fileList) == str and ".json" in fileList:
-            print ("fileList:", fileList)
+            
             with open(fileList) as f:
                 self.fileList = json.load(f)
                
@@ -65,7 +58,7 @@ class Analyzer:
             
             sys.path.append("/".join(histoList.split("/")[:-1]))
             self.histoFile = histoList.split("/")[-1].split(".")[0]
-            print ("histoList:", histoList)
+            
         else: # cut file is in the same directory (e.g. running on condor)
             self.histoFile = histoList.split(".")[0]
 
@@ -112,17 +105,17 @@ class Analyzer:
                     exit()
             
             loc = sample['location']
-            print ("loc:",loc)
+            
             
             if '.root' in loc:
-                print ("Check loc 2:", loc)
+                
                 # if the location is just a single file, load it in
                 if self.newCoffea:
                     self.sample_locs[name] = {'files':{sample['location']:'ntuples/outT'}}
                 else:
                     self.sample_locs[name] = [sample['location']]
             elif 'fileset' in sample.keys():
-                print ("Check 3:", loc)  #This failed (as expected!) makes sense!
+               
                 if self.newCoffea:
                     self.sample_locs[name] = {'files':{f:'ntuples/outT' for f in sample['fileset'] if f.split("/")[-1] not in sample['blacklist']}}
                     if self.max_files_per_samp > 0 and len(self.sample_locs[name]['files']) > self.max_files_per_samp:
@@ -147,11 +140,11 @@ class Analyzer:
                     
                 if self.newCoffea:
                     self.sample_locs[name] = {'files':{f:'ntuples/outT' for f in fullList}}
-                    print ("new or not:") #As expected
+                    
                     
                 else:
                     self.sample_locs[name] = fullList
-                    print ("new or not:", self.sample_locs[name])  #As expected
+                   
             
             self.sample_info[name] = sample
             self.sample_names.append(name)
@@ -159,9 +152,9 @@ class Analyzer:
 
     def process(self,treename='ntuples/outT',execr="iterative",workers=4,dask_client=None,procType='default',**kwargs):
         fileset = self.sample_locs
-        print ("Hello!")
+        
         if procType == 'default':
-            print ("I exist")
+            
             proc = iDMeProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,model_json=self.model, **kwargs)
         elif procType == 'gen':
             proc = genProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,**kwargs)
@@ -188,9 +181,9 @@ class Analyzer:
                 return
                 
             runner = processor.Runner(executor=executor,schema=MySchema,savemetrics=True)
-            print ("Hey, runner!")
+           
             accumulator = runner(fileset, treename=treename, processor_instance=proc)
-            print("accumulator=", accumulator)
+           
            
         else:
             print("Preprocessing")
@@ -209,18 +202,8 @@ class iDMeProcessor(processor.ProcessorABC):
         self.mode = mode
         self.model = model_json
         
-        # load in histogram config
-        #self.histoFile = histoFile
-        #if "/" in histoFile:  # if the cut file is in a different directory
-           # histo_dir = os.path.dirname(self.histoFile)
-           # sys.path.append(histo_dir)  # append the directory to sys.path
-
-           # histoFileName = os.path.basename(self.histoFile).split(".")[0]  # get the module name
-           # print("histoFile:", histoFile)
-            
         # Import module by its file name (without extension)
         self.histoMod = importlib.import_module(histoFile)
-        print ("To check histoMod inside process():", self.histoMod)
         self.histoFill = self.histoMod.fillHistos
         self.subroutines = self.histoMod.subroutines
 
@@ -254,13 +237,9 @@ class iDMeProcessor(processor.ProcessorABC):
         for k,v in self.extraStuff.items():
             info[f"extras_{k}"] = v
         
-        #histos = self.histoMod.make_histograms()
-        #histos['cutDesc'] = defaultdict(str)
+        
         histObj = self.histoMod.make_histograms(info)
-       # histObj = self.histoMod.make_histograms()
-        print ("histObj:", histObj)
         cutDesc = defaultdict(str)
-
         cutflow = defaultdict(float)               # efficiency
         cutflow_counts = defaultdict(float)        # xsec-weighted event counts
         cutflow_nevts = defaultdict(int)           # raw event counts
@@ -274,7 +253,6 @@ class iDMeProcessor(processor.ProcessorABC):
             # Apply NLO k-factor for W/Z
             if 'DY' in info['name']:
                 xsec = xsec * 1.23
-                print ("DY")
             elif 'WJet' in info['name']:
                 xsec = xsec * 1.21
             elif 'ZJet' in info['name']:
@@ -284,6 +262,8 @@ class iDMeProcessor(processor.ProcessorABC):
                 xsec = xsec*info['filter_eff']
             # register event weight branch
             events.__setitem__("eventWgt",xsec*lumi*events.genWgt)
+           
+            
         else:
             sum_wgt = info["num_events"]
             
@@ -299,6 +279,8 @@ class iDMeProcessor(processor.ProcessorABC):
             cutflow_vtx_matched['all'] += 1 # dummy value before selecting a vertex
             
         cutDesc['all'] = 'No cuts@'
+        print ("cutflow:", cutflow)
+        print ("cutflow_nevts:", cutflow_nevts)
 
         ######################################################################################
         ## Add HEM flags to Event (before applying any quality cuts to jet, electrons ##
@@ -328,7 +310,7 @@ class iDMeProcessor(processor.ProcessorABC):
         events = events[nJets>0]
         #events = events[nJets>2] # For VR: VR is defined by orthogonal NJet requirement && orthogonal other cut (still under study)
         # needs a good vertex
-        routines.defineGoodVertices(events,version='v8') # define "good" vertices based on whether associated electrons pass ID cuts
+        routines.defineGoodVertices(events,version='default') # define "good" vertices based on whether associated electrons pass ID cuts
         events = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         routines.selectBestVertex(events)
@@ -377,7 +359,7 @@ class iDMeProcessor(processor.ProcessorABC):
             else:
                 cutflow_counts[k] = sum_wgt*cutflow[k]
         
-        print ("All well till here!")
+        
         
         histos = histObj.histograms
         histos['cutDesc'] = cutDesc
@@ -480,6 +462,7 @@ class genProcessor(iDMeProcessor):
         histos['cutflow'] = {samp:cutflow}
         histos['cutflow_cts'] = {samp:cutflow_counts}
         histos['cutflow_nevts'] = {samp:cutflow_nevts}
+
         
         return histos
 
@@ -513,21 +496,21 @@ class bareProcessor(iDMeProcessor):
         #################################
         ## Calculating Additional Vars ##
         #################################
-        #events = routines.computeExtraVariables(events,info)
+        events = routines.computeExtraVariables(events,info)
         
         #################################
         ##### Hard-coded basic cuts #####
         #################################
         # 1 or 2 jets in the event
-        #nJets = ak.count(events.PFJet.pt,axis=1)
+        nJets = ak.count(events.PFJet.pt,axis=1)
         #events = events[(nJets>0) & (nJets<4)]
-        #events = events[nJets>0]
-        #events["nJets"] = nJets
+        events = events[nJets>0]
+        events["nJets"] = nJets
         # needs a good vertex
-        #routines.defineGoodVertices(events,version='v8') # define "good" vertices based on whether associated electrons pass ID cuts
-        #events = events[events.nGoodVtx > 0]
+        routines.defineGoodVertices(events,version='default') # define "good" vertices based on whether associated electrons pass ID cuts
+        #vents = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
-        #routines.selectBestVertex(events)
+        routines.selectBestVertex(events)
 
         self.histoFill(events,histObj,samp,"all",info,sum_wgt=sum_wgt)
         
@@ -782,6 +765,9 @@ def deltaPhi(v1,v2):
 def getLumi(year):
     # recommendations from https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun2
     lumi, unc = 0, 0
+    if year == 2022:
+        lumi = 38.01
+        unc =  0.014*lumi #1.4 percent
     if year == 2016:
         lumi = 36.31
         unc = 0.012*lumi # 1.2 percent
