@@ -467,7 +467,7 @@ def plot_signal_1D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
     fig = style_dict['fig']
     ax = style_dict['ax']
     
-    hep.cms.label('', data=False, year=plot_dict['year'])
+    hep.cms.label('', data=False, year=plot_dict['year'], com='13.6')
     
     # get signal point info
     si = utils.get_signal_point_dict(sig_histo)
@@ -640,6 +640,7 @@ def get_bkg_histo_1d(bkg_histos, plot_dict, style_dict, processes = 'all'):
         entries = {process: bkg[plot_dict['variable']][process].sum().value for process in processes}
         
     sorted_entries = dict(sorted(entries.items(), key=lambda x:x[1], reverse = False))
+    print ("sorts:", sorted_entries)
 
     # histogram
     bkg_stack = {}
@@ -756,7 +757,7 @@ def plot_bkg_1d(bkg_histos, plot_dict, style_dict, isLegacy = False, processes =
 
     # CMS styling
     #hep.cms.label(r"$\mathrm{Private Work}$", data=False, year=plot_dict['year'])
-    hep.cms.label('', data=False, year=plot_dict['year'])
+    hep.cms.label('', data=False, year=plot_dict['year'], com='13.6')
     
     if isLegacy:
         return plot_bkg_1d_legacy(ax, bkg_histos, plot_dict, style_dict, processes, isLegacy)
@@ -788,6 +789,8 @@ def plot_bkg_1d(bkg_histos, plot_dict, style_dict, isLegacy = False, processes =
         
         # add histos to stack after rebinning and range setting
         for process in sorted_entries.keys():
+            #bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][{"cut": plot_dict['cut']}, ::style_dict['rebin']]
+
             bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][plot_dict['cut'],::style_dict['rebin']]
         
             # set x range manually
