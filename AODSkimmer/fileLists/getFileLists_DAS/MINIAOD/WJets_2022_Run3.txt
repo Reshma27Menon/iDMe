@@ -1,0 +1,1 @@
+root://cmsxrootd.fnal.gov//store/mc/Run3Winter22MiniAOD/WJetsToLNu_TuneCP5_13p6TeV-madgraphMLM-pythia8/MINIAODSIM/122X_mcRun3_2021_realistic_v9-v2/60000/6f6a4c0c-7d6d-48f0-99ef-b0110c9bdbf5.root
