@@ -13,6 +13,7 @@
       cd crab
       source setupAPI.sh
       cmsenv
+      cd ..
       ```
 
    2. Submitting jobs:
@@ -30,7 +31,7 @@
 
       Once successful, check the output directory. You will (should!) see multiple root files.
   
-   3. Skimming the ntuples
+3. Skimming the ntuples
   
       1. Make a json file with file lists and other information like location, number of files etc.
   
@@ -67,7 +68,7 @@
          1. I tried opening them using TBrowser in root and it worked. Also checked the `genWgt` branch. Everything looked good. This means the files are in good condition.
          2. I tried opening the files using uproot (and using the same redirector used in `sumGenWgts.py`). It failed. I changed to `cmseos` redirector and it worked well.
 
-        4. In `python_analysis/condor/skimming_rdf` run `submit_condor_skim_rdf.py`
+      4. In `python_analysis/condor/skimming_rdf` run `submit_condor_skim_rdf.py`
      
            `python3 submit_condor_skim_rdf.py -s [sample json file] -n [n_files_per] -c [n_cores] -m [MET lower bound cut] -j [nJet upper bound cut (if only requiring nJet >0, then put 0)`
      
