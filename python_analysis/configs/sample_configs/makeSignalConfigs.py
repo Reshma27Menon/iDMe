@@ -6,6 +6,7 @@ import numpy as np
 import re
 import datetime as dt
 import os
+import glob
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
@@ -99,6 +100,11 @@ elif mode == "bkg":
         status,bkgs = xrdClient.dirlist(f"{prefix}/")
     else:
         status, bkgs = xrdClient.dirlist(f"{prefix}/{year}/")
+
+    print("bkgs:", bkgs)
+    print ("status:", status)
+    print ("prefix:",prefix)
+    print ("year:", year)
     bkgs = [bkg.name for bkg in bkgs]
     output = []
     for bkg in bkgs:
@@ -108,15 +114,26 @@ elif mode == "bkg":
         else:
             base_dir = f"{prefix}/{year}/{bkg}"
             subsamples = [d.name for d in xrdClient.dirlist(base_dir)[1]]
+            print ("subsamples:", subsamples)
         for subsample in subsamples:
             if skimmed:
                 target_dir = base_dir
             else:
                 target_dir = f"{base_dir}/{subsample}/"
-            rootFiles = subprocess.run(['eos','root://cmseos.fnal.gov/','find','-name','*.root','-f',target_dir],stdout=subprocess.PIPE).stdout.decode('utf-8').splitlines()
+                #target_dir = "/store/group/lpcmetx/iDMe/Samples/Ntuples/background_WJets12022/2022/WJets/WJetsToLNu1/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/crab_iDMe_WJetsToLNu1_2024_11_14-08_19/241114_142230/0000/"
+               
+                print ("target_dir:", target_dir)
+                
+            rootFiles = [ f for f in glob.glob(f"/eos/uscms/{target_dir}/**/*.root", recursive=True) ]
+          #  rootFiles = subprocess.run(['eos','root://cmseos.fnal.gov/','find','-name','*.root','-f',target_dir],stdout=subprocess.PIPE).stdout.decode('utf-8').splitlines()
+            
             rootFiles = [r for r in rootFiles if '.root' in r]
+           # print ("rootFiles:", rootFiles)
+            
             fileDirs = ["/".join(f.split("/")[:-1])+"/" for f in rootFiles]
             fileDirs = list(set(fileDirs)) # list of unique file directories
+            print ("fileDirs:", fileDirs)
+            
             
             info = {}
             if skimmed:
@@ -143,6 +160,7 @@ elif mode == "bkg":
                 info["xsec"] = 0.0
 
             output.append(info)
+            print ("info:", info)
 
     if skimmed:
         out_json = "skimmed_bkg_{0}_{1}.json".format(year,name)
