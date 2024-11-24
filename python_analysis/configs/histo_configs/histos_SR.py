@@ -45,6 +45,8 @@ def make_histograms(info):
     h.make("sel_vtx_mindRj",'dR')
     h.make("sel_vtx_chi2",'vtx_chi2')
     h.make('sel_vtx_mass','vtx_mass')
+    h.make('sel_vtx_mass_refit','vtx_mass_refit')
+    
     h.make('sel_vtx_mindPhiJ','abs_dphi')
     h.make('sel_vtx_sign','vtx_sign')
     h.make('sel_vtx_pt','vtx_pt')
@@ -141,6 +143,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     h.fill('sel_vtx_mindRj',dR=sel_vtx.mindRj,weight=wgt)
     h.fill('sel_vtx_chi2',chi2=sel_vtx.reduced_chi2,weight=wgt)
     h.fill('sel_vtx_mass',mass=sel_vtx.m,weight=wgt)
+    h.fill('sel_vtx_mass_refit',mass_refit=sel_vtx.refit_m,weight=wgt)
     h.fill('sel_vtx_mindPhiJ',abs_dphi=np.abs(sel_vtx.mindPhiJ),weight=wgt)
     h.fill('sel_vtx_sign',sign=sel_vtx.sign,weight=wgt)
     h.fill('sel_vtx_pt',pt=sel_vtx.pt,weight=wgt)

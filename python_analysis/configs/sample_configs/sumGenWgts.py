@@ -29,7 +29,9 @@ def sum_weights(fileList,sums,blacklist,nevts,isData):
 inputJson = sys.argv[1]
 with open(inputJson) as f:
     samples = json.load(f)
+    #print ("samples:", samples)
 num_cpus = mp.cpu_count()
+
 
 if len(sys.argv) == 3:
     isData = bool(int(sys.argv[2]))
@@ -37,6 +39,7 @@ else:
     isData = False
 
 for samp in samples:
+    
     print(f"Running on {samp['name']}")
     loc = samp["location"]
     nFiles = -1
@@ -57,12 +60,18 @@ for samp in samples:
                 sum_wgt = 0
             sum_evt = tree.num_entries
     else:
+        print ("It is happening!")
         xrdClient = client.FileSystem("root://cmseos.fnal.gov")
         if type(loc) != list:
             status, flist = xrdClient.dirlist(loc)
-           
-            fullList = ["root://cmsxrootd.fnal.gov/"+loc+"/"+item.name for item in flist if '.root' in item.name]
+            #print ("status:", status)
+            #print ("flist:", flist, end="\n")
+            fullList = ["root://cmseos.fnal.gov/"+loc+item.name for item in flist if '.root' in item.name]
+            print("fullList:")
+            print("\n".join(fullList))
+
         else:
+            
             fullList = []
             for l in loc:
                 status, flist = xrdClient.dirlist(l)
@@ -99,6 +108,10 @@ for samp in samples:
     print('Blacklisted {0} files in {1}'.format(len(blacklist),samp['name']))
     samp['sum_wgt'] = float(sum_wgt)
     samp['num_events'] = int(sum_evt)
+    
+    print ('sum_wgt:', samp['sum_wgt'])
+    print ('num_events:',samp['num_events'] )
+    
     if 'blacklist' in samp.keys():
         samp['blacklist'].extend(blacklist)
         samp['blacklist'] = list(set(samp['blacklist']))

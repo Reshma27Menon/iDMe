@@ -179,11 +179,14 @@ def defineGoodVertices(events,version='default',ele_id='dR'):
     mass = events.vtx.refit_m < 20
     eleDphi = events.vtx.eleDphi < 2
     mindxy = events.vtx.min_dxy > 0.01
-    mindxyLoose = events.vtx.min_dxy > 0.005
+    #mindxyLoose = events.vtx.min_dxy > 0.005
+    mindxyLoose = events.vtx.min_dxy > 0.001
     maxMiniIso = np.maximum(events.vtx.e1.miniRelIsoEleCorr,events.vtx.e2.miniRelIsoEleCorr) < 0.9
     passConvVeto = events.vtx.e1.conversionVeto & events.vtx.e2.conversionVeto
     mass_lo = events.vtx.m > 0.325
     mass_lo_refit = events.vtx.refit_m > 0.1
+    vt = events.vtx.vxy <2
+    print ("vt:", vt)
     if version == 'none':
         events['vtx','isGood'] = ak.values_astype(ak.ones_like(events.vtx.m),bool)
     if version == 'default':
@@ -204,6 +207,8 @@ def defineGoodVertices(events,version='default',ele_id='dR'):
         events['vtx','isGood'] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto # v7 definition
     if version == 'v8':
         events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition
+    if version == 'v9':
+        events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & mindxyLoose & passConvVeto & mass_lo_refit
     events.__setitem__("good_vtx",events.vtx[events.vtx.isGood])
     events.__setitem__("nGoodVtx",ak.count(events.good_vtx.vxy,axis=1))
 

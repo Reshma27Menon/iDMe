@@ -1,0 +1,11 @@
+[
+    {
+        "name": "0000",
+        "location": [
+            "AODSkimmer/Final_DYJets_2022_output.root"
+        ],
+        "type": "bkg",
+        "year": 2022,
+        "xsec": 10
+    }
+]

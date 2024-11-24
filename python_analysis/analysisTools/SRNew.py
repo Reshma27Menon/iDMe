@@ -100,8 +100,6 @@ def make_histograms():
         "genEE_dR" : Hist(samp,cut,dR,storage=hist.storage.Weight()),
         "genMatch_vs_vtxMatch" : Hist(samp,cut,hist.axis.Integer(0,3,name='gen'),hist.axis.IntCategory([0,1,2],name='sel'),storage=hist.storage.Weight())
     }
-    print ("Type of make func:",type(histograms))
-    print (histograms)
     return histograms
 
 subroutines = []
@@ -201,6 +199,7 @@ def fillHistos(events,histos,samp,cut,info,sum_wgt=1):
 
         histos["genPos_mindRj"].fill(samp=samp,cut=cut,dr=events.GenPos.mindRj,weight=wgt)
         histos["genPos_mindPhiJ"].fill(samp=samp,cut=cut,dphi=events.GenPos.mindPhiJ,weight=wgt)
+
         histos["genPos_mindRjGen"].fill(samp=samp,cut=cut,dr=events.GenPos.mindRjGen,weight=wgt)
         histos["genPos_mindPhiJGen"].fill(samp=samp,cut=cut,dphi=events.GenPos.mindPhiJGen,weight=wgt)
 
@@ -210,3 +209,4 @@ def fillHistos(events,histos,samp,cut,info,sum_wgt=1):
         histos["genEE_mindPhiJGen"].fill(samp=samp,cut=cut,dphi=events.genEE.mindPhiJGen,weight=wgt)
         histos['genEE_dR'].fill(samp=samp,cut=cut,dr=events.genEE.dr,weight=wgt)
        # histos['genMatch_vs_vtxMatch'].fill(samp=samp,cut=cut,gen=events.signalReco,sel=events.sel_vtx.match)
+

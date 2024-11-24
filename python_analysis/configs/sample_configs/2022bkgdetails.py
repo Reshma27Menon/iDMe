@@ -3,7 +3,7 @@ import json
 # Data to be written into JSON
 data =[
         {
-    "name": "0000",
+    "name": "DY",
     "location": "/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/AODSkimmer/Final_DYJets_2022_output.root",
     "type": "bkg",
     "year": 2022,

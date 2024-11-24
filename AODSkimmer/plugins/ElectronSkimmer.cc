@@ -547,7 +547,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       nt.PFMETJERDownPhi_ = met.shiftedPhi(pat::MET::JetResDown,metType);
       // Calo MET
       nt.CaloMET_Pt_ = met.caloMETPt();
-      nt.CaloMET_Phi_ = met.caloMETPhi();
+      nt.CaloMET_Phi_ = met.caloMETPhi(); 
       nt.CaloMET_ET_ = met.caloMETSumEt();
    }
 
@@ -557,7 +557,9 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       nt.PFNJetAll_++;
       cout<<"Total number of jets:"<<nt.PFNJetAll_<<endl;
       if (helper.JetID(jet,year) && jet.pt() > 30) {
+     // if (jet.pt() > 30){
          nt.PFNJet_++;
+         cout<<"nt.PFNJet_:"<<nt.PFNJet_<<endl;
          nt.PFJetPt_.push_back(jet.pt());
          nt.PFJetEta_.push_back(jet.eta());
          nt.PFJetPhi_.push_back(jet.phi());
@@ -567,12 +569,13 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
                      jet.bDiscriminator("pfDeepFlavourJetTags:probbb") + 
                      jet.bDiscriminator("pfDeepFlavourJetTags:problepb");
          nt.PFJetBTag_.push_back(bTag);
-         nt.PFJetMETdPhi_.push_back(reco::deltaPhi(jet.phi(),nt.PFMET_Phi_));
-         //cout<<"METdPhi:"<<nt.PFJetMETdPhi_<<endl;
-         if ((jet.pt() > 30) && (jet.eta() > -3.0) && (jet.eta() < -1.3) && (jet.phi() > -1.57) && (jet.phi() < -0.87)) {
-            nt.PFHEMFlag_ = true;
-         }
-      }
+         nt.PFJetMETdPhi_.push_back(reco::deltaPhi(jet.phi(),nt.PFMET_Phi_));}
+      else {cout<<"Not following the selection."<<endl;}
+    
+         //if ((jet.pt() > 30) && (jet.eta() > -3.0) && (jet.eta() < -1.3) && (jet.phi() > -1.57) && (jet.phi() < -0.87)) {
+           // nt.PFHEMFlag_ = true;
+         
+      
    }
 
    // Record all electrons that are not part of PF -- either regulars that don't pass PF ID

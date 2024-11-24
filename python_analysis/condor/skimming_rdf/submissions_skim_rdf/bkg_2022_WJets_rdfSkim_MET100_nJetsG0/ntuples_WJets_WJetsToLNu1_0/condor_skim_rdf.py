@@ -62,7 +62,7 @@ bool passHEM(int year, bool HEM_flag) {
 }
 '''
 passMETtrig = '''
-bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned int fired18,unsigned int fired22) {
+bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned int fired18) {
     bool pass;
     if (year == 2016) {
         pass = ((fired16 & (1<<9)) == (1<<9));
@@ -73,7 +73,6 @@ bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned 
     else if (year == 2018) {
         pass = ((fired18 & (1<<13)) == (1<<13));
     }
-   
     return pass;
 }
 '''
@@ -84,7 +83,6 @@ vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
     if ((year==2016) && !APV) wp = 0.0480;
     if (year==2017) wp = 0.0532;
     if (year==2018) wp = 0.0490;
-    if (year==2022) wp = 
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);

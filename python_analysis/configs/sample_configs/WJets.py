@@ -4,7 +4,7 @@ import json
 data =[
         {
     "name": "WJets",
-    "location": "/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/AODSkimmer/WJets_2022_output.root",
+    "location": "/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/AODSkimmer/WJetsToLNu1_2022_output.root",
     "type": "bkg",
     "year": 2022,
     "xsec": 10,

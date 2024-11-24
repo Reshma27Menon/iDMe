@@ -1,14 +1,14 @@
 [
     {
         "name": "WJets",
-        "location": "/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/AODSkimmer/WJets_2022_output.root",
+        "location": "/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/AODSkimmer/WJetsToLNu1_2022_output.root",
         "type": "bkg",
         "year": 2022,
         "xsec": 10,
         "nFile": 1,
         "blacklist": [],
         "nFiles": 1,
-        "sum_wgt": 4443627008.0,
-        "num_events": 34760
+        "sum_wgt": 2517856000.0,
+        "num_events": 20000
     }
 ]

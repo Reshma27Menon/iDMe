@@ -1,0 +1,33 @@
+import json
+
+#Define the bkg samples
+#data= {"WJets":{"WJetsToLNu1" : "/WJetsToLNu_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Winter22MiniAOD-122X_mcRun3_2021_realistic_v9-v2/MINIAODSIM",
+#               "WJetsToLNu2" : "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Summer19MiniAOD-2021Scenario_106X_mcRun3_2021_realistic_v3-v3/MINIAODSIM",
+#               "WJetsToLNu3" : "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Summer19MiniAOD-2023Scenario_106X_mcRun3_2023_realistic_v3-v2/MINIAODSIM",
+#                "WJetsToLNu4" : "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Summer19MiniAOD-2024Scenario_106X_mcRun3_2024_realistic_v4-v3/MINIAODSIM",
+#                "WJetsToLNu5" : "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Winter20DRPremixMiniAOD-110X_mcRun3_2021_realistic_v6-v1/MINIAODSIM",
+#                "WJetsToLNu6" : "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Winter21DRMiniAOD-FlatPU30to80FEVT_112X_mcRun3_2021_realistic_v16-v2/MINIAODSIM",
+#               "WJetsToLNu7" : "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Summer19MiniAOD-2021Scenario_106X_mcRun3_2021_realistic_v3-v1/MINIAODSIM",
+#               "WJetsToLNu8" : "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Summer19MiniAOD-2023Scenario_106X_mcRun3_2023_realistic_v3-v1/MINIAODSIM",
+#               "WJetsToLNu9" : "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Winter20DRMiniAOD-110X_mcRun3_2021_realistic_v6-v1/MINIAODSIM",
+#               "WJetsToLNu10" : "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Winter21DRMiniAOD-designGT_112X_mcRun3_2021_realistic_v16-v2/MINIAODSIM"}}
+#
+#
+##Specify the filename
+#
+#filename = 'bkg_2022new.json'
+#
+## Write the data to a JSON file
+#
+#with open(filename, 'w') as file:
+#    json.dump(data,file,indent=4)
+#
+#
+#
+#
+## Read and print the JSON file to verify
+#
+#with open(filename, 'r') as file:
+#    loaded_data = json.load(file)
+#    print(loaded_data)
+#
