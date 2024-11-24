@@ -50,11 +50,11 @@ for i in range(n_samp):
     xrdClient.mkdir(outDir,flags=client.flags.MkDirFlags.MAKEPATH)
     loc = samp['location']
     if type(loc) != list:
-        fileList = ["root://cmsxrootd.fnal.gov/"+loc+f.name for f in xrdClient.dirlist(loc)[1] if '.root' in f.name]
+        fileList = ["root://cmseos.fnal.gov/"+loc+f.name for f in xrdClient.dirlist(loc)[1] if '.root' in f.name]
     else:
         fileList = []
         for l in loc:
-            fileList.extend(["root://cmsxrootd.fnal.gov/"+l+f.name for f in xrdClient.dirlist(l)[1] if '.root' in f.name])
+            fileList.extend(["root://cmseos.fnal.gov/"+l+f.name for f in xrdClient.dirlist(l)[1] if '.root' in f.name])
     fileSets = [list(a) for a in np.array_split(fileList,1+len(fileList)//n_file_per)]
     job_idx = 0
     for i,fileSet in enumerate(fileSets):
