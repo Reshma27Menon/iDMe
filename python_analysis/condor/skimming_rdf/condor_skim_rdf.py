@@ -73,6 +73,10 @@ bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned 
     else if (year == 2018) {
         pass = ((fired18 & (1<<13)) == (1<<13));
     }
+    //Fix me
+    else if (year == 2022) {
+        pass = True;
+    }
    
     return pass;
 }
@@ -83,8 +87,9 @@ vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
     if ((year==2016) && APV) wp = 0.0508;
     if ((year==2016) && !APV) wp = 0.0480;
     if (year==2017) wp = 0.0532;
-    if (year==2018) wp = 0.0490;
-    if (year==2022) wp = 
+    if (year==2018 || year==2022) wp = 0.0490; //Fix 2022
+    
+    
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -98,7 +103,7 @@ vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
     if ((year==2016) && APV) wp = 0.2598;
     if ((year==2016) && !APV) wp = 0.2489;
     if (year==2017) wp = 0.3040;
-    if (year==2018) wp = 0.2783;
+    if (year==2018 || year==2022) wp = 0.2783;   //Fix 2022
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -112,7 +117,7 @@ vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
     if ((year==2016) && APV) wp = 0.6502;
     if ((year==2016) && !APV) wp = 0.6377;
     if (year==2017) wp = 0.7476;
-    if (year==2018) wp = 0.7100;
+    if (year==2018 || year==2022) wp = 0.7100;    //Fix 2022
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -163,16 +168,27 @@ if __name__ == "__main__":
 
     with open('samples.json','r') as fin:
         samps = json.load(fin)
+        print ("samps is here:")
+        print (samps)
+        
     files = samps['fileset']
+    print("Files before getting blacklisted:")
+    for file in files:
+        print(file)
+    
     files = [f for f in files if f.split("/")[-1] not in samps['blacklist']]
+    print ("After getting blacklisted")
+    print (files)
     year = samps['year']
+    
     d = ROOT.RDataFrame("ntuples/outT",files)
+    print ("d:", d)
     print(f"loaded RDF in {(time.time() - t)/60} mins")
     t = time.time()
-    if year == "2016APV":
-        d = d.Define("APV","true")
-    else:
-        d = d.Define("APV","false")
+   # if year == "2016APV":
+     #   d = d.Define("APV","true")
+    #else:
+       # d = d.Define("APV","false")
     d = d.Define("year",f"{int(year)}")
     d = d.Define("Electron_passCut","elePassCut(Electron_pt,Electron_eta)")
     d = d.Define("LptElectron_passCut","elePassCut(LptElectron_pt,LptElectron_eta)")
