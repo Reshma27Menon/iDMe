@@ -177,7 +177,7 @@ if __name__ == "__main__":
         print(file)
     
     files = [f for f in files if f.split("/")[-1] not in samps['blacklist']]
-    print ("After getting blacklisted")
+    print ("After 'exclude the blacklisted files' line:")
     print (files)
     year = samps['year']
     
