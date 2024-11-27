@@ -1,3 +1,8 @@
+###############################
+#I have made few changes in this file. It is primarily because the blacklist files did not have a redirector. There were a lot of files common between blacklist and fulllist, but it wasn't showing up in the intersection because the blacklikst files did not have a redirector and the fulllist files had. Without this change, the blacklist files were never showing any effect.
+
+#Also cmsxrootd to cmseos change has been made (as things weren't working for me with xrootd)
+###################################
 import uproot
 import numpy as np
 import json
@@ -29,7 +34,6 @@ def sum_weights(fileList,sums,blacklist,nevts,isData):
 inputJson = sys.argv[1]
 with open(inputJson) as f:
     samples = json.load(f)
-    #print ("samples:", samples)
 num_cpus = mp.cpu_count()
 
 
@@ -38,18 +42,18 @@ if len(sys.argv) == 3:
 else:
     isData = False
 
-for samp in samples:
-    
+for samp in samples:    
     print(f"Running on {samp['name']}")
     loc = samp["location"]
     nFiles = -1
     has_blacklist = True if "blacklist" in samp.keys() else False
+    
     blacklist = [] # track files that can't be opened
     sum_wgt = []
     sum_evt = []
     if '.root' in loc:
         nFiles = 1
-        print ("loc:", loc)
+        
         tree = uproot.open(loc)['ntuples/outT']
         if tree.num_entries == 0:
             sum_wgt = 0
@@ -59,28 +63,41 @@ for samp in samples:
             else:
                 sum_wgt = 0
             sum_evt = tree.num_entries
-    else:
-        print ("It is happening!")
+    else:        
         xrdClient = client.FileSystem("root://cmseos.fnal.gov")
         if type(loc) != list:
-            status, flist = xrdClient.dirlist(loc)
-            #print ("status:", status)
-            #print ("flist:", flist, end="\n")
+            status, flist = xrdClient.dirlist(loc)                        
             fullList = ["root://cmseos.fnal.gov/"+loc+item.name for item in flist if '.root' in item.name]
-            print("fullList:")
-            print("\n".join(fullList))
-
-        else:
+            BlackList = ["root://cmseos.fnal.gov/" + loc + bk for bk in samp["blacklist"]]
+            print ("Length of BlackList:", len(BlackList))
+            print ("Length of fullList before blacklisting:", len(fullList))
             
+        else:            
             fullList = []
             for l in loc:
-                status, flist = xrdClient.dirlist(l)
-                print ("status:", status)
-                print ("flist:", flist)
-                fullList.extend(["root://cmsxrootd.fnal.gov/"+l+"/"+item.name for item in flist if '.root' in item.name])
+                status, flist = xrdClient.dirlist(l)                 
+                fullList.extend(["root://cmseos.fnal.gov/"+l+"/"+item.name for item in flist if '.root' in item.name])                   
+
         nFiles = len(fullList)
         if has_blacklist:
-            fullList = [f for f in fullList if f not in samp["blacklist"]]
+            fullList = [f for f in fullList if f not in BlackList]
+            print ("Length of fullList after blacklisting:", len(fullList))
+            
+            common_files = set(fullList).intersection(set(BlackList))
+            if common_files:
+                print("Common files found:")
+                for file in common_files:
+                    print(file)
+            else:
+                print("No common files found.")
+           # print ("Here are the blacklisted files:")
+            #for b in samp["blacklist"]:
+                #print (b)
+            #print("fullList files are here:")
+            #for fl in fullList:
+                #print(fl)
+                
+           
         if nFiles < 2*num_cpus:
         #if nFiles < 0: # always do parallel mode
             print("Serial Mode")
@@ -90,8 +107,10 @@ for samp in samples:
         else:
             print("Parallel Mode")
             subLists = [list(l) for l in np.array_split(fullList,num_cpus)]
+            print ("num_cpus:", num_cpus)
+           
             with Manager() as manager:
-                m_blacklist = manager.list()
+                m_blacklist = manager.list()                
                 m_sums = manager.list()
                 m_nevts = manager.list()
                 processes = []
@@ -102,6 +121,7 @@ for samp in samples:
                 for p in processes:
                     p.join()
                 blacklist = [b for b in m_blacklist]
+                print ("blacklist:", blacklist)
                 sum_wgt = np.sum([s for s in m_sums])
                 sum_evt = np.sum([s for s in m_nevts])
 
