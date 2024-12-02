@@ -68,7 +68,9 @@
          1. I tried opening them using TBrowser in root and it worked. Also checked the `genWgt` branch. Everything looked good. This means the files are in good condition.
          2. I tried opening the files using uproot (and using the same redirector used in `sumGenWgts.py`). It failed. I changed to `cmseos` redirector and it worked well.
 
-      4. In `python_analysis/condor/skimming_rdf` run `submit_condor_skim_rdf.py`
+4. Submitting condor jobs
+
+    In `python_analysis/condor/skimming_rdf` run `submit_condor_skim_rdf.py`
      
            `python3 submit_condor_skim_rdf.py -s [sample json file] -n [n_files_per] -c [n_cores] -m [MET lower bound cut] -j [nJet upper bound cut (if only requiring nJet >0, then put 0)`
      
@@ -77,10 +79,16 @@
            `python3 submit_condor_skim_rdf.py -s ../../configs/sample_configs/bkg_2022_WJets.json -n 10 -c 4 -m 100 -j 0`
      
            The output will be stored in `/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg`.
+
+   Note: This process is not going to be easy, especially if you are a beginner. Jobs might succeed or might fail. This is a part of this process. You can check or track your jobs using these basic commands:
+
+   `condor_q` -- tracks the running (R) jobs.
+
+   
   
-      5. Once this is done, we come to the final step: Making json file for these skimmed ntuples. These skimmed ntuples will be used by the coffea analyzer.
+5. Once this is done, we come to the final step: Making json file for these skimmed ntuples. The skimmed ntuples will be used by the coffea analyzer.
   
-         In my case, this command was used (to be done inside `python_analysis/configs/sample_configs` directory):
+         In my case, the following command was used (to be done inside `python_analysis/configs/sample_configs` directory):
   
          `python3 makeSignalConfigs.py -m bkg -y 2022 -a aEM -p /eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJets_rdfSkim_MET130_nJetsG0 -n WJets -s 1 -r bkg_2022_WJets.json`
   
@@ -90,7 +98,7 @@
   
          `python3 sumGenWgts.py skimmed_bkg_2022_WJets.json 0`
   
-         This completes the skimming process.
+          This completes the skimming process.
   
          
          
