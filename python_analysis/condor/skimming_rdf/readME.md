@@ -76,7 +76,24 @@
      
            `python3 submit_condor_skim_rdf.py -s ../../configs/sample_configs/bkg_2022_WJets.json -n 10 -c 4 -m 100 -j 0`
      
-           The output will be stored in `/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg`. 
+           The output will be stored in `/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg`.
+  
+      5. Once this is done, we come to the final step: Making json file for these skimmed ntuples. These skimmed ntuples will be used by the coffea analyzer.
+  
+         In my case, this command was used (to be done inside `python_analysis/configs/sample_configs` directory):
+  
+         `python3 makeSignalConfigs.py -m bkg -y 2022 -a aEM -p /eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJets_rdfSkim_MET130_nJetsG0 -n WJets -s 1 -r bkg_2022_WJets.json`
+  
+         This created a json file `skimmed_bkg_2022_WJets.json`.
+  
+         Now this json file will have: name, location, type, year, nFiles, sum_wgt, xsec, blacklist. Only num_events is not there. To get this, run:
+  
+         `python3 sumGenWgts.py skimmed_bkg_2022_WJets.json 0`
+  
+         This completes the skimming process.
+  
+         
+         
             
          
   
