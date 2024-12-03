@@ -98,41 +98,46 @@ if mode == "sig":
 elif mode == "bkg":
     if skimmed:
         status,bkgs = xrdClient.dirlist(f"{prefix}/")
+        print ("status:", status)
     else:
         status, bkgs = xrdClient.dirlist(f"{prefix}/{year}/")
 
-    print("bkgs:", bkgs)
-    print ("status:", status)
-    print ("prefix:",prefix)
-    print ("year:", year)
+    
+    
     bkgs = [bkg.name for bkg in bkgs]
     output = []
     for bkg in bkgs:
         if skimmed:
             base_dir = f"{prefix}/{bkg}"
             subsamples = [bkg]
+            
         else:
             base_dir = f"{prefix}/{year}/{bkg}"
             subsamples = [d.name for d in xrdClient.dirlist(base_dir)[1]]
-            print ("subsamples:", subsamples)
+            
         for subsample in subsamples:
             if skimmed:
                 target_dir = base_dir
+                print ("target_dir:", target_dir)
+                full_path = f"{target_dir}/*.root"
+                print("Check....check:",full_path)
+                
+
             else:
                 target_dir = f"{base_dir}/{subsample}/"
-                #target_dir = "/store/group/lpcmetx/iDMe/Samples/Ntuples/background_WJets12022/2022/WJets/WJetsToLNu1/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/crab_iDMe_WJetsToLNu1_2024_11_14-08_19/241114_142230/0000/"
-               
-                print ("target_dir:", target_dir)
                 
-            rootFiles = [ f for f in glob.glob(f"/eos/uscms/{target_dir}/**/*.root", recursive=True) ]
-          #  rootFiles = subprocess.run(['eos','root://cmseos.fnal.gov/','find','-name','*.root','-f',target_dir],stdout=subprocess.PIPE).stdout.decode('utf-8').splitlines()
-            
+                
+                
+            rootFiles = [ f for f in glob.glob(f"{target_dir}/**/*.root", recursive=True) ]   
+                      
             rootFiles = [r for r in rootFiles if '.root' in r]
-           # print ("rootFiles:", rootFiles)
+            print ("rootFiles:")
+            for f in rootFiles:
+                print (f)
             
             fileDirs = ["/".join(f.split("/")[:-1])+"/" for f in rootFiles]
             fileDirs = list(set(fileDirs)) # list of unique file directories
-            print ("fileDirs:", fileDirs)
+            
             
             
             info = {}
