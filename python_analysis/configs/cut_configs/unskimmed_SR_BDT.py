@@ -61,25 +61,25 @@ def cut9(events,info):
     cut = ak.all(np.abs(events.PFJet.METdPhi) > 0.75,axis=1)
     return events[cut], name, desc, plots
 
-def cut10(events,info):
-   name = "cut10"
-   desc = "BDT"
-   plots = True
+#def cut10(events,info):
+   #name = "cut10"
+   #desc = "BDT"
+   #plots = True
 
    #thres = 0.955
    #thres = 0.975
-   thres = 0.98 # Tight
+   #thres = 0.98 # Tight
    
-   if len(events) != 0:
-       input = routines.makeBDTinputsv4(events)
+   #if len(events) != 0:
+       #input = routines.makeBDTinputsv4(events)
    
-       model = './models/BDT_comb4_max_depth_7_n_estimators_800_lr_0.005.json'
-       score_BDT = routines.getBDTscore(input, model)
+       #model = './models/BDT_comb4_max_depth_7_n_estimators_800_lr_0.005.json'
+       #score_BDT = routines.getBDTscore(input, model)
 
-       cut = score_BDT > thres
+       #cut = score_BDT > thres
 
-       print(f'BDT Pass: {np.count_nonzero(cut)}/{len(cut)}')
-   else:
-       cut = []
+       #print(f'BDT Pass: {np.count_nonzero(cut)}/{len(cut)}')
+   #else:
+       #cut = []
    
-   return events[cut], name, desc, plots
+   #return events[cut], name, desc, plots
