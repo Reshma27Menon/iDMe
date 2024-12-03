@@ -1,3 +1,4 @@
+#2022 values are fake for now!
 #!/usr/bin/env python
 import os, stat
 import ROOT
@@ -82,12 +83,12 @@ bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned 
 }
 '''
 passbTagLoose = '''
-vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
+vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag) {
     float wp;
-    if ((year==2016) && APV) wp = 0.0508;
-    if ((year==2016) && !APV) wp = 0.0480;
+   // if ((year==2016) ) wp = 0.0508;
+    //if ((year==2016)) wp = 0.0480;
     if (year==2017) wp = 0.0532;
-    if (year==2018 || year==2022) wp = 0.0490; //Fix 2022
+    if (year==2018 || year==2022) wp = 0.0490; 
     
     
     vector<bool> pass;
@@ -98,12 +99,12 @@ vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
 }
 '''
 passbTagMed = '''
-vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
+vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag) {
     float wp;
-    if ((year==2016) && APV) wp = 0.2598;
-    if ((year==2016) && !APV) wp = 0.2489;
+    //if ((year==2016) ) wp = 0.2598;
+   // if ((year==2016) ) wp = 0.2489;
     if (year==2017) wp = 0.3040;
-    if (year==2018 || year==2022) wp = 0.2783;   //Fix 2022
+    if (year==2018 || year==2022) wp = 0.2783;  
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -112,12 +113,12 @@ vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
 }
 '''
 passbTagTight = '''
-vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
+vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag) {
     float wp;
-    if ((year==2016) && APV) wp = 0.6502;
-    if ((year==2016) && !APV) wp = 0.6377;
+   // if ((year==2016)) wp = 0.6502;
+   // if ((year==2016)) wp = 0.6377;
     if (year==2017) wp = 0.7476;
-    if (year==2018 || year==2022) wp = 0.7100;    //Fix 2022
+    if (year==2018 || year==2022) wp = 0.7100;    
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -194,9 +195,9 @@ if __name__ == "__main__":
     d = d.Define("LptElectron_passCut","elePassCut(LptElectron_pt,LptElectron_eta)")
     d = d.Define("vtx_isGood","isGoodVtx(vtx_e1_typ, vtx_e2_typ, vtx_e1_idx, vtx_e2_idx, Electron_passCut, LptElectron_passCut)")
     d = d.Define("passHEMveto","passHEM(year,HEM_flag)")
-    d = d.Define("PFJet_bLoose","passbTagLoose(year,PFJet_bTag,APV)")
-    d = d.Define("PFJet_bMed","passbTagMed(year,PFJet_bTag,APV)")
-    d = d.Define("PFJet_bTight","passbTagTight(year,PFJet_bTag,APV)")
+    d = d.Define("PFJet_bLoose","passbTagLoose(year,PFJet_bTag)")
+    d = d.Define("PFJet_bMed","passbTagMed(year,PFJet_bTag)")
+    d = d.Define("PFJet_bTight","passbTagTight(year,PFJet_bTag)")
     d = d.Define("anyB_loose","anyTrue(PFJet_bLoose)")
     d = d.Define("anyB_med","anyTrue(PFJet_bMed)")
     d = d.Define("anyB_tight","anyTrue(PFJet_bTight)")
