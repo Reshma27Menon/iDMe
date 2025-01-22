@@ -39,7 +39,7 @@ vxy_range = {1:[0,20],10:[0,50],100:[0,50],1000:[0,50]}
 vxy_rebin = {1:5,10:20,100:20,1000:20}
 
 class Analyzer:
-    def __init__(self,fileList,histoList,cuts,model_json=None,max_samples=-1,max_files_per_samp=-1,newCoffea=False):
+    def __init__(self,fileList,histoList,cuts,model_json,max_samples=-1,max_files_per_samp=-1,newCoffea=False):
         # flag to see if we're using new coffea
         self.newCoffea = newCoffea
        
@@ -195,7 +195,7 @@ class Analyzer:
         return accumulator
 
 class iDMeProcessor(processor.ProcessorABC):
-    def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='bkg',model_json=None,**kwargs):
+    def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,model_json,mode='bkg',**kwargs):
         self.samples = samples
         self.sampleInfo = sampleInfo
         self.sampleLocs = fileSet
