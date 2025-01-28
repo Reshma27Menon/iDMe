@@ -17,12 +17,12 @@ for samp in samples:
     xrdClient = client.FileSystem("root://cmseos.fnal.gov")
     if type(loc) != list:
         status, flist = xrdClient.dirlist(loc)
-        fullList = ["root://cmsxrootd.fnal.gov/"+loc+"/"+item.name for item in flist if '.root' in item.name]
+        fullList = ["root://cmseos.fnal.gov/"+loc+"/"+item.name for item in flist if '.root' in item.name]
     else:
         fullList = []
         for l in loc:
             status, flist = xrdClient.dirlist(l)
-            fullList.extend(["root://cmsxrootd.fnal.gov/"+l+"/"+item.name for item in flist if '.root' in item.name])
+            fullList.extend(["root://cmseos.fnal.gov/"+l+"/"+item.name for item in flist if '.root' in item.name])
 
     crab_job = [k for k in fullList[0].split("/") if "crab_iDMe_" in k][0]
     print("Crab job : "+crab_job)
