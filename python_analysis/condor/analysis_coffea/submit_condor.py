@@ -89,6 +89,7 @@ for i in range(n_samp):
         os.makedirs(dirname)
         
         subsample = samp.copy()
+        print ("subsample:", subsample)
         subsample["fileset"] = fileSet
         with open(dirname+"samples.json","w") as f:
             json.dump([subsample],f,indent=4)
