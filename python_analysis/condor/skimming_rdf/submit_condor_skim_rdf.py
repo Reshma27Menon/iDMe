@@ -38,9 +38,9 @@ with open(samples) as f:
 
 mode = sampData[0]["type"]
 n_samp = len(sampData)
-print (n_samp)
+
 nfiles_by_samp = [samp['nFiles'] for samp in sampData]
-print ("nfiles_by_samp:", nfiles_by_samp )
+
 
 for i in range(n_samp):
     samp = sampData[i]
@@ -48,37 +48,31 @@ for i in range(n_samp):
     if particular != "" and name != particular:
         continue
     outDir = "/store/group/lpcmetx/iDMe/skimmed_ntuples/{0}/{1}/output_{2}/".format(mode,jobname_base,name.replace(".","p"))
-    print(outDir)
+    print("Output directory:",outDir)
     xrdClient.mkdir(outDir,flags=client.flags.MkDirFlags.MAKEPATH)
     loc = samp['location']
-    if type(loc) != list:
-        print ("YEAH!")
+    if type(loc) != list:        
         fileList = ["root://cmseos.fnal.gov/"+loc+f.name for f in xrdClient.dirlist(loc)[1] if '.root' in f.name]
-        print ("fileList is here:")  
-        for fl in fileList:
-            print (fl)   #Till here all files 
+         
     else:
         fileList = []
         for l in loc:
             fileList.extend(["root://cmseos.fnal.gov/"+l+f.name for f in xrdClient.dirlist(l)[1] if '.root' in f.name])
             
     fileSets = [list(a) for a in np.array_split(fileList,1+len(fileList)//n_file_per)]
-    print ("Here we come with fileSets:")
-    for fm in fileSets:
-        print (fm)
+    
     
     job_idx = 0
     for i,fileSet in enumerate(fileSets):
         jobname = "ntuples_{0}_{1}".format(name,job_idx)
+        print("jobname:",jobname)
         dirname = "submissions_skim_rdf/"+jobname_base+"/"+jobname+"/"
         if os.path.isdir(dirname):
             shutil.rmtree(dirname)
         os.makedirs(dirname)
         
         subsample = samp.copy()
-        print ("subsample:")
-        for sub in subsample:
-            print (sub)
+        
         subsample["fileset"] = fileSet
         with open(dirname+"samples.json","w") as f:
             json.dump(subsample,f,indent=4)
