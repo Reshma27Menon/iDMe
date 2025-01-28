@@ -105,6 +105,27 @@ def cut9(events,info):
     cut = ak.all(np.abs(events.PFJet.METdPhi) > 0.75,axis=1)
     return events[cut], name, desc, plots
 
+def cut10(events,info):
+    name = "cut10"
+    desc = "BDT"
+    plots = True
+
+    thres = 0.96
+    
+    if len(events) != 0:
+        input = routines.makeBDTinputs(events)
+    
+        model = './models/BDT_inclusive_10Vars.json'
+        score_BDT = routines.getBDTscore(input, model)
+
+        cut = score_BDT > thres
+
+        print(f'BDT Pass: {np.count_nonzero(cut)}/{len(cut)}')
+    else:
+        cut = []
+    
+    return events[cut], name, desc, plots
+
 #def cut10(events,info):
    #name = "cut10"
    #desc = "BDT"

@@ -1,0 +1,13 @@
+[
+    {
+        "name": "WJets_WJetsToLNu1",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJets_rdfSkim_MET130_nJetsG0/output_WJets_WJetsToLNu1/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 59,
+        "sum_wgt": 2315700172.96875,
+        "xsec": 55390000,
+        "blacklist": [],
+        "num_events": 18326
+    }
+]

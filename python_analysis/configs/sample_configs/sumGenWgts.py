@@ -1,5 +1,5 @@
 ###############################
-#I have made few changes in this file. It is primarily because the blacklist files did not have a redirector. There were a lot of files common between blacklist and fulllist, but it wasn't showing up in the intersection because the blacklikst files did not have a redirector and the fulllist files had. Without this change, the blacklist files were never showing any effect.
+#I have made few changes in this file. It is primarily because the blacklist files did not have a redirector. There were a lot of files common between blacklist and fulllist, but it wasn't showing up in the intersection because the blacklist files did not have a redirector and the fulllist files had. Without this change, the blacklist files were never showing any effect.
 
 #Also cmsxrootd to cmseos change has been made (as things weren't working for me with xrootd)
 ###################################
@@ -68,7 +68,7 @@ for samp in samples:
         if type(loc) != list:
             status, flist = xrdClient.dirlist(loc)                        
             fullList = ["root://cmseos.fnal.gov/"+loc+item.name for item in flist if '.root' in item.name]
-            BlackList = ["root://cmseos.fnal.gov/" + loc + bk for bk in samp["blacklist"]]
+            BlackList = ["root://cmseos.fnal.gov/" + loc + bk for bk in samp["blacklist"]] #Done to add the redirector
             print ("Length of BlackList:", len(BlackList))
             print ("Length of fullList before blacklisting:", len(fullList))
             
@@ -82,7 +82,7 @@ for samp in samples:
         if has_blacklist:
             fullList = [f for f in fullList if f not in BlackList]
             print ("Length of fullList after blacklisting:", len(fullList))
-            
+            #To get thr common files between BlackList and fullList (if any):
             common_files = set(fullList).intersection(set(BlackList))
             if common_files:
                 print("Common files found:")
@@ -90,13 +90,7 @@ for samp in samples:
                     print(file)
             else:
                 print("No common files found.")
-           # print ("Here are the blacklisted files:")
-            #for b in samp["blacklist"]:
-                #print (b)
-            #print("fullList files are here:")
-            #for fl in fullList:
-                #print(fl)
-                
+          
            
         if nFiles < 2*num_cpus:
         #if nFiles < 0: # always do parallel mode
