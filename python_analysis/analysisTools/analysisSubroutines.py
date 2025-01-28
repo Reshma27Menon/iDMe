@@ -122,22 +122,24 @@ def electronID(events,info):
     events["Electron","passID"] = ele_kinematic_cut & ele_id_cut & (eles.mindRj > 0.4)
     events["Electron","passIDBasic"] = ele_kinematic_cut & ele_id_cut
     
-#def jetBtag(events,year):
- #   loose,med,tight = getBtagWPs(year)
-  #  events["PFJet","passLooseID"] = events.PFJet.bTag > loose
-   # events["PFJet","passMedID"] = events.PFJet.bTag > med
-    #events["PFJet","passTightID"] = events.PFJet.bTag > tight
+def jetBtag(events,year):
+    loose,med,tight = getBtagWPs(year)
+    events["PFJet","passLooseID"] = events.PFJet.bTag > loose
+    events["PFJet","passMedID"] = events.PFJet.bTag > med
+    events["PFJet","passTightID"] = events.PFJet.bTag > tight
 
-#def getBtagWPs(year):
- #   if year == 2018:
-  #      loose,med,tight = 0.0490, 0.2783, 0.7100
-   # if year == 2017:
-    #    loose,med,tight = 0.0532, 0.3040, 0.7476
-    #if year == 2016:
-     #   loose,med,tight = 0.0480, 0.2489, 0.6377
-    #if year == "2016APV":
-     #   loose,med,tight = 0.0508, 0.2598, 0.6502
-    #return loose,med,tight
+def getBtagWPs(year):
+    if year == 2022:
+       loose,med,tight = 0.0583, 0.3086, 0.7183
+    if year == 2018:
+        loose,med,tight = 0.0490, 0.2783, 0.7100
+    if year == 2017:
+        loose,med,tight = 0.0532, 0.3040, 0.7476
+    if year == 2016:
+        loose,med,tight = 0.0480, 0.2489, 0.6377
+    if year == "2016APV":
+        loose,med,tight = 0.0508, 0.2598, 0.6502
+    return loose,med,tight
 
 def electronIsoConePtSum(events):
     all_eles = ak.concatenate((events.Electron,events.LptElectron),axis=1)
@@ -179,6 +181,8 @@ def defineGoodVertices(events,version='default',ele_id='dR'):
     mass = events.vtx.refit_m < 20
     eleDphi = events.vtx.eleDphi < 2
     mindxy = events.vtx.min_dxy > 0.01
+    mindxy_refit = np.minimum(np.abs(events.vtx.e1.refit_dxy), np.abs(events.vtx.e2.refit_dxy)) > 0.001
+
     #mindxyLoose = events.vtx.min_dxy > 0.005
     mindxyLoose = events.vtx.min_dxy > 0.001
     maxMiniIso = np.maximum(events.vtx.e1.miniRelIsoEleCorr,events.vtx.e2.miniRelIsoEleCorr) < 0.9
@@ -596,41 +600,63 @@ def makeBDTv2Inputs(events): # Legacy BDT; not used anymore
     return input
 
 def makeBDTinputs(events): # Current BDT for SR vtx cut
+    
     '''
     # BDT_10vars_comb11 (ROC-AUC, PR-AUC) = (0.9958, 0.9959)
     variables = ['sel_vtx_chi2','sel_vtx_METdPhi','sel_vtx_refit_m','sel_vtx_refit_dR','sel_vtx_corrMinDxy','vxy','vxy_signif',\
                  'sel_vtx_cos_collinear', 'sel_vtx_prod_eta', 'met_leadPt_ratio'
 ]
     '''
-
-    mindxy = np.minimum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
-    maxdxy = np.maximum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
-
-    deltadxy = np.abs(np.abs(events.sel_vtx.e1.dxy) - np.abs(events.sel_vtx.e2.dxy))
+    mindxy = np.minimum(np.abs(events.sel_vtx.e1.refit_dxy), np.abs(events.sel_vtx.e2.refit_dxy))
 
     sel_vtx_chi2_arr = events.sel_vtx.reduced_chi2.to_numpy()
     sel_vtx_METdPhi_arr = np.abs(events.sel_vtx.METdPhi).to_numpy()
-    sel_vtx_m_arr = events.sel_vtx.m.to_numpy()
-    sel_vtx_refit_m_arr = events.sel_vtx.refit_m.to_numpy()
-    sel_vtx_dR_arr = events.sel_vtx.dR.to_numpy()
-    sel_vtx_refit_dR_arr = events.sel_vtx.refit_dR.to_numpy()
+    sel_vtx_m_arr = events.sel_vtx.refit_m.to_numpy()
+    sel_vtx_dR_arr = events.sel_vtx.refit_dR.to_numpy()
     sel_vtx_minDxy_arr = mindxy.to_numpy()
-    sel_vtx_corrMinDxy_arr = events.sel_vtx.corrMinDxy.to_numpy()
     sel_vtx_vxy_arr = events.sel_vtx.vxy.to_numpy()
     vxy_signif_arr = (events.sel_vtx.vxy/events.sel_vtx.sigmavxy).to_numpy()
-    cos_collinear_arr = events.sel_vtx.cos_collinear.to_numpy()
+    cos_collinear_arr = events.sel_vtx.cos_collinear_fromPV_refit.to_numpy()
     sel_vtx_prod_eta_arr = (events.sel_vtx.e1.eta * events.sel_vtx.e2.eta).to_numpy()
     met_leadPt_ratio_arr = (events.PFMET.pt/events.PFJet.pt[:,0]).to_numpy()
-    jetMETdPhi = np.abs(events.PFJet.METdPhi[:,0]).to_numpy()
-    minJetMETdPhi = ak.min(np.abs(events.PFJet.METdPhi),axis=1).to_numpy()
-
-    input_arrs = (sel_vtx_chi2_arr, sel_vtx_METdPhi_arr, sel_vtx_refit_m_arr, sel_vtx_refit_dR_arr, \
-                  sel_vtx_corrMinDxy_arr, sel_vtx_vxy_arr, vxy_signif_arr, \
-                  cos_collinear_arr, sel_vtx_prod_eta_arr, met_leadPt_ratio_arr, jetMETdPhi, minJetMETdPhi)
-
+    jetMETdPhi_arr = np.abs(events.PFJet.METdPhi[:,0]).to_numpy()
+    minJetMETdPhi_arr = ak.min(np.abs(events.PFJet.METdPhi),axis=1).to_numpy()
+        
+    input_arrs = (sel_vtx_chi2_arr, sel_vtx_METdPhi_arr, sel_vtx_m_arr, sel_vtx_dR_arr, \
+                      sel_vtx_minDxy_arr, sel_vtx_vxy_arr, sel_vtx_prod_eta_arr, met_leadPt_ratio_arr
+                     )
+    
     input = np.stack(input_arrs, axis=1)
-
+    
     return input
+    # mindxy = np.minimum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
+    # maxdxy = np.maximum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
+
+    # deltadxy = np.abs(np.abs(events.sel_vtx.e1.dxy) - np.abs(events.sel_vtx.e2.dxy))
+
+    # sel_vtx_chi2_arr = events.sel_vtx.reduced_chi2.to_numpy()
+    # sel_vtx_METdPhi_arr = np.abs(events.sel_vtx.METdPhi).to_numpy()
+    # sel_vtx_m_arr = events.sel_vtx.m.to_numpy()
+    # sel_vtx_refit_m_arr = events.sel_vtx.refit_m.to_numpy()
+    # sel_vtx_dR_arr = events.sel_vtx.dR.to_numpy()
+    # sel_vtx_refit_dR_arr = events.sel_vtx.refit_dR.to_numpy()
+    # sel_vtx_minDxy_arr = mindxy.to_numpy()
+    # sel_vtx_corrMinDxy_arr = events.sel_vtx.corrMinDxy.to_numpy()
+    # sel_vtx_vxy_arr = events.sel_vtx.vxy.to_numpy()
+    # vxy_signif_arr = (events.sel_vtx.vxy/events.sel_vtx.sigmavxy).to_numpy()
+    # cos_collinear_arr = events.sel_vtx.cos_collinear.to_numpy()
+    # sel_vtx_prod_eta_arr = (events.sel_vtx.e1.eta * events.sel_vtx.e2.eta).to_numpy()
+    # met_leadPt_ratio_arr = (events.PFMET.pt/events.PFJet.pt[:,0]).to_numpy()
+    # jetMETdPhi = np.abs(events.PFJet.METdPhi[:,0]).to_numpy()
+    # minJetMETdPhi = ak.min(np.abs(events.PFJet.METdPhi),axis=1).to_numpy()
+
+    # input_arrs = (sel_vtx_chi2_arr, sel_vtx_METdPhi_arr, sel_vtx_refit_m_arr, sel_vtx_refit_dR_arr, \
+    #               sel_vtx_corrMinDxy_arr, sel_vtx_vxy_arr, vxy_signif_arr, \
+    #               cos_collinear_arr, sel_vtx_prod_eta_arr, met_leadPt_ratio_arr, jetMETdPhi, minJetMETdPhi)
+
+    # input = np.stack(input_arrs, axis=1)
+
+    # return input
 
 def getBDTscore(arr, model):
     # load the pre-trained model
@@ -639,7 +665,6 @@ def getBDTscore(arr, model):
 
     # get BDT score
     score = trained_model.predict(arr)
-
     return score
 
 def prepareBDT(events, model):
