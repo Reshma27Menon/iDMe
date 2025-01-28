@@ -1,4 +1,4 @@
-#2022 values are fake for now!
+#2022 value for bit is fake for now! Rest of the values are correct.
 #!/usr/bin/env python
 import os, stat
 import ROOT
@@ -88,7 +88,8 @@ vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag) {
    // if ((year==2016) ) wp = 0.0508;
     //if ((year==2016)) wp = 0.0480;
     if (year==2017) wp = 0.0532;
-    if (year==2018 || year==2022) wp = 0.0490; 
+    if (year==2018) wp = 0.0490; 
+    if (year==2022) wp = 0.0583;
     
     
     vector<bool> pass;
@@ -104,7 +105,8 @@ vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag) {
     //if ((year==2016) ) wp = 0.2598;
    // if ((year==2016) ) wp = 0.2489;
     if (year==2017) wp = 0.3040;
-    if (year==2018 || year==2022) wp = 0.2783;  
+    if (year==2018) wp = 0.2783;  
+    if (year==2022) wp = 0.3086;
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -118,7 +120,8 @@ vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag) {
    // if ((year==2016)) wp = 0.6502;
    // if ((year==2016)) wp = 0.6377;
     if (year==2017) wp = 0.7476;
-    if (year==2018 || year==2022) wp = 0.7100;    
+    if (year==2018) wp = 0.7100; 
+    if (year==2022) wp = 0.7183;
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
