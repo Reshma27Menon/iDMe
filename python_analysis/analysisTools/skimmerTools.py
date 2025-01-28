@@ -96,6 +96,7 @@ class Skimmer:
 
     def process(self,treename='ntuples/outT',execr="iterative",workers=4):
         fileset = self.sample_locs
+        print ("fileset:", fileset)
         proc = makeBDTInputs(self.sample_names,self.sample_info,self.sample_locs,self.cuts,mode=self.mode)
         if execr == "iterative":
             executor = processor.IterativeExecutor()
