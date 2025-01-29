@@ -13,8 +13,12 @@ from coffea import processor
 
 import uproot
 import awkward as ak
+
 import vector
 vector.register_awkward()
+
+#import vector
+#vector.register_awkward()
 import numpy as np
 import matplotlib.pyplot as plt
 import json
@@ -282,6 +286,7 @@ class iDMeProcessor(processor.ProcessorABC):
         print ("cutflow:", cutflow)
         print ("cutflow_nevts:", cutflow_nevts)
 
+
         ######################################################################################
         ## Add HEM flags to Event (before applying any quality cuts to jet, electrons ##
         ######################################################################################
@@ -289,17 +294,18 @@ class iDMeProcessor(processor.ProcessorABC):
         routines.checkHEMjet(events)
         routines.checkHEMelectron(events)
       
+        #################################
+        ## Calculating Additional Vars ##
+        #################################
+        events = routines.computeExtraVariables(events,info)
+
         # Veto HEM jets and electrons for 2018 data and MC
         if info['year'] == 2018:
             events = events[events.hasHEMjet == 0]
             events = events[events.hasHEMelecPF == 0]
             events = events[events.hasHEMelecLpt == 0]
+       
 
-        #################################
-        ## Calculating Additional Vars ##
-        #################################
-        events = routines.computeExtraVariables(events,info)
-        
         #################################
         ##### Hard-coded basic cuts #####
         #################################
@@ -310,7 +316,15 @@ class iDMeProcessor(processor.ProcessorABC):
         events = events[nJets>0]
         #events = events[nJets>2] # For VR: VR is defined by orthogonal NJet requirement && orthogonal other cut (still under study)
         # needs a good vertex
-        routines.defineGoodVertices(events,version='default') # define "good" vertices based on whether associated electrons pass ID cuts IMPORTANT
+
+       # routines.defineGoodVertices(events,version='default') # define "good" vertices based on whether associated electrons pass ID cuts IMPORTANT
+
+
+        #routines.defineGoodVertices(events,version='v8') # define "good" vertices based on whether associated electrons pass ID cuts
+
+        routines.defineGoodVertices(events,version='v10') # define "good" vertices based on whether associated electrons pass ID cuts
+
+
         events = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         routines.selectBestVertex(events)
@@ -327,6 +341,9 @@ class iDMeProcessor(processor.ProcessorABC):
 
         # For signal, (1) check if the vertex ee are gen-matched (2) check if the event has ee that are gen-matched
         if info['type'] == "signal":
+
+            routines.projectGenLxy(events)
+
             vtx_matched_events = events[events.sel_vtx.isMatched]
             cutflow_vtx_matched['hasVtx'] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
 
