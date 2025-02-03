@@ -172,7 +172,7 @@ def vtxElectronConnection(events):
         events["vtx","e1"] = all_eles[vtx_e1_flatIdx]
         events["vtx","e2"] = all_eles[vtx_e2_flatIdx]
 
-def defineGoodVertices(events,version='default',ele_id='dR'):
+def defineGoodVertices(events,version='v10',ele_id='dR'):
 #def defineGoodVertices(events,version='v9',ele_id='dR'):
     # Selecting electrons that pass basic pT and eta cuts
     if ele_id == 'basic':
@@ -184,22 +184,15 @@ def defineGoodVertices(events,version='default',ele_id='dR'):
     mass = events.vtx.refit_m < 20
     eleDphi = events.vtx.eleDphi < 2
     mindxy = events.vtx.min_dxy > 0.01
-
-   # mindxy_refit = np.minimum(np.abs(events.vtx.e1.refit_dxy), np.abs(events.vtx.e2.refit_dxy)) > 0.001
-
-    #mindxyLoose = events.vtx.min_dxy > 0.005
-    #mindxyLoose = events.vtx.min_dxy > 0.001
-
+    print("Fields:", events.vtx.e1.fields)
     mindxy_refit = np.minimum(np.abs(events.vtx.e1.refit_dxy), np.abs(events.vtx.e2.refit_dxy)) > 0.001
-
     mindxyLoose = events.vtx.min_dxy > 0.005
-
     maxMiniIso = np.maximum(events.vtx.e1.miniRelIsoEleCorr,events.vtx.e2.miniRelIsoEleCorr) < 0.9
     passConvVeto = events.vtx.e1.conversionVeto & events.vtx.e2.conversionVeto
     mass_lo = events.vtx.m > 0.325
     mass_lo_refit = events.vtx.refit_m > 0.1
     vt = events.vtx.vxy <2
-    print ("vt:", vt)
+    
     if version == 'none':
         events['vtx','isGood'] = ak.values_astype(ak.ones_like(events.vtx.m),bool)
     if version == 'default':
@@ -219,11 +212,7 @@ def defineGoodVertices(events,version='default',ele_id='dR'):
     if version == 'v7':
         events['vtx','isGood'] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto # v7 definition
     if version == 'v8':
-        events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition
-
-   # if version == 'v9':
-       # events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & mindxyLoose & passConvVeto & mass_lo_refit
-
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition   
 
     if version == "v9":
         events["vtx","isGood"] = IDcut & ossf & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
@@ -236,6 +225,8 @@ def defineGoodVertices(events,version='default',ele_id='dR'):
 def selectBestVertex(events):
     sel_vtx = ak.flatten(events.good_vtx[ak.argmin(events.good_vtx.reduced_chi2,axis=1,keepdims=True)])
     events.__setitem__("sel_vtx",sel_vtx)
+    print("sel_vtx new:", sel_vtx)
+     
 
 def computeExtraVariables(events,info):
     events['Electron','mindRj'] = ak.fill_none(ak.min(events.Electron.dRJets,axis=-1),999)
