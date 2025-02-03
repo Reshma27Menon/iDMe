@@ -234,7 +234,7 @@ class iDMeProcessor(processor.ProcessorABC):
             print(f"Registering extra input {k} = {v}")
     
     def process(self,events):
-        print("sel_vtx:", events.sel_vtx)
+        
         
         samp = events.metadata["dataset"]
         info = self.sampleInfo[samp]
@@ -331,8 +331,11 @@ class iDMeProcessor(processor.ProcessorABC):
         events = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         routines.selectBestVertex(events)
+        print("new print state:",events.vtx.e1.refit_dxy)
+        print(events.sel_vtx.e1.refit_dxy)
         #events = routines.selectTrueVertex(events,events.good_vtx)
         routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
+        
 
         # Fill cutflow after baseline selection
         if isMC:
@@ -357,6 +360,8 @@ class iDMeProcessor(processor.ProcessorABC):
         ###############################
         ######## CUTS & HISTOS ########
         ###############################
+        print(events.vtx.e1.refit_dxy)
+        print(events.sel_vtx.e1.refit_dxy)
         for cut in self.cuts:
             events, cutName, cutDescription, savePlots = cut(events,info)
             if isMC:
