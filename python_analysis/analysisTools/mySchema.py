@@ -229,15 +229,24 @@ class MySchema(BaseSchema):
 
         output = {}
         for name in collections:
+            
             mixin = self.mixins.get(name, "NanoCollection")
             if "o" + name in branch_forms and name not in branch_forms:
+                print ("BRANCH:")
+                for b in branch_forms:
+                    print (b)
+                
                 # list collection
+                
                 offsets = branch_forms["o" + name]
                 content = {
                     k[len(name) + 1 :]: branch_forms[k]
                     for k in branch_forms
                     if k.startswith(name + "_")
                 }
+                
+                
+                    
                 output[name] = zip_forms(
                     content, name, record_name=mixin, offsets=offsets
                 )
@@ -259,6 +268,7 @@ class MySchema(BaseSchema):
                 output[name] = branch_forms[name]
             else:
                 # simple collection
+                
                 output[name] = zip_forms(
                     {
                         k[len(name) + 1 :]: branch_forms[k]
