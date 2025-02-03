@@ -187,6 +187,7 @@ class Analyzer:
             runner = processor.Runner(executor=executor,schema=MySchema,savemetrics=True)
            
             accumulator = runner(fileset, treename=treename, processor_instance=proc)
+            print ("Happening")
            
            
         else:
@@ -233,6 +234,8 @@ class iDMeProcessor(processor.ProcessorABC):
             print(f"Registering extra input {k} = {v}")
     
     def process(self,events):
+        print("sel_vtx:", events.sel_vtx)
+        
         samp = events.metadata["dataset"]
         info = self.sampleInfo[samp]
         isMC = info["type"] == "signal" or info["type"] == "bkg"
