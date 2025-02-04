@@ -230,13 +230,16 @@ class MySchema(BaseSchema):
         output = {}
         
         for name in collections:
-            print("Collections:", name)
-            if name == "vtx":  # Focus only on vtx.e1 grouping
-                print(f"Checking grouping for {name}")
-                grouped_vars = {k[len(name) + 1 :]: branch_forms[k] for k in branch_forms if k.startswith(name + "_")}
-                print("Grouped variables:"), grouped_vars.keys()
-                for g in grouped_vars.keys():
-                    print(g)
+            if name == "vtx":
+                print(f"Before zip_forms for vtx: {content.keys()}")
+
+            # print("Collections:", name)
+            # if name == "vtx":  # Focus only on vtx.e1 grouping
+            #     print(f"Checking grouping for {name}")
+            #     grouped_vars = {k[len(name) + 1 :]: branch_forms[k] for k in branch_forms if k.startswith(name + "_")}
+            #     print("Grouped variables:"), grouped_vars.keys()
+            #     for g in grouped_vars.keys():
+            #         print(g)
             
             
             #print("Collections:", name)
