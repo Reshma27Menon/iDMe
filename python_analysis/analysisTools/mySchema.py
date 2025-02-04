@@ -228,13 +228,33 @@ class MySchema(BaseSchema):
                 branch_forms[name] = fcn(*(branch_forms[k] for k in args))
 
         output = {}
+        
         for name in collections:
+            print("Collections:", name)
+            if name == "vtx":  # Focus only on vtx.e1 grouping
+                print(f"Checking grouping for {name}")
+                grouped_vars = {k[len(name) + 1 :]: branch_forms[k] for k in branch_forms if k.startswith(name + "_")}
+                print("Grouped variables:"), grouped_vars.keys()
+                for g in grouped_vars.keys():
+                    print(g)
+            
+            
+            #print("Collections:", name)
+            #if name == "vtx":  # Focus only on vtx.e1 grouping
+                #print(f"Checking grouping for {name}")
+                #grouped_vars = {k[len(name) + 1 :]: branch_forms[k] for k in branch_forms if k.startswith(name + "_")}
+                #print("Grouped variables:"), grouped_vars.keys()
+                #for g in grouped_vars.keys():
+                    #print(g)
+
+            
+                
             
             mixin = self.mixins.get(name, "NanoCollection")
             if "o" + name in branch_forms and name not in branch_forms:
-                print ("BRANCH:")
-                for b in branch_forms:
-                    print (b)
+                #print ("BRANCH:")
+                #for b in branch_forms:
+                    #print (b)
                 
                 # list collection
                 
@@ -250,12 +270,14 @@ class MySchema(BaseSchema):
                 output[name] = zip_forms(
                     content, name, record_name=mixin, offsets=offsets
                 )
+                
                 output[name]["content"]["parameters"].update(
                     {
                         "__doc__": offsets["parameters"]["__doc__"],
                         "collection_name": name,
                     }
                 )
+                
             elif "o" + name in branch_forms:
                 # list singleton, can use branch's own offsets
                 output[name] = branch_forms[name]
