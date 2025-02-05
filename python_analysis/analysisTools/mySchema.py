@@ -229,45 +229,15 @@ class MySchema(BaseSchema):
 
         output = {}
         
-        for name in collections:
-            if name == "vtx":
-                print(f"Before zip_forms for vtx: {content.keys()}")
-
-            # print("Collections:", name)
-            # if name == "vtx":  # Focus only on vtx.e1 grouping
-            #     print(f"Checking grouping for {name}")
-            #     grouped_vars = {k[len(name) + 1 :]: branch_forms[k] for k in branch_forms if k.startswith(name + "_")}
-            #     print("Grouped variables:"), grouped_vars.keys()
-            #     for g in grouped_vars.keys():
-            #         print(g)
-            
-            
-            #print("Collections:", name)
-            #if name == "vtx":  # Focus only on vtx.e1 grouping
-                #print(f"Checking grouping for {name}")
-                #grouped_vars = {k[len(name) + 1 :]: branch_forms[k] for k in branch_forms if k.startswith(name + "_")}
-                #print("Grouped variables:"), grouped_vars.keys()
-                #for g in grouped_vars.keys():
-                    #print(g)
-
-            
-                
-            
+        for name in collections:                          
             mixin = self.mixins.get(name, "NanoCollection")
-            if "o" + name in branch_forms and name not in branch_forms:
-                #print ("BRANCH:")
-                #for b in branch_forms:
-                    #print (b)
-                
-                # list collection
-                
+            if "o" + name in branch_forms and name not in branch_forms:                
                 offsets = branch_forms["o" + name]
                 content = {
                     k[len(name) + 1 :]: branch_forms[k]
                     for k in branch_forms
                     if k.startswith(name + "_")
-                }
-                
+                }                
                 
                     
                 output[name] = zip_forms(
@@ -305,6 +275,9 @@ class MySchema(BaseSchema):
                 )
                 output[name].setdefault("parameters", {})
                 output[name]["parameters"].update({"collection_name": name})
+        
+            if name == "vtx":
+                print(f"After zip_forms for vtx: {content.keys()}")
 
         return output
 
