@@ -276,8 +276,8 @@ class MySchema(BaseSchema):
                 output[name].setdefault("parameters", {})
                 output[name]["parameters"].update({"collection_name": name})
         
-            if name == "vtx":
-                print(f"After zip_forms for vtx: {content.keys()}")
+            # if name == "vtx":
+            #     print(f"After zip_forms for vtx: {content.keys()}")
 
         return output
 
