@@ -200,6 +200,12 @@ void NtupleContainer::CreateTreeBranches() {
     outT->Branch("rho",&rho_);
 
     // Electron-positron vertex branches
+    outT->Branch("vtx_e1_refit_dxy",&vtx_e1_refitDxy_);
+    outT->Branch("vtx_e1_refit_dxyErr",&vtx_e1_refitDxyErr_);
+
+    outT->Branch("vtx_e2_refit_dxy",&vtx_e2_refitDxy_);
+    outT->Branch("vtx_e2_refit_dxyErr",&vtx_e2_refitDxy_);
+    
     outT->Branch("nRRvtx",&nEleVertex_RR_);
     outT->Branch("RRvtx_idx1", &RRvtx_idx1_);
     outT->Branch("RRvtx_idx2", &RRvtx_idx2_);
