@@ -3,14 +3,6 @@ import coffea
 from coffea.nanoevents import NanoEventsFactory, NanoAODSchema, BaseSchema
 from mySchema import MySchema
 from coffea import processor
-
-#from coffea.dataset_tools import (
-#    apply_to_fileset,
-#    max_chunks,
-#    preprocess,
-#)
-#import dask
-
 import uproot
 import awkward as ak
 
@@ -187,7 +179,7 @@ class Analyzer:
             runner = processor.Runner(executor=executor,schema=MySchema,savemetrics=True)
            
             accumulator = runner(fileset, treename=treename, processor_instance=proc)
-            print ("Happening")
+            
            
            
         else:
@@ -286,9 +278,7 @@ class iDMeProcessor(processor.ProcessorABC):
             cutflow_vtx_matched['all'] += 1 # dummy value before selecting a vertex
             
         cutDesc['all'] = 'No cuts@'
-        print ("cutflow:", cutflow)
-        print ("cutflow_nevts:", cutflow_nevts)
-
+        
 
         ######################################################################################
         ## Add HEM flags to Event (before applying any quality cuts to jet, electrons ##
@@ -317,6 +307,7 @@ class iDMeProcessor(processor.ProcessorABC):
         #events = events[(nJets>0) & (nJets<3)] # Nominal NJet requirement for SR
         events["nJets"] = nJets
         events = events[nJets>0]
+        
         #events = events[nJets>2] # For VR: VR is defined by orthogonal NJet requirement && orthogonal other cut (still under study)
         # needs a good vertex
 
@@ -331,8 +322,7 @@ class iDMeProcessor(processor.ProcessorABC):
         events = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         routines.selectBestVertex(events)
-        print("new print state:",events.vtx.e1.refit_dxy)
-        print(events.sel_vtx.e1.refit_dxy)
+        
         #events = routines.selectTrueVertex(events,events.good_vtx)
         routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
         
@@ -360,8 +350,7 @@ class iDMeProcessor(processor.ProcessorABC):
         ###############################
         ######## CUTS & HISTOS ########
         ###############################
-        print(events.vtx.e1.refit_dxy)
-        print(events.sel_vtx.e1.refit_dxy)
+        
         for cut in self.cuts:
             events, cutName, cutDescription, savePlots = cut(events,info)
             if isMC:
