@@ -115,7 +115,8 @@ def cut10(events,info):
     if len(events) != 0:
         input = routines.makeBDTinputs(events)
     
-        model = './models/BDT_inclusive_10Vars.json'
+        
+        model =  '/uscms/home/reshmar/nobackup/CMSSW_13_0_13/src/iDMe/python_analysis/configs/models/BDT_NJetG0_allSigns_goodvtx_v11_max_depth_7_n_estimators_800_lr_0.005.json'
         score_BDT = routines.getBDTscore(input, model)
 
         cut = score_BDT > thres
