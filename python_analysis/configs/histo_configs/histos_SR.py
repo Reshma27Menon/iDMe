@@ -44,8 +44,11 @@ def make_histograms(info):
     h.make("sel_vtx_METdPhi",'abs_dphi')
     h.make("sel_vtx_mindRj",'dR')
     h.make("sel_vtx_chi2",'vtx_chi2')
+    
     h.make('sel_vtx_mass','vtx_mass')
+    h.make("sel_vtx_mass_low",'mass_low')
     h.make('sel_vtx_mass_refit','vtx_mass_refit')
+    h.make('sel_vtx_mass_low_refit','mass_low_refit')
     
     h.make('sel_vtx_mindPhiJ','abs_dphi')
     h.make('sel_vtx_sign','vtx_sign')
@@ -55,7 +58,6 @@ def make_histograms(info):
     h.make("sel_vtx_type",'vtx_type')
     h.make("sel_vtx_minEleDrJ",'dR')
     h.make("sel_vtx_minEleDPhiJ",'abs_dphi')
-    h.make("sel_vtx_mass_low",'mass_low')
     h.make("sel_vtx_mindxy_low",'mindxy_low')
     h.make("sel_vtx_sign_etaProd",'sign_etaProd')
     h.make("sel_vtx_CosThetaColl",'cosTheta')
@@ -82,6 +84,7 @@ def make_histograms(info):
     h.make('lead_jet_pt','jet_pt')
     h.make('lead_jet_eta','eta')
     h.make("jetMETratio",'jetMETratio')
+    
 
     h.make("bdtscore",'bdtscore')
 
@@ -106,6 +109,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     ### FILLING HISTOGRAMS ###
     
     #
+    
     h.fill("sel_e1_pt",pt=sel_vtx.e1.pt,weight=wgt)
     h.fill("sel_e1_eta",eta=sel_vtx.e1.eta,weight=wgt)
     h.fill("sel_e1_phi",phi=sel_vtx.e1.phi,weight=wgt)
@@ -143,7 +147,9 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     h.fill('sel_vtx_mindRj',dR=sel_vtx.mindRj,weight=wgt)
     h.fill('sel_vtx_chi2',chi2=sel_vtx.reduced_chi2,weight=wgt)
     h.fill('sel_vtx_mass',mass=sel_vtx.m,weight=wgt)
+    h.fill("sel_vtx_mass_low",mass_low=sel_vtx.m,weight=wgt)
     h.fill('sel_vtx_mass_refit',mass_refit=sel_vtx.refit_m,weight=wgt)
+    h.fill("sel_vtx_mass_low_refit",mass_low_refit=sel_vtx.refit_m,weight=wgt) ####
     h.fill('sel_vtx_mindPhiJ',abs_dphi=np.abs(sel_vtx.mindPhiJ),weight=wgt)
     h.fill('sel_vtx_sign',sign=sel_vtx.sign,weight=wgt)
     h.fill('sel_vtx_pt',pt=sel_vtx.pt,weight=wgt)
@@ -152,7 +158,6 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     h.fill('sel_vtx_type',vtype=sel_vtx.typ,weight=wgt)
     h.fill("sel_vtx_minEleDrJ",dR=np.minimum(sel_vtx.e1.mindRj,sel_vtx.e2.mindRj),weight=wgt)
     h.fill("sel_vtx_minEleDPhiJ",abs_dphi=np.minimum(sel_vtx.e1.mindPhiJ,sel_vtx.e2.mindPhiJ),weight=wgt)
-    h.fill("sel_vtx_mass_low",mass_low=sel_vtx.m,weight=wgt)
     h.fill("sel_vtx_mindxy_low",mindxy_low=sel_vtx.min_dxy,weight=wgt)
     h.fill("sel_vtx_sign_etaProd",sign_etaProd=ak.values_astype(np.sign(sel_vtx.e1.eta*sel_vtx.e2.eta),int),weight=wgt)
     h.fill("sel_vtx_CosThetaColl",cosTheta=sel_vtx.cos_collinear,weight=wgt)
