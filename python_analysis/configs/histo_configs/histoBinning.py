@@ -83,7 +83,7 @@ class myHisto:
         self.cosTheta_fromPV = self.parse_axis(('cosTheta_fromPV',100,-1,1))
         self.cosTheta_fromPV_refit = self.parse_axis(('cosTheta_fromPV_refit',100,-1,1))
         
-        self.LxyCosTheta = self.parse_axis(('LxyCosTheta',100,-50,50))
+        self.LxyCosTheta = self.parse_axis(('LxyCosTheta',100,-3,3))
         self.LxyCosThetaZoom = self.parse_axis(('LxyCosThetaZoom',100,-5,5))
         self.LxyCosThetaZoomZoom = self.parse_axis(('LxyCosThetaZoomZoom',100,-1,1))
         self.jetMETratio = self.parse_axis(('jetMETratio',100,0,2))
