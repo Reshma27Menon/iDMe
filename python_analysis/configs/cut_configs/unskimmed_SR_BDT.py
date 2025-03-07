@@ -45,8 +45,8 @@ def cut5(events,info):
     bTag = events.PFJet.bTag
     if info["year"] == 2022:
         # Refer: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/#general-remarks
-        wp = 0.0583 # loose
-        #wp = 0.3086 # medium
+        #wp = 0.0583 # loose
+        wp = 0.3086 # medium
         #wp = 0.7183 # tight
     # DeepFlavour working points for UL samples
     if info["year"] == 2018:
