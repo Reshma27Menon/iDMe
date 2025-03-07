@@ -1,0 +1,62 @@
+[
+    {
+        "name": "WJets_WJetsToLNu1",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJetsAllHT_rdfSkim_MET200_nJetsG0/output_WJets_WJetsToLNu1/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 2,
+        "sum_wgt": 1347467000096.0,
+        "xsec": 1626000,
+        "blacklist": []
+    },
+    {
+        "name": "WJets_WJetsToLNu2",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJetsAllHT_rdfSkim_MET200_nJetsG0/output_WJets_WJetsToLNu2/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 1,
+        "sum_wgt": 2412369.6853027344,
+        "xsec": 447.7,
+        "blacklist": []
+    },
+    {
+        "name": "WJets_WJetsToLNu3",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJetsAllHT_rdfSkim_MET200_nJetsG0/output_WJets_WJetsToLNu3/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 1,
+        "sum_wgt": 172016.95372009277,
+        "xsec": 30.75,
+        "blacklist": []
+    },
+    {
+        "name": "WJets_WJetsToLNu4",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJetsAllHT_rdfSkim_MET200_nJetsG0/output_WJets_WJetsToLNu4/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 1,
+        "sum_wgt": 8493657688.5625,
+        "xsec": 59990,
+        "blacklist": []
+    },
+    {
+        "name": "WJets_WJetsToLNu5",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJetsAllHT_rdfSkim_MET200_nJetsG0/output_WJets_WJetsToLNu5/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 2,
+        "sum_wgt": 3251206802944.0,
+        "xsec": 4254000,
+        "blacklist": []
+    },
+    {
+        "name": "WJets_WJetsToLNu6",
+        "location": "/eos/uscms/store/group/lpcmetx/iDMe/skimmed_ntuples/bkg/bkg_2022_WJetsAllHT_rdfSkim_MET200_nJetsG0/output_WJets_WJetsToLNu6/",
+        "type": "bkg",
+        "year": 2022,
+        "nFiles": 1,
+        "sum_wgt": 97371853.875,
+        "xsec": 6230,
+        "blacklist": []
+    }
+]

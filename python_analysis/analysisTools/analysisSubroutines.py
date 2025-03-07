@@ -172,7 +172,7 @@ def vtxElectronConnection(events):
         events["vtx","e2"] = all_eles[vtx_e2_flatIdx]
 
 #Slight modification surrounding "refit"
-def defineGoodVertices(events,version='v10',ele_id='dR'):
+def defineGoodVertices(events,version='v7',ele_id='dR'):
 
     # Selecting electrons that pass basic pT and eta cuts
     if ele_id == 'basic':
@@ -215,14 +215,11 @@ def defineGoodVertices(events,version='v10',ele_id='dR'):
         events['vtx','isGood'] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto # v7 definition
     if version == 'v8':
         events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition   
-        #events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo # v8 definition 
 
     if version == "v9":
         events["vtx","isGood"] = IDcut & ossf & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
-        #events["vtx","isGood"] = IDcut & ossf & chi2 & maxMiniIso & passConvVeto & mass_lo & mindxy
     if version == "v10":
         events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
-        #events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo & mindxy
 
     events.__setitem__("good_vtx",events.vtx[events.vtx.isGood])
     events.__setitem__("nGoodVtx",ak.count(events.good_vtx.vxy,axis=1))

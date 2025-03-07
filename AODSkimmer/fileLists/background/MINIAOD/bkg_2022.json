@@ -1,14 +1,10 @@
 {
     "WJets": {
-        "WJetsToLNu1": "/WJetsToLNu_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Winter22MiniAOD-122X_mcRun3_2021_realistic_v9-v2/MINIAODSIM",
-        "WJetsToLNu2": "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Summer19MiniAOD-2021Scenario_106X_mcRun3_2021_realistic_v3-v3/MINIAODSIM",
-        "WJetsToLNu3": "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Summer19MiniAOD-2023Scenario_106X_mcRun3_2023_realistic_v3-v2/MINIAODSIM",
-        "WJetsToLNu4": "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Summer19MiniAOD-2024Scenario_106X_mcRun3_2024_realistic_v4-v3/MINIAODSIM",
-        "WJetsToLNu5": "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Winter20DRPremixMiniAOD-110X_mcRun3_2021_realistic_v6-v1/MINIAODSIM",
-        "WJetsToLNu6": "/WJetsToLNu_TuneCP5_14TeV-amcatnloFXFX-pythia8/Run3Winter21DRMiniAOD-FlatPU30to80FEVT_112X_mcRun3_2021_realistic_v16-v2/MINIAODSIM",
-        "WJetsToLNu7": "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Summer19MiniAOD-2021Scenario_106X_mcRun3_2021_realistic_v3-v1/MINIAODSIM",
-        "WJetsToLNu8": "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Summer19MiniAOD-2023Scenario_106X_mcRun3_2023_realistic_v3-v1/MINIAODSIM",
-        "WJetsToLNu9": "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Winter20DRMiniAOD-110X_mcRun3_2021_realistic_v6-v1/MINIAODSIM",
-        "WJetsToLNu10": "/WJetsToLNu_TuneCP5_14TeV-madgraphMLM-pythia8/Run3Winter21DRMiniAOD-designGT_112X_mcRun3_2021_realistic_v16-v2/MINIAODSIM"
+        "WJetsToLNu1": "/WtoLNu-4Jets_MLNu-0to120_HT-100to400_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM",
+        "WJetsToLNu2": "/WtoLNu-4Jets_MLNu-0to120_HT-1500to2500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM",
+        "WJetsToLNu3": "/WtoLNu-4Jets_MLNu-0to120_HT-2500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM",
+        "WJetsToLNu4": "/WtoLNu-4Jets_MLNu-0to120_HT-400to800_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM",
+        "WJetsToLNu5": "/WtoLNu-4Jets_MLNu-0to120_HT-40to100_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM",
+        "WJetsToLNu6": "/WtoLNu-4Jets_MLNu-0to120_HT-800to1500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM"
     }
 }

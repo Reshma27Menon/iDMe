@@ -30,8 +30,7 @@
     "WJets_WJetsLNu_HT400to600": 44930.0,
     "WJets_WJetsLNu_HT600to800": 11190.0,
     "WJets_WJetsLNu_HT70to100": 1283000.0,
-    "WJets_WJetsLNu_HT800to1200": 4926.0,
-    "WJets_WJetsToLNu1": 55390000,
+    "WJets_WJetsLNu_HT800to1200": 4926.0,    
     "ZJets_ZJetsNuNu_HT100to200": 271300.0,
     "ZJets_ZJetsNuNu_HT1200to2500": 247.4,
     "ZJets_ZJetsNuNu_HT200to400": 72690.0,
@@ -42,5 +41,12 @@
     "ZGamma_ZGToLLG": 159.5,
     "ZGamma_ZG2JTo2L2JG": 114.5,
     "ZGamma_ZGToJJG": 4144.0,
-    "ZGamma_ZGToNuNuG": 29930.0
+    "ZGamma_ZGToNuNuG": 29930.0,
+    "WJets_WJetsToLNu1":1626000 ,
+    "WJets_WJetsToLNu2":447.7,
+    "WJets_WJetsToLNu3":30.75,
+    "WJets_WJetsToLNu4":59990,
+    "WJets_WJetsToLNu5":4254000,
+    "WJets_WJetsToLNu6":6230
+    
 }

@@ -63,7 +63,7 @@ vtx_chi2 = Regular(150,0,30,name="chi2",label="Vertex Fit $\\chi^2/df$")
 vtx_vxySignif = Regular(100,0,100,name="vxy_signif",label="Vertex $v_{xy}$ Significance")
 vtx_prob = Regular(100,0,1,name="prob",label="Vertex $\\chi^2$ Probability")
 vtx_pt = Regular(100,0,200,name="pt",label="Selected Vertex $p_T$")
-vtx_mass = Regular(100,0,400,name="mass",label="$m_{e^+e^-}$ [GeV]")
+vtx_mass = Regular(100,0,1,name="mass",label="$m_{e^+e^-}$ [GeV]")
 
 # Gen-matching
 etype = Regular(4,0,4,name="Etype",label="Electron Match Type")
