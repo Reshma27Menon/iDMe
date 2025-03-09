@@ -2,7 +2,7 @@
     {
         "name": "WJetsLNu_HT400to600",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT400to600/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT400to600/"
         ],
         "sum_wgt": 6868732.0,
         "type": "bkg",
@@ -14,7 +14,7 @@
     {
         "name": "WJetsLNu_HT800to1200",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT800to1200/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT800to1200/"
         ],
         "sum_wgt": 7397330.0,
         "type": "bkg",
@@ -31,7 +31,7 @@
     {
         "name": "WJetsLNu_HT200to400",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT200to400/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT200to400/"
         ],
         "sum_wgt": 58656583.0,
         "type": "bkg",
@@ -43,7 +43,7 @@
     {
         "name": "WJetsLNu_HT100to200",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT100to200/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT100to200/"
         ],
         "sum_wgt": 62610979.0,
         "type": "bkg",
@@ -63,7 +63,7 @@
     {
         "name": "WJetsLNu_HT1200to2500",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT1200to2500/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT1200to2500/"
         ],
         "sum_wgt": 6479369.0,
         "type": "bkg",
@@ -75,7 +75,7 @@
     {
         "name": "WJetsLNu_HT600to800",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT600to800/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT600to800/"
         ],
         "sum_wgt": 7816225.0,
         "type": "bkg",
@@ -94,7 +94,7 @@
     {
         "name": "WJetsLNu_HT2500toInf",
         "location": [
-            "/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT2500toInf/"
+            "/eos/uscms/store/group/lpcmetx/iDMe//skimmed_ntuples/bkg/bkg_2018_WJets_rdfSkim/output_WJetsLNu_HT2500toInf/"
         ],
         "sum_wgt": 2097648.0,
         "type": "bkg",
