@@ -117,12 +117,12 @@ class Analyzer:
                 xrdClient = client.FileSystem("root://cmseos.fnal.gov")
                 if type(loc) != list:
                     status, flist = xrdClient.dirlist(loc)
-                    fullList = ["root://cmseos.fnal.gov/"+loc+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))]
+                    fullList = ["root://cmsxrootd.fnal.gov/"+loc+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))]
                 else:
                     fullList = []
                     for l in loc:
                         status, flist = xrdClient.dirlist(l)
-                        fullList.extend(["root://cmseos.fnal.gov/"+l+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))])
+                        fullList.extend(["root://cmsxrootd.fnal.gov/"+l+"/"+item.name for item in flist if (('.root' in item.name) and (item.name not in sample['blacklist']))])
                 if self.max_files_per_samp > 0 and len(fullList) > self.max_files_per_samp:
                     fullList = fullList[:self.max_files_per_samp]
                 if self.newCoffea:
@@ -285,7 +285,7 @@ class iDMeProcessor(processor.ProcessorABC):
         events = events[nJets>0]
         #events = events[nJets>2] # For VR: VR is defined by orthogonal NJet requirement && orthogonal other cut (still under study)
         # needs a good vertex
-        routines.defineGoodVertices(events,version='v7') # define "good" vertices based on whether associated electrons pass ID cuts
+        routines.defineGoodVertices(events,version='v10') # define "good" vertices based on whether associated electrons pass ID cuts
         events = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         routines.selectBestVertex(events)
