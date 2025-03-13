@@ -168,7 +168,7 @@ def vtxElectronConnection(events):
         events["vtx","e1"] = all_eles[vtx_e1_flatIdx]
         events["vtx","e2"] = all_eles[vtx_e2_flatIdx]
 
-def defineGoodVertices(events,version='v9',ele_id='dR'):
+def defineGoodVertices(events,version='default',ele_id='dR'):
     # Selecting electrons that pass basic pT and eta cuts
     if ele_id == 'basic':
         IDcut = events.vtx.e1.passIDBasic & events.vtx.e2.passIDBasic
@@ -179,7 +179,7 @@ def defineGoodVertices(events,version='v9',ele_id='dR'):
     mass = events.vtx.refit_m < 20
     eleDphi = events.vtx.eleDphi < 2
     mindxy = events.vtx.min_dxy > 0.01
-    mindxy_refit = np.minimum(np.abs(events.vtx.e1.refit_dxy), np.abs(events.vtx.e2.refit_dxy)) > 0.001
+    mindxy_refit = np.minimum(np.abs(events.vtx.e1_refit_dxy), np.abs(events.vtx.e2_refit_dxy)) > 0.001
     mindxyLoose = events.vtx.min_dxy > 0.005
     maxMiniIso = np.maximum(events.vtx.e1.miniRelIsoEleCorr,events.vtx.e2.miniRelIsoEleCorr) < 0.9
     passConvVeto = events.vtx.e1.conversionVeto & events.vtx.e2.conversionVeto
@@ -616,33 +616,63 @@ def makeBDTinputs(events): # Current BDT for SR vtx cut
 ]
     '''
 
-    mindxy = np.minimum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
-    maxdxy = np.maximum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
+    # mindxy = np.minimum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
+    # maxdxy = np.maximum(np.abs(events.sel_vtx.e1.dxy),np.abs(events.sel_vtx.e2.dxy))
 
-    deltadxy = np.abs(np.abs(events.sel_vtx.e1.dxy) - np.abs(events.sel_vtx.e2.dxy))
+    # deltadxy = np.abs(np.abs(events.sel_vtx.e1.dxy) - np.abs(events.sel_vtx.e2.dxy))
+
+    # sel_vtx_chi2_arr = events.sel_vtx.reduced_chi2.to_numpy()
+    # sel_vtx_METdPhi_arr = np.abs(events.sel_vtx.METdPhi).to_numpy()
+    # sel_vtx_m_arr = events.sel_vtx.m.to_numpy()
+    # sel_vtx_refit_m_arr = events.sel_vtx.refit_m.to_numpy()
+    # sel_vtx_dR_arr = events.sel_vtx.dR.to_numpy()
+    # sel_vtx_refit_dR_arr = events.sel_vtx.refit_dR.to_numpy()
+    # sel_vtx_minDxy_arr = mindxy.to_numpy()
+    # sel_vtx_corrMinDxy_arr = events.sel_vtx.corrMinDxy.to_numpy()
+    # sel_vtx_vxy_arr = events.sel_vtx.vxy.to_numpy()
+    # vxy_signif_arr = (events.sel_vtx.vxy/events.sel_vtx.sigmavxy).to_numpy()
+    # cos_collinear_arr = events.sel_vtx.cos_collinear.to_numpy()
+    # sel_vtx_prod_eta_arr = (events.sel_vtx.e1.eta * events.sel_vtx.e2.eta).to_numpy()
+    # met_leadPt_ratio_arr = (events.PFMET.pt/events.PFJet.pt[:,0]).to_numpy()
+    # jetMETdPhi = np.abs(events.PFJet.METdPhi[:,0]).to_numpy()
+    # minJetMETdPhi = ak.min(np.abs(events.PFJet.METdPhi),axis=1).to_numpy()
+
+    # input_arrs = (sel_vtx_chi2_arr, sel_vtx_METdPhi_arr, sel_vtx_refit_m_arr, sel_vtx_refit_dR_arr, \
+    #               sel_vtx_corrMinDxy_arr, sel_vtx_vxy_arr, vxy_signif_arr, \
+    #               cos_collinear_arr, sel_vtx_prod_eta_arr, met_leadPt_ratio_arr, jetMETdPhi, minJetMETdPhi)
+
+    # input = np.stack(input_arrs, axis=1)
+
+    # return input
+    mindxy = np.minimum(np.abs(events.sel_vtx.e1_refit_dxy), np.abs(events.sel_vtx.e2_refit_dxy))
+
+    # sel_vtx_chi2_arr = events.sel_vtx.reduced_chi2.to_numpy()
+    # sel_vtx_METdPhi_arr = np.abs(events.sel_vtx.METdPhi).to_numpy()
+    sel_vtx_m_arr = events.sel_vtx.refit_m.to_numpy()
+    sel_vtx_dR_arr = events.sel_vtx.refit_dR.to_numpy()
+    ##REMOVING "refit"
+    #mindxy = np.minimum(np.abs(events.sel_vtx.e1.dxy), np.abs(events.sel_vtx.e2.dxy))
 
     sel_vtx_chi2_arr = events.sel_vtx.reduced_chi2.to_numpy()
     sel_vtx_METdPhi_arr = np.abs(events.sel_vtx.METdPhi).to_numpy()
-    sel_vtx_m_arr = events.sel_vtx.m.to_numpy()
-    sel_vtx_refit_m_arr = events.sel_vtx.refit_m.to_numpy()
-    sel_vtx_dR_arr = events.sel_vtx.dR.to_numpy()
-    sel_vtx_refit_dR_arr = events.sel_vtx.refit_dR.to_numpy()
+    #sel_vtx_m_arr = events.sel_vtx.m.to_numpy()
+    #sel_vtx_dR_arr = events.sel_vtx.dR.to_numpy()
     sel_vtx_minDxy_arr = mindxy.to_numpy()
-    sel_vtx_corrMinDxy_arr = events.sel_vtx.corrMinDxy.to_numpy()
     sel_vtx_vxy_arr = events.sel_vtx.vxy.to_numpy()
     vxy_signif_arr = (events.sel_vtx.vxy/events.sel_vtx.sigmavxy).to_numpy()
-    cos_collinear_arr = events.sel_vtx.cos_collinear.to_numpy()
+    cos_collinear_arr = events.sel_vtx.cos_collinear_fromPV_refit.to_numpy()
+    #cos_collinear_arr = events.sel_vtx.cos_collinear_fromPV.to_numpy()
     sel_vtx_prod_eta_arr = (events.sel_vtx.e1.eta * events.sel_vtx.e2.eta).to_numpy()
     met_leadPt_ratio_arr = (events.PFMET.pt/events.PFJet.pt[:,0]).to_numpy()
-    jetMETdPhi = np.abs(events.PFJet.METdPhi[:,0]).to_numpy()
-    minJetMETdPhi = ak.min(np.abs(events.PFJet.METdPhi),axis=1).to_numpy()
-
-    input_arrs = (sel_vtx_chi2_arr, sel_vtx_METdPhi_arr, sel_vtx_refit_m_arr, sel_vtx_refit_dR_arr, \
-                  sel_vtx_corrMinDxy_arr, sel_vtx_vxy_arr, vxy_signif_arr, \
-                  cos_collinear_arr, sel_vtx_prod_eta_arr, met_leadPt_ratio_arr, jetMETdPhi, minJetMETdPhi)
-
+    jetMETdPhi_arr = np.abs(events.PFJet.METdPhi[:,0]).to_numpy()
+    minJetMETdPhi_arr = ak.min(np.abs(events.PFJet.METdPhi),axis=1).to_numpy()
+        
+    input_arrs = (sel_vtx_chi2_arr, sel_vtx_METdPhi_arr, sel_vtx_m_arr, sel_vtx_dR_arr, \
+                      sel_vtx_minDxy_arr, sel_vtx_vxy_arr, sel_vtx_prod_eta_arr, met_leadPt_ratio_arr
+                     )
+    
     input = np.stack(input_arrs, axis=1)
-
+    
     return input
 
 
@@ -659,7 +689,7 @@ def makeBDTinputs_ABCD(events): # Current BDT for SR vtx cut
              'met_leadPt_ratio',
             ]
     '''
-    mindxy = np.minimum(np.abs(events.sel_vtx.e1.refit_dxy), np.abs(events.sel_vtx.e2.refit_dxy))
+    mindxy = np.minimum(np.abs(events.sel_vtx.e1_refit_dxy), np.abs(events.sel_vtx.e2_refit_dxy))
     sel_vtx_chi2_arr = events.sel_vtx.reduced_chi2.to_numpy()
     sel_vtx_METdPhi_arr = np.abs(events.sel_vtx.METdPhi).to_numpy()
     sel_vtx_m_arr = events.sel_vtx.refit_m.to_numpy()
