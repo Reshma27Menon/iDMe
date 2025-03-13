@@ -285,7 +285,7 @@ class iDMeProcessor(processor.ProcessorABC):
         events = events[nJets>0]
         #events = events[nJets>2] # For VR: VR is defined by orthogonal NJet requirement && orthogonal other cut (still under study)
         # needs a good vertex
-        routines.defineGoodVertices(events,version='v7') # define "good" vertices based on whether associated electrons pass ID cuts
+        routines.defineGoodVertices(events,version='default') # define "good" vertices based on whether associated electrons pass ID cuts
         events = events[events.nGoodVtx > 0]
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         routines.selectBestVertex(events)
