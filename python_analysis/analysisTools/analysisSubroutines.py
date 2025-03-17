@@ -168,7 +168,7 @@ def vtxElectronConnection(events):
         events["vtx","e1"] = all_eles[vtx_e1_flatIdx]
         events["vtx","e2"] = all_eles[vtx_e2_flatIdx]
 
-def defineGoodVertices(events,version='v8',ele_id='dR'):
+def defineGoodVertices(events,version='default',ele_id='dR'):
     # Selecting electrons that pass basic pT and eta cuts
     if ele_id == 'basic':
         IDcut = events.vtx.e1.passIDBasic & events.vtx.e2.passIDBasic
