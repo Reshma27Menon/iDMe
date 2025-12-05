@@ -43,7 +43,9 @@ if len(sys.argv) == 3:
 else:
     isData = False
 
+
 for samp in samples:    
+
     print(f"Running on {samp['name']}")
     loc = samp["location"]
     nFiles = -1
@@ -64,7 +66,9 @@ for samp in samples:
             else:
                 sum_wgt = 0
             sum_evt = tree.num_entries
-    else:        
+
+    else:
+
         xrdClient = client.FileSystem("root://cmseos.fnal.gov")
         if type(loc) != list:
             status, flist = xrdClient.dirlist(loc)                        

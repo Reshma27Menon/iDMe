@@ -183,21 +183,36 @@ echo "6.) MINIAOD Step"
 genfragment=${namebase}_MINIAOD_cfg_ctau-${ctau}.py
 cmsDriver.py step1 \
     --filein file:${namebase}_AOD_ctau-${ctau}_year-${year}.root \
+<<<<<<<< HEAD:UL_MCProduction/genFromGridpack_UL2016.sh
    --fileout file:${namebase}_MINIAOD_ctau-${ctau}_year-${year}.root \
     --mc --eventcontent MINIAODSIM --datatier MINIAODSIM \
     --step PAT --geometry DB:Extended \
     --conditions 106X_mcRun2_asymptotic_v17 \
     --era Run2_2016 --nThreads $nthreads \
+========
+    --fileout file:${namebase}_MINIAOD_ctau-${ctau}_year-${year}.root \
+    --mc --eventcontent MINIAODSIM --datatier MINIAODSIM \
+    --step PAT --geometry DB:Extended \
+    --conditions 106X_upgrade2018_realistic_v16_L1v1 \
+    --era Run2_2018 --nThreads $nthreads \
+>>>>>>>> kyungmin/main:UL_MCProduction/genFromGridpack_UL2018.sh
     --procModifiers run2_miniAOD_UL \
     --python_filename ${genfragment} --no_exec --runUnscheduled -n ${nevent} || exit $?;
 
 cmsRun -p ${genfragment}
 
+<<<<<<<< HEAD:UL_MCProduction/genFromGridpack_UL2016.sh
 pwd
 cmd="ls -arlth *.root"
 echo $cmd && eval $cmd
 
 remoteDIR="/store/group/lpcmetx/iDMe//Samples/signal/${year}"
+========
+echo "list of output files:"
+ls -ltr *.root
+
+remoteDIR="/store/group/lpcmetx/iDMe//Samples/signal/2018"
+>>>>>>>> kyungmin/main:UL_MCProduction/genFromGridpack_UL2018.sh
 #xrdcp -vf ${namebase}_HLT_ctau-${ctau}_year-${year}.root root://cmseos.fnal.gov/$remoteDIR/DIGIRAWHLT/${namebase}_HLT_ctau-${ctau}_year-${year}.root
 #xrdcp -vf ${namebase}_AOD_ctau-${ctau}_year-${year}.root root://cmseos.fnal.gov/$remoteDIR/AOD/${namebase}_AOD_ctau-${ctau}_year-${year}.root
 xrdcp -vf ${namebase}_MINIAOD_ctau-${ctau}_year-${year}.root root://cmseos.fnal.gov/$remoteDIR/MINIAOD/${namebase}_MINIAOD_ctau-${ctau}_year-${year}.root

@@ -8,13 +8,20 @@
         "sum_wgt": 2.3678271645621862e-06,
         "type": "signal",
         "year": 2018,
+<<<<<<< HEAD
         "alphaD": "aEM",  
 
+=======
+        "alphaD": "aEM",
+>>>>>>> kyungmin/main
         "xsec": 277.338399693,
         "nFiles": 1,
         "num_events": 78615,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-105p0_dMchi-10p0_ct-10/",
@@ -26,12 +33,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 28.438868393299998,
         "nFiles": 2,
         "num_events": 631085,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-105p0_dMchi-10p0_ct-100/",
@@ -46,11 +59,15 @@
         "xsec": 2.8498258236700003,
         "nFiles": 2,
         "num_events": 778905,
+<<<<<<< HEAD
 
         
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-10p5_dMchi-1p0_ct-1/",
@@ -62,13 +79,19 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 40301.1609,
         "nFiles": 2,
         "num_events": 513160,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-10p5_dMchi-1p0_ct-10/",
@@ -80,13 +103,19 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 4859.838919999999,
         "nFiles": 2,
         "num_events": 643295,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-10p5_dMchi-1p0_ct-100/",
@@ -101,10 +130,14 @@
         "xsec": 496.527114,
         "nFiles": 5,
         "num_events": 1437170,
+<<<<<<< HEAD
 
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-110p0_dMchi-20p0_ct-1/",
@@ -120,7 +153,10 @@
         "nFiles": 1,
         "num_events": 257674,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-110p0_dMchi-20p0_ct-10/",
@@ -136,7 +172,10 @@
         "nFiles": 1,
         "num_events": 267815,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-110p0_dMchi-20p0_ct-100/",
@@ -151,9 +190,13 @@
         "xsec": 0.08935513095309999,
         "nFiles": 1,
         "num_events": 258432,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-11p0_dMchi-2p0_ct-1/",
@@ -168,10 +211,14 @@
         "xsec": 1543.0629600000002,
         "nFiles": 2,
         "num_events": 443760,
+<<<<<<< HEAD
 
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-11p0_dMchi-2p0_ct-10/",
@@ -187,7 +234,10 @@
         "nFiles": 2,
         "num_events": 559380,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-11p0_dMchi-2p0_ct-100/",
@@ -203,7 +253,10 @@
         "nFiles": 3,
         "num_events": 732332,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-21p0_dMchi-2p0_ct-1/",
@@ -219,7 +272,10 @@
         "nFiles": 1,
         "num_events": 402997,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-21p0_dMchi-2p0_ct-10/",
@@ -235,7 +291,10 @@
         "nFiles": 1,
         "num_events": 400009,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-21p0_dMchi-2p0_ct-100/",
@@ -266,7 +325,10 @@
         "nFiles": 1,
         "num_events": 419498,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-22p0_dMchi-4p0_ct-10/",
@@ -281,10 +343,14 @@
         "xsec": 95.11161299999999,
         "nFiles": 2,
         "num_events": 522806,
+<<<<<<< HEAD
 
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-22p0_dMchi-4p0_ct-100/",
@@ -299,9 +365,13 @@
         "xsec": 9.516153899999999,
         "nFiles": 2,
         "num_events": 603880,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-31p5_dMchi-3p0_ct-1/",
@@ -313,12 +383,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 23040.233,
         "nFiles": 1,
         "num_events": 428148,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-31p5_dMchi-3p0_ct-10/",
@@ -330,12 +406,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 21568.034,
         "nFiles": 2,
         "num_events": 515420,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-31p5_dMchi-3p0_ct-100/",
@@ -350,9 +432,13 @@
         "xsec": 28961.5332,
         "nFiles": 3,
         "num_events": 1101378,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-33p0_dMchi-6p0_ct-1/",
@@ -368,7 +454,10 @@
         "nFiles": 1,
         "num_events": 401252,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-33p0_dMchi-6p0_ct-10/",
@@ -384,7 +473,10 @@
         "nFiles": 1,
         "num_events": 401963,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-33p0_dMchi-6p0_ct-100/",
@@ -400,7 +492,10 @@
         "nFiles": 1,
         "num_events": 389869,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-42p0_dMchi-4p0_ct-1/",
@@ -416,7 +511,10 @@
         "nFiles": 1,
         "num_events": 387173,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-42p0_dMchi-4p0_ct-10/",
@@ -432,7 +530,10 @@
         "nFiles": 1,
         "num_events": 446411,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-42p0_dMchi-4p0_ct-100/",
@@ -463,7 +564,10 @@
         "nFiles": 1,
         "num_events": 304001,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-44p0_dMchi-8p0_ct-10/",
@@ -479,7 +583,10 @@
         "nFiles": 1,
         "num_events": 366975,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-44p0_dMchi-8p0_ct-100/",
@@ -495,7 +602,10 @@
         "nFiles": 2,
         "num_events": 589401,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-52p5_dMchi-5p0_ct-1/",
@@ -511,7 +621,10 @@
         "nFiles": 1,
         "num_events": 363908,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-52p5_dMchi-5p0_ct-10/",
@@ -527,7 +640,10 @@
         "nFiles": 1,
         "num_events": 415843,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-52p5_dMchi-5p0_ct-100/",
@@ -542,9 +658,13 @@
         "xsec": 31.152733342,
         "nFiles": 2,
         "num_events": 689487,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-55p0_dMchi-10p0_ct-1/",
@@ -559,7 +679,10 @@
         "xsec": 97.18122089,
         "nFiles": 1,
         "num_events": 22500,
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "blacklist": []
     },
     {
@@ -575,9 +698,13 @@
         "xsec": 9.735678006,
         "nFiles": 1,
         "num_events": 115956,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-55p0_dMchi-10p0_ct-100/",
@@ -592,9 +719,13 @@
         "xsec": 0.973702779,
         "nFiles": 2,
         "num_events": 311639,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-5p25_dMchi-0p5_ct-1/",
@@ -610,7 +741,10 @@
         "nFiles": 1,
         "num_events": 240690,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-5p25_dMchi-0p5_ct-10/",
@@ -622,12 +756,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 9654.60294,
         "nFiles": 1,
         "num_events": 441723,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-5p25_dMchi-0p5_ct-100/",
@@ -642,9 +782,13 @@
         "xsec": 1005.7012780000001,
         "nFiles": 3,
         "num_events": 1464941,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-5p5_dMchi-1p0_ct-1/",
@@ -660,7 +804,10 @@
         "nFiles": 1,
         "num_events": 294222,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-5p5_dMchi-1p0_ct-10/",
@@ -675,9 +822,13 @@
         "xsec": 315.945803,
         "nFiles": 1,
         "num_events": 289888,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-5p5_dMchi-1p0_ct-100/",
@@ -692,9 +843,13 @@
         "xsec": 31.639066700000004,
         "nFiles": 1,
         "num_events": 293617,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-63p0_dMchi-6p0_ct-1/",
@@ -706,13 +861,19 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 1524.37695913,
         "nFiles": 1,
         "num_events": 305820,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-63p0_dMchi-6p0_ct-10/",
@@ -724,12 +885,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 159.93377163899999,
         "nFiles": 1,
         "num_events": 269409,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-63p0_dMchi-6p0_ct-100/",
@@ -745,7 +912,10 @@
         "nFiles": 1,
         "num_events": 312674,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-73p5_dMchi-7p0_ct-1/",
@@ -757,12 +927,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 916.6790979,
         "nFiles": 1,
         "num_events": 304395,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-73p5_dMchi-7p0_ct-10/",
@@ -778,7 +954,10 @@
         "nFiles": 1,
         "num_events": 297097,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-73p5_dMchi-7p0_ct-100/",
@@ -794,7 +973,10 @@
         "nFiles": 1,
         "num_events": 306564,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-77p0_dMchi-14p0_ct-1/",
@@ -810,7 +992,10 @@
         "nFiles": 1,
         "num_events": 285650,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-77p0_dMchi-14p0_ct-10/",
@@ -826,7 +1011,10 @@
         "nFiles": 1,
         "num_events": 234947,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-77p0_dMchi-14p0_ct-100/",
@@ -853,12 +1041,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 589.9830979010001,
         "nFiles": 1,
         "num_events": 298547,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-84p0_dMchi-8p0_ct-10/",
@@ -874,7 +1068,10 @@
         "nFiles": 1,
         "num_events": 295504,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-84p0_dMchi-8p0_ct-100/",
@@ -890,7 +1087,10 @@
         "nFiles": 1,
         "num_events": 298436,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-88p0_dMchi-16p0_ct-10/",
@@ -906,7 +1106,10 @@
         "nFiles": 1,
         "num_events": 144738,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-88p0_dMchi-16p0_ct-100/",
@@ -922,7 +1125,10 @@
         "nFiles": 1,
         "num_events": 277978,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-94p5_dMchi-9p0_ct-1/",
@@ -934,12 +1140,18 @@
         "type": "signal",
         "year": 2018,
         "alphaD": "aEM",
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
         "xsec": 398.137418596,
         "nFiles": 2,
         "num_events": 749623,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-94p5_dMchi-9p0_ct-10/",
@@ -955,7 +1167,10 @@
         "nFiles": 2,
         "num_events": 841003,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-94p5_dMchi-9p0_ct-100/",
@@ -970,9 +1185,13 @@
         "xsec": 4.11064372769,
         "nFiles": 2,
         "num_events": 737991,
+<<<<<<< HEAD
 
         "blacklist": []
 
+=======
+        "blacklist": []
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-99p0_dMchi-18p0_ct-1/",
@@ -988,7 +1207,10 @@
         "nFiles": 1,
         "num_events": 493206,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-99p0_dMchi-18p0_ct-10/",
@@ -1004,7 +1226,10 @@
         "nFiles": 1,
         "num_events": 512836,
         "blacklist": []
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     },
     {
         "location": "/store/group/lpcmetx/iDMe//skimmed_ntuples/signal/signal_2018_v11_miniAOD_aEM_rdfSkim_MET200_nJetsG0//output_sig_Mchi-99p0_dMchi-18p0_ct-100/",
@@ -1019,8 +1244,14 @@
         "xsec": 0.128330742145,
         "nFiles": 1,
         "num_events": 542086,
+<<<<<<< HEAD
 
         "blacklist": []
 
     }
 ]
+=======
+        "blacklist": []
+    }
+]
+>>>>>>> kyungmin/main

@@ -426,7 +426,11 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill('signalReco_vs_vtxMatch_unwgt',reco=signalReconstructed,match=hasMatchVtx,weight=1)  
         
         #
+<<<<<<< HEAD
         h.fill("match_ele_pt",match_type='R',passID=match_pf_passID,pt=match_pf.pt,weight=1)  #IMP
+=======
+        h.fill("match_ele_pt",match_type='R',passID=match_pf_passID,pt=match_pf.pt,weight=1)
+>>>>>>> kyungmin/main
         h.fill("match_ele_eta",match_type='R',passID=match_pf_passID,eta=match_pf.eta,weight=1)
         h.fill("match_ele_phi",match_type='R',passID=match_pf_passID,phi=match_pf.phi,weight=1)
         h.fill("match_ele_dxy",match_type='R',passID=match_pf_passID,dxy=match_pf.dxy,weight=1)
@@ -452,7 +456,11 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("match_ele_passConvVeto",match_type='R',passID=match_pf_passID,passVeto=match_pf.conversionVeto,weight=1)
         h.fill("match_ele_IDscore",match_type='R',passID=match_pf_passID,id=match_pf.IDscore,weight=1)
 
+<<<<<<< HEAD
         h.fill("match_ele_pt",match_type='Both',passID=match_both_passID,pt=match_both.pt,weight=1)  #IMP
+=======
+        h.fill("match_ele_pt",match_type='Both',passID=match_both_passID,pt=match_both.pt,weight=1)
+>>>>>>> kyungmin/main
         h.fill("match_ele_eta",match_type='Both',passID=match_both_passID,eta=match_both.eta,weight=1)
         h.fill("match_ele_phi",match_type='Both',passID=match_both_passID,phi=match_both.phi,weight=1)
         h.fill("match_ele_dxy",match_type='Both',passID=match_both_passID,dxy=match_both.dxy,weight=1)
@@ -478,7 +486,11 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("match_ele_passConvVeto",match_type='Both',passID=match_both_passID,passVeto=match_both.conversionVeto,weight=1)
         h.fill("match_ele_IDscore",match_type='Both',passID=match_both_passID,id=match_both.IDscore,weight=1)
 
+<<<<<<< HEAD
         h.fill("match_ele_pt",match_type='L',passID=match_lpt_passID,pt=match_lpt.pt,weight=1)  #IMP
+=======
+        h.fill("match_ele_pt",match_type='L',passID=match_lpt_passID,pt=match_lpt.pt,weight=1)
+>>>>>>> kyungmin/main
         h.fill("match_ele_eta",match_type='L',passID=match_lpt_passID,eta=match_lpt.eta,weight=1)
         h.fill("match_ele_phi",match_type='L',passID=match_lpt_passID,phi=match_lpt.phi,weight=1)
         h.fill("match_ele_dxy",match_type='L',passID=match_lpt_passID,dxy=match_lpt.dxy,weight=1)
@@ -504,8 +516,13 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("match_ele_passConvVeto",match_type='L',passID=match_lpt_passID,passVeto=match_lpt.conversionVeto,weight=1)
         h.fill("match_ele_IDscore",match_type='L',passID=match_lpt_passID,id=match_lpt.IDscore,weight=1)
         
+<<<<<<< HEAD
           
         h.fill("match_ele_gen_pt",match_type='R',passID=match_pf_passID,pt=genObj_pf.pt,weight=1)   #IMP
+=======
+        #
+        h.fill("match_ele_gen_pt",match_type='R',passID=match_pf_passID,pt=genObj_pf.pt,weight=1)
+>>>>>>> kyungmin/main
         h.fill("match_ele_gen_vxy1",match_type='R',passID=match_pf_passID,vxy=genObj_pf.vxy,weight=1)
         h.fill("match_ele_gen_vxy10",match_type='R',passID=match_pf_passID,vxy=genObj_pf.vxy,weight=1)
         h.fill("match_ele_gen_vxy100",match_type='R',passID=match_pf_passID,vxy=genObj_pf.vxy,weight=1)
@@ -529,7 +546,11 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("match_ele_gen_dR_vs_vxy100_ptBinned",match_type='R',passID=match_pf_passID,dR=genObj_pf.dr,vxy=genObj_pf.vxy,ptCat=genObj_pf.ptBin,weight=1)
 
 
+<<<<<<< HEAD
         h.fill("match_ele_gen_pt",match_type='Both',passID=match_both_passID,pt=genObj_both.pt,weight=1) #IMP
+=======
+        h.fill("match_ele_gen_pt",match_type='Both',passID=match_both_passID,pt=genObj_both.pt,weight=1)
+>>>>>>> kyungmin/main
         h.fill("match_ele_gen_vxy1",match_type='Both',passID=match_both_passID,vxy=genObj_both.vxy,weight=1)
         h.fill("match_ele_gen_vxy10",match_type='Both',passID=match_both_passID,vxy=genObj_both.vxy,weight=1)
         h.fill("match_ele_gen_vxy100",match_type='Both',passID=match_both_passID,vxy=genObj_both.vxy,weight=1)
@@ -552,7 +573,11 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("match_ele_gen_dR_vs_vxy10_ptBinned",match_type='Both',passID=match_both_passID,dR=genObj_both.dr,vxy=genObj_both.vxy,ptCat=genObj_both.ptBin,weight=1)
         h.fill("match_ele_gen_dR_vs_vxy100_ptBinned",match_type='Both',passID=match_both_passID,dR=genObj_both.dr,vxy=genObj_both.vxy,ptCat=genObj_both.ptBin,weight=1)
 
+<<<<<<< HEAD
         h.fill("match_ele_gen_pt",match_type='L',passID=match_lpt_passID,pt=genObj_lpt.pt,weight=1)    #IMP
+=======
+        h.fill("match_ele_gen_pt",match_type='L',passID=match_lpt_passID,pt=genObj_lpt.pt,weight=1)
+>>>>>>> kyungmin/main
         h.fill("match_ele_gen_vxy1",match_type='L',passID=match_lpt_passID,vxy=genObj_lpt.vxy,weight=1)
         h.fill("match_ele_gen_vxy10",match_type='L',passID=match_lpt_passID,vxy=genObj_lpt.vxy,weight=1)
         h.fill("match_ele_gen_vxy100",match_type='L',passID=match_lpt_passID,vxy=genObj_lpt.vxy,weight=1)

@@ -13,7 +13,11 @@ with open(inputJson) as f:
     samples = json.load(f)
 
 if kind == 'sig':
+# <<<<<<< HEAD
     df = pd.read_csv('signal_xsec_table.csv')
+# =======
+#     df = pd.read_csv('/uscms_data/d3/sbrightt/iDMe/signal_xsec/condor/signal_xsec_table.csv')
+# >>>>>>> kyungmin/main
     with open("filter_effs_simple.json","r") as fin:
         effs = json.load(fin)
     for samp in samples:

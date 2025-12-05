@@ -24,7 +24,10 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             JetMatchingParameters = cms.vstring(
                 'JetMatching:setMad = off',
                 'JetMatching:scheme = 1',
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
                 'JetMatching:exclusive = 0',
                 'JetMatching:merge = on',
                 'JetMatching:jetAlgorithm = 2',
@@ -41,6 +44,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
                 'SLHA:minMassSM = 10.',
                 # Very important to enable override!
                 'SLHA:allowUserOverride = on',
+<<<<<<< HEAD
                 'RHadrons:allow = on',
                 'RHadrons:allowDecay = on',
 
@@ -51,6 +55,10 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
                 #'RHadrons:allow = on',
                 #'RHadrons:allowDecay = on',
 
+=======
+                #'RHadrons:allow = on',                
+                #'RHadrons:allowDecay = on',
+>>>>>>> kyungmin/main
                 'ParticleDecays:limitTau0 = on',
                 'ParticleDecays:tau0Max = 1000.1',
                 'LesHouches:setLifetime = 2',
@@ -86,6 +94,7 @@ tmpGenParticles = cms.EDProducer("GenParticleProducer",
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoMET/Configuration/python/GenMETParticles_cff.py
 tmpGenParticlesForJetsNoNu = cms.EDProducer("InputGenJetsParticleSelector",
         src = cms.InputTag("tmpGenParticles"),
+<<<<<<< HEAD
 
         ignoreParticleIDs = cms.vuint32(
             1000022,1000023, 1000012, 1000014, 1000016,
@@ -95,12 +104,16 @@ tmpGenParticlesForJetsNoNu = cms.EDProducer("InputGenJetsParticleSelector",
             39,12,14,16),
         #ignoreParticleIDs = cms.vuint32(1000022,1000023,12,14,16),
 
+=======
+        ignoreParticleIDs = cms.vuint32(1000022,1000023,12,14,16),
+>>>>>>> kyungmin/main
         partonicFinalState = cms.bool(False),
         excludeResonances = cms.bool(False),
         excludeFromResonancePids = cms.vuint32(12, 13, 14, 16),
         tausAsJets = cms.bool(False)
         )
 
+<<<<<<< HEAD
 
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoJets/JetProducers/python/AnomalousCellParameters_cfi.py
 AnomalousCellParameters = cms.PSet(
@@ -113,6 +126,8 @@ AnomalousCellParameters = cms.PSet(
         )
 
 
+=======
+>>>>>>> kyungmin/main
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoJets/JetProducers/python/GenJetParameters_cfi.py
 GenJetParameters = cms.PSet(
         src            = cms.InputTag("tmpGenParticlesForJetsNoNu"),
@@ -142,8 +157,11 @@ GenJetParameters = cms.PSet(
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoJets/JetProducers/python/ak4GenJets_cfi.py
 tmpAk4GenJetsNoNu = cms.EDProducer("FastjetJetProducer",
         GenJetParameters,
+<<<<<<< HEAD
         AnomalousCellParameters,
 
+=======
+>>>>>>> kyungmin/main
         jetAlgorithm = cms.string("AntiKt"),
         rParam       = cms.double(0.4)
         )

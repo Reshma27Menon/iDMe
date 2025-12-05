@@ -18,6 +18,7 @@ bdtScore = Regular(100,0,1,name='score',label='BDT Score')
 ratio = Regular(100,0,1,name="ratio",label="ratio")
 ratio_big = Regular(1000,0,50,name="ratio_big",label="ratio")
 muonEtFrac= Regular(100,0,1,name="muonEtFrac",label="muonEtFrac")
+
 ############################
 ###### Numerical Axes ######
 ############################
@@ -101,4 +102,7 @@ ctau = Regular(10000, 0, 1000, name="ctau", label="$c\\tau$ [mm]")
 # Electron ID
 ele_id = Regular(50,-1,4,name="ele_id",label="Low $p_T$ electron ID Score")
 
-#triggercut = Integer(0,1,name="triggercut",label="triggercut")
+# #triggercut = Integer(0,1,name="triggercut",label="triggercut")
+# =======
+# ele_id = Regular(50,-1,4,name="ele_id",label="Low $p_T$ electron ID Score")
+# >>>>>>> kyungmin/main

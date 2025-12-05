@@ -24,7 +24,13 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             JetMatchingParameters = cms.vstring(
                 'JetMatching:setMad = off',
                 'JetMatching:scheme = 1',
+<<<<<<< HEAD
+<<<<<<<< HEAD:UL_MCProduction/genFragments/iDMe_pythiaGenFragment_ctau-10.py
 
+========
+>>>>>>>> kyungmin/main:UL_MCProduction/genFragments/iDMe_pythiaGenFragment.py
+=======
+>>>>>>> kyungmin/main
                 'JetMatching:exclusive = 0',
                 'JetMatching:merge = on',
                 'JetMatching:jetAlgorithm = 2',
@@ -41,13 +47,20 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
                 'SLHA:minMassSM = 10.',
                 # Very important to enable override!
                 'SLHA:allowUserOverride = on',
+<<<<<<< HEAD
+<<<<<<<< HEAD:UL_MCProduction/genFragments/iDMe_pythiaGenFragment_ctau-10.py
                 'RHadrons:allow = on',
                 'RHadrons:allowDecay = on',
                 #'SLHA:keepSM = on',
                 #'SLHA:minMassSM = 10.',
                 # Very important to enable override!
                 #'SLHA:allowUserOverride = on',
+========
+>>>>>>>> kyungmin/main:UL_MCProduction/genFragments/iDMe_pythiaGenFragment.py
                 #'RHadrons:allow = on',
+=======
+                #'RHadrons:allow = on',               
+>>>>>>> kyungmin/main
                 #'RHadrons:allowDecay = on',
                 'ParticleDecays:limitTau0 = on',
                 'ParticleDecays:tau0Max = 1000.1',
@@ -84,6 +97,8 @@ tmpGenParticles = cms.EDProducer("GenParticleProducer",
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoMET/Configuration/python/GenMETParticles_cff.py
 tmpGenParticlesForJetsNoNu = cms.EDProducer("InputGenJetsParticleSelector",
         src = cms.InputTag("tmpGenParticles"),
+<<<<<<< HEAD
+<<<<<<<< HEAD:UL_MCProduction/genFragments/iDMe_pythiaGenFragment_ctau-10.py
 
         ignoreParticleIDs = cms.vuint32(
             1000022,1000023, 1000012, 1000014, 1000016,
@@ -93,12 +108,20 @@ tmpGenParticlesForJetsNoNu = cms.EDProducer("InputGenJetsParticleSelector",
             39,12,14,16),
 
         #ignoreParticleIDs = cms.vuint32(1000022,1000023,12,14,16),
+========
+        ignoreParticleIDs = cms.vuint32(1000022,1000023,12,14,16),
+>>>>>>>> kyungmin/main:UL_MCProduction/genFragments/iDMe_pythiaGenFragment.py
+=======
+        ignoreParticleIDs = cms.vuint32(1000022,1000023,12,14,16),
+>>>>>>> kyungmin/main
         partonicFinalState = cms.bool(False),
         excludeResonances = cms.bool(False),
         excludeFromResonancePids = cms.vuint32(12, 13, 14, 16),
         tausAsJets = cms.bool(False)
         )
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:UL_MCProduction/genFragments/iDMe_pythiaGenFragment_ctau-10.py
 
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoJets/JetProducers/python/AnomalousCellParameters_cfi.py
 AnomalousCellParameters = cms.PSet(
@@ -111,6 +134,10 @@ AnomalousCellParameters = cms.PSet(
         )
 
 
+========
+>>>>>>>> kyungmin/main:UL_MCProduction/genFragments/iDMe_pythiaGenFragment.py
+=======
+>>>>>>> kyungmin/main
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoJets/JetProducers/python/GenJetParameters_cfi.py
 GenJetParameters = cms.PSet(
         src            = cms.InputTag("tmpGenParticlesForJetsNoNu"),
@@ -140,8 +167,14 @@ GenJetParameters = cms.PSet(
 # https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/RecoJets/JetProducers/python/ak4GenJets_cfi.py
 tmpAk4GenJetsNoNu = cms.EDProducer("FastjetJetProducer",
         GenJetParameters,
+<<<<<<< HEAD
+<<<<<<<< HEAD:UL_MCProduction/genFragments/iDMe_pythiaGenFragment_ctau-10.py
         AnomalousCellParameters,
 
+========
+>>>>>>>> kyungmin/main:UL_MCProduction/genFragments/iDMe_pythiaGenFragment.py
+=======
+>>>>>>> kyungmin/main
         jetAlgorithm = cms.string("AntiKt"),
         rParam       = cms.double(0.4)
         )

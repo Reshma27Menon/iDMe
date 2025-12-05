@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
 import numpy as np
 import awkward as ak
 from myHisto import myHisto
@@ -9,7 +12,10 @@ from myHisto import myHisto
 
 # functions to make histograms
 """def parse_axis(a):
+<<<<<<< HEAD
 >>>>>>> upstream/main
+=======
+>>>>>>> kyungmin/main
     name = a[0]
     if type(a[1]) == list:
         assert len(a) == 2
@@ -26,6 +32,7 @@ def histo(name,*args):
     axes = [samp,cut]
     for ax in args:
         axes.append(parse_axis(ax))
+<<<<<<< HEAD
 <<<<<<< HEAD
     return Hist(*axes,storage=hist.storage.Weight())
     
@@ -55,6 +62,8 @@ def fillHistos(events,histos,samp,cut,info,sum_wgt=1):
         histos["gen_met_vs_leadjet_pt_noWgt"].fill(samp=samp,cut=cut,met=events.GenMET.pt,pt=events.GenJet.pt[:,0],weight=1)
         histos["gen_met_vs_leadjet_pt"].fill(samp=samp,cut=cut,met=events.GenMET.pt,pt=events.GenJet.pt[:,0],weight=wgt)
 =======
+=======
+>>>>>>> kyungmin/main
     return Hist(*axes,storage=hist.storage.Weight())"""
     
 def make_histograms(info):
@@ -88,5 +97,9 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     #    histos["gen_leadjet_pt_noWgt"].fill(samp=samp,cut=cut,pt=events.GenJet.pt[:,0],weight=1)
     #    histos["gen_leadjet_pt"].fill(samp=samp,cut=cut,pt=events.GenJet.pt[:,0],weight=wgt)
     #    histos["gen_met_vs_leadjet_pt_noWgt"].fill(samp=samp,cut=cut,met=events.GenMET.pt,pt=events.GenJet.pt[:,0],weight=1)
+<<<<<<< HEAD
     #    histos["gen_met_vs_leadjet_pt"].fill(samp=samp,cut=cut,met=events.GenMET.pt,pt=events.GenJet.pt[:,0],weight=wgt)
 
+=======
+    #    histos["gen_met_vs_leadjet_pt"].fill(samp=samp,cut=cut,met=events.GenMET.pt,pt=events.GenJet.pt[:,0],weight=wgt)
+>>>>>>> kyungmin/main

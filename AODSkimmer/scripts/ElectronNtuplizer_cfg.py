@@ -2,18 +2,24 @@ import FWCore.ParameterSet.Config as cms
 import FWCore.ParameterSet.VarParsing as VarParsing
 import FWCore.Utilities.FileUtils as FileUtils
 from TrackingTools.TrackAssociator.default_cfi import TrackAssociatorParameterBlock
+<<<<<<< HEAD
 
 #Run2 imports
+=======
+>>>>>>> kyungmin/main
 from Configuration.Eras.Era_Run2_2018_cff import Run2_2018
 from Configuration.Eras.Era_Run2_2017_cff import Run2_2017
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
 from Configuration.Eras.Era_Run2_2016_HIPM_cff import Run2_2016_HIPM
 from Configuration.ProcessModifiers.run2_miniAOD_UL_cff import run2_miniAOD_UL
+<<<<<<< HEAD
 
 #Run3 imports
 from Configuration.Eras.Era_Run3_cff import Run3                   #corresponds to Run3 2022 (maybe)
 from Configuration.Eras.Era_Run3_2023_cff import Run3_2023         #corresponds to Run3 2023
 
+=======
+>>>>>>> kyungmin/main
 import json
 import sys
 
@@ -31,7 +37,11 @@ options.register('signal',
         VarParsing.VarParsing.varType.bool,
         "Run on signal (1) or not (0")
 options.register('year',
+<<<<<<< HEAD
         "2022",
+=======
+        "2018",
+>>>>>>> kyungmin/main
         VarParsing.VarParsing.multiplicity.singleton,
         VarParsing.VarParsing.varType.string,
         "Data/MC year")
@@ -42,7 +52,11 @@ options.register('numThreads',
         "Number of threads (for CRAB vs non-CRAB execution)")
 options.register("nEvents",
 	-1,
+<<<<<<< HEAD
 	    VarParsing.VarParsing.multiplicity.singleton,
+=======
+	VarParsing.VarParsing.multiplicity.singleton,
+>>>>>>> kyungmin/main
         VarParsing.VarParsing.varType.int,
 	"Number of events to process (defaults to all)")
 options.register('flist',
@@ -63,7 +77,10 @@ if ".txt" in options.flist:
     # list of files
     print("reading input file list: "+options.flist)
     options.inputFiles = FileUtils.loadListFromFile(options.flist)
+<<<<<<< HEAD
     print ("success")
+=======
+>>>>>>> kyungmin/main
 else:
     # we have passed a file name directly
     options.inputFiles = options.flist
@@ -86,6 +103,7 @@ elif options.year == '2018':
     globaltag = '106X_dataRun2_v37' if options.data else '106X_upgrade2018_realistic_v16_L1v1'
     era = Run2_2018
     recoEgammaTools_era = '2018-UL'
+<<<<<<< HEAD
     
 elif options.year == '2022':
     globaltag = '130X_dataRun3_v2' if options.data else '130X_mcRun3_2022_realistic_v5'         
@@ -101,6 +119,10 @@ elif options.year == '2023':
 
 else:
     print("Invalid year: {0}".format(options.year))
+=======
+else:
+    print("Invalid year given for run 2 : {0}".format(options.year))
+>>>>>>> kyungmin/main
     exit
 
 #######################
@@ -119,7 +141,11 @@ if options.year == '2016' or options.year == '2016APV':
         "Flag_eeBadScFilter",
         "Flag_hfNoisyHitsFilter"
     ]
+<<<<<<< HEAD
 elif options.year == '2017' or options.year == '2018' or options.year == '2022' or options.year == '2023':
+=======
+elif options.year == '2017' or options.year == '2018':
+>>>>>>> kyungmin/main
     metFilters = [
         "Flag_goodVertices",
         "Flag_globalSuperTightHalo2016Filter",
@@ -136,12 +162,21 @@ elif options.year == '2017' or options.year == '2018' or options.year == '2022' 
 #######################
 ###### Triggers #######
 #######################
+<<<<<<< HEAD
 # record all trigger paths that might be useful across all years - some will not always be available,
 # but what's available will get written out to the ntuples
 # Jet triggers (for MET trigger eff)
 metTrigs = [
    # "HLT_PFMET90_PFMHT90_IDTight",
     #"HLT_PFMET100_PFMHT100_IDTight",
+=======
+# record all trigger paths that might be useful acrcoss all years - some will not always be available,
+# but what's available will get written out to the ntuples
+# Jet triggers (for MET trigger eff)
+metTrigs = [
+    "HLT_PFMET90_PFMHT90_IDTight",
+    "HLT_PFMET100_PFMHT100_IDTight",
+>>>>>>> kyungmin/main
     "HLT_PFMET110_PFMHT110_IDTight",
     "HLT_PFMET120_PFMHT120_IDTight",
     "HLT_PFMET130_PFMHT130_IDTight",
@@ -150,8 +185,13 @@ metTrigs = [
     "HLT_PFMETTypeOne110_PFMHT110_IDTight",
     "HLT_PFMETTypeOne120_PFMHT120_IDTight",
     "HLT_PFMETTypeOne130_PFMHT130_IDTight",
+<<<<<<< HEAD
     "HLT_PFMETTypeOne140_PFMHT140_IDTight"
    # "HLT_PFMET100_PFMHT100_IDTight_PFHT60_v9"
+=======
+    "HLT_PFMETTypeOne140_PFMHT140_IDTight",
+    "HLT_PFMET100_PFMHT100_IDTight_PFHT60_v9"
+>>>>>>> kyungmin/main
 ]
 jetTrigs = [
     "HLT_PFJet15",
@@ -177,8 +217,13 @@ eleTrigs = list(set([
     "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165",
     "HLT_Ele30_eta2p1_WPTight_Gsf_CentralPFJet35_EleCleaned",
     "HLT_Ele28_eta2p1_WPTight_Gsf_HT150",
+<<<<<<< HEAD
    # "HLT_Ele27_Ele37_CaloIdL_MW"
     #"HLT_DoubleEle25_CaloIdL_MW",
+=======
+    "HLT_Ele27_Ele37_CaloIdL_MW"
+    "HLT_DoubleEle25_CaloIdL_MW",
+>>>>>>> kyungmin/main
     "HLT_DoubleEle27_CaloIdL_MW",
     "HLT_DoubleEle33_CaloIdL_MW",
     "HLT_DoubleEle24_eta2p1_WPTight_Gsf",
@@ -211,6 +256,7 @@ eleTrigs = list(set([
     "HLT_DoubleEle8_CaloIdM_TrackIdM_Mass8_DZ_PFHT350"
 ]))
 
+<<<<<<< HEAD
 triggerPaths = metTrigs + jetTrigs + eleTrigs
 
 # Electron effective area input file for PU-corrected PF isolation calculations
@@ -222,6 +268,18 @@ effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Run3_Winter22/effArea
 #process = cms.Process("USER",era,run2_miniAOD_UL)  #run2_miniAOD_UL__cff.py has a modifier which is used for common settings to run miniAOD on top of  ultra-legacy (during LS2) Run-2 AOD.
 
 process = cms.Process("USER",era)
+=======
+muTrigs = [
+     "HLT_IsoMu27"
+]
+ 
+triggerPaths = metTrigs + jetTrigs + eleTrigs + muTrigs
+
+# Electron effective area input file for PU-corrected PF isolation calculations
+effAreaInputPath = "RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt"
+
+process = cms.Process("USER",era,run2_miniAOD_UL)
+>>>>>>> kyungmin/main
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.load('Configuration.StandardSequences.Services_cff')
@@ -265,6 +323,7 @@ process.ntuples = ElectronSkimmer.clone(
     effAreasConfigFile = cms.FileInPath(effAreaInputPath)
 )
 
+<<<<<<< HEAD
 #---------------------comment the lines only for Run3---------------------------------
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
@@ -278,6 +337,14 @@ setupEgammaPostRecoSeq(process,
  #                      runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
    #                    era=recoEgammaTools_era
 #-------------------------------------------------------------------------------------
+=======
+# import EGamma postreco tools
+from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+setupEgammaPostRecoSeq(process,
+                       runEnergyCorrections=True,
+                       runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
+                       era=recoEgammaTools_era)
+>>>>>>> kyungmin/main
 
 # load nanoAOD producer chain for low-pT electrons -- computes mini iso
 process.load('PhysicsTools.NanoAOD.lowPtElectrons_cff')
@@ -297,9 +364,15 @@ process.slimmedElectronsWithUserDataMinimal = process.slimmedElectronsWithUserDa
     userFloats = cms.PSet(
         miniIsoChg = cms.InputTag("isoForEleRelative:miniIsoChg"),
         miniIsoAll = cms.InputTag("isoForEleRelative:miniIsoAll"),
+<<<<<<< HEAD
        # PFIsoChg = cms.InputTag("isoForEleRelative:PFIsoChg"),
      #   PFIsoAll = cms.InputTag("isoForEleRelative:PFIsoAll"),
      #   PFIsoAll04 = cms.InputTag("isoForEleRelative:PFIsoAll04"),
+=======
+        PFIsoChg = cms.InputTag("isoForEleRelative:PFIsoChg"),
+        PFIsoAll = cms.InputTag("isoForEleRelative:PFIsoAll"),
+        PFIsoAll04 = cms.InputTag("isoForEleRelative:PFIsoAll04"),
+>>>>>>> kyungmin/main
     ),
     userIntFromBools = cms.PSet(),
     userInts = cms.PSet(),
@@ -312,10 +385,19 @@ process.nanoElectronSequence = cms.Sequence(process.isoForEleRelative+\
 process.ntupleSequence = cms.Sequence(process.ntuples)
 process.ntuplePath = cms.Path(process.ntupleSequence)
 
+<<<<<<< HEAD
 #process.iDMEgammaPostRecoSequence = cms.Sequence(process.egammaPostRecoSeq)
 #process.iDMEgammaPostReco = cms.Path(process.iDMEgammaPostRecoSequence)
+=======
+process.iDMEgammaPostRecoSequence = cms.Sequence(process.egammaPostRecoSeq)
+process.iDMEgammaPostReco = cms.Path(process.iDMEgammaPostRecoSequence)
+>>>>>>> kyungmin/main
 
 process.iDMNanoElectronSequence = cms.Sequence(process.lowPtNanoElectronSequence + process.nanoElectronSequence)
 process.iDMNanoElectron = cms.Path(process.iDMNanoElectronSequence)
 
+<<<<<<< HEAD
 #process.schedule = cms.Schedule(process.iDMEgammaPostReco,process.iDMNanoElectron,process.ntuplePath)
+=======
+process.schedule = cms.Schedule(process.iDMEgammaPostReco,process.iDMNanoElectron,process.ntuplePath)
+>>>>>>> kyungmin/main

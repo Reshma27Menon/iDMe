@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+#!/usr/bin/env python
+>>>>>>> kyungmin/main
 import os, stat
 import ROOT
 import json
@@ -61,7 +65,11 @@ bool passHEM(int year, bool HEM_flag) {
 }
 '''
 passMETtrig = '''
+<<<<<<< HEAD
 bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned int fired18,unsigned int fired22) {
+=======
+bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned int fired18) {
+>>>>>>> kyungmin/main
     bool pass;
     if (year == 2016) {
         pass = ((fired16 & (1<<9)) == (1<<9));
@@ -72,15 +80,19 @@ bool passMETtrig(int year, unsigned int fired16, unsigned int fired17, unsigned 
     else if (year == 2018) {
         pass = ((fired18 & (1<<13)) == (1<<13));
     }
+<<<<<<< HEAD
     //FIX ME PLEASE!
     else if (year == 2022) {
         pass = True;
     }
    
+=======
+>>>>>>> kyungmin/main
     return pass;
 }
 '''
 passbTagLoose = '''
+<<<<<<< HEAD
 vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag) {
     float wp;
    // if ((year==2016) ) wp = 0.0508;
@@ -90,6 +102,14 @@ vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag) {
     if (year==2022) wp = 0.0583;
     
     
+=======
+vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
+    float wp;
+    if ((year==2016) && APV) wp = 0.0508;
+    if ((year==2016) && !APV) wp = 0.0480;
+    if (year==2017) wp = 0.0532;
+    if (year==2018) wp = 0.0490;
+>>>>>>> kyungmin/main
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -98,6 +118,7 @@ vector<bool> passbTagLoose(int year, ROOT::VecOps::RVec<float> btag) {
 }
 '''
 passbTagMed = '''
+<<<<<<< HEAD
 vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag) {
     float wp;
     //if ((year==2016) ) wp = 0.2598;
@@ -105,6 +126,14 @@ vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag) {
     if (year==2017) wp = 0.3040;
     if (year==2018) wp = 0.2783;  
     if (year==2022) wp = 0.3086;
+=======
+vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
+    float wp;
+    if ((year==2016) && APV) wp = 0.2598;
+    if ((year==2016) && !APV) wp = 0.2489;
+    if (year==2017) wp = 0.3040;
+    if (year==2018) wp = 0.2783;
+>>>>>>> kyungmin/main
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -113,6 +142,7 @@ vector<bool> passbTagMed(int year, ROOT::VecOps::RVec<float> btag) {
 }
 '''
 passbTagTight = '''
+<<<<<<< HEAD
 vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag) {
     float wp;
    // if ((year==2016)) wp = 0.6502;
@@ -120,6 +150,14 @@ vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag) {
     if (year==2017) wp = 0.7476;
     if (year==2018) wp = 0.7100; 
     if (year==2022) wp = 0.7183;
+=======
+vector<bool> passbTagTight(int year, ROOT::VecOps::RVec<float> btag, bool APV) {
+    float wp;
+    if ((year==2016) && APV) wp = 0.6502;
+    if ((year==2016) && !APV) wp = 0.6377;
+    if (year==2017) wp = 0.7476;
+    if (year==2018) wp = 0.7100;
+>>>>>>> kyungmin/main
     vector<bool> pass;
     for (int i = 0; i < btag.size(); i++) {
         pass.push_back(btag.at(i) > wp);
@@ -170,6 +208,7 @@ if __name__ == "__main__":
 
     with open('samples.json','r') as fin:
         samps = json.load(fin)
+<<<<<<< HEAD
         print ("samps is here:")
         print (samps)
         
@@ -191,14 +230,32 @@ if __name__ == "__main__":
      #   d = d.Define("APV","true")
     #else:
        # d = d.Define("APV","false")
+=======
+    files = samps['fileset']
+    files = [f for f in files if f.split("/")[-1] not in samps['blacklist']]
+    year = samps['year']
+    d = ROOT.RDataFrame("ntuples/outT",files)
+    print(f"loaded RDF in {(time.time() - t)/60} mins")
+    t = time.time()
+    if year == "2016APV":
+        d = d.Define("APV","true")
+    else:
+        d = d.Define("APV","false")
+>>>>>>> kyungmin/main
     d = d.Define("year",f"{int(year)}")
     d = d.Define("Electron_passCut","elePassCut(Electron_pt,Electron_eta)")
     d = d.Define("LptElectron_passCut","elePassCut(LptElectron_pt,LptElectron_eta)")
     d = d.Define("vtx_isGood","isGoodVtx(vtx_e1_typ, vtx_e2_typ, vtx_e1_idx, vtx_e2_idx, Electron_passCut, LptElectron_passCut)")
     d = d.Define("passHEMveto","passHEM(year,HEM_flag)")
+<<<<<<< HEAD
     d = d.Define("PFJet_bLoose","passbTagLoose(year,PFJet_bTag)")
     d = d.Define("PFJet_bMed","passbTagMed(year,PFJet_bTag)")
     d = d.Define("PFJet_bTight","passbTagTight(year,PFJet_bTag)")
+=======
+    d = d.Define("PFJet_bLoose","passbTagLoose(year,PFJet_bTag,APV)")
+    d = d.Define("PFJet_bMed","passbTagMed(year,PFJet_bTag,APV)")
+    d = d.Define("PFJet_bTight","passbTagTight(year,PFJet_bTag,APV)")
+>>>>>>> kyungmin/main
     d = d.Define("anyB_loose","anyTrue(PFJet_bLoose)")
     d = d.Define("anyB_med","anyTrue(PFJet_bMed)")
     d = d.Define("anyB_tight","anyTrue(PFJet_bTight)")
@@ -213,13 +270,23 @@ if __name__ == "__main__":
     d = d.Filter("anyTrue(vtx_isGood)") \
         .Filter("METFiltersFailBits == 0") \
         .Filter("passHEMveto") \
+<<<<<<< HEAD
         .Filter("trig_HLT_PFMET120_PFMHT120_IDTight == 1") \
         .Filter(f"PFMET_pt > {MET_cut}") \
         .Filter(njet_filter) \
         .Filter("!anyB_med")
+=======
+        .Filter("trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight == 1")
+        .Filter(f"PFMET_pt > {MET_cut}") \
+        .Filter(njet_filter) \
+>>>>>>> kyungmin/main
     final = d.Count().GetValue()
     print(f"final = {final}")
     if final > 0:
         d.Snapshot("ntuples/outT",f"root://cmseos.fnal.gov/{outDir}/{jobname}.root")
     print(f"filtered and output in {(time.time() - t)/60} mins")
+<<<<<<< HEAD
     del d
+=======
+    del d
+>>>>>>> kyungmin/main

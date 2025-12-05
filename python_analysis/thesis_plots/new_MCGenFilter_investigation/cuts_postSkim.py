@@ -12,13 +12,19 @@ def cut1(events,info):
     desc = "Njets < 3"
     plots = False
     cut = ak.count(events.PFJet.pt,axis=1) < 3
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     return events[cut], name, desc, plots
 
 def cut2(events,info):
     name = "cut2"
     desc = "Leading jet |eta| < 2.4"
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     plots = False
     cut = np.abs(events.PFJet.eta[:,0]) < 2.4
     return events[cut], name, desc, plots
@@ -26,18 +32,24 @@ def cut2(events,info):
 def cut3(events,info):
     name = "cut3"
     desc = "Leading jet pT > 80 GeV"
+<<<<<<< HEAD
 
+=======
+>>>>>>> kyungmin/main
     plots = False
     cut = events.PFJet.pt[:,0] > 80
     return events[cut], name, desc, plots
 
 def cut4(events,info):
     name = "cut4"
+<<<<<<< HEAD
 
     #desc = "dPhi(MET,leading jet) > 1.5"
     #plots = True
     #cut = np.abs(events.PFJet.METdPhi[:,0]) > 1.5
 
+=======
+>>>>>>> kyungmin/main
     desc = "dPhi(MET,leading jet) > 2.0"
     plots = False
     cut = np.abs(events.PFJet.METdPhi[:,0]) > 2.0

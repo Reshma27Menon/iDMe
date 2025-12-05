@@ -7,6 +7,7 @@ import awkward as ak
 def make_histograms():
     histograms = {
         # quantities associated w/ selected vertex
+<<<<<<< HEAD
         #"bdtScore" : Hist(samp,cut,bdtScore,storage=hist.storage.Weight()),
         #"gen_met_noWgt" :  Hist(samp,cut,met,storage=hist.storage.Weight()),
         #"gen_met" :  Hist(samp,cut,met,storage=hist.storage.Weight()),
@@ -17,11 +18,21 @@ def make_histograms():
 
     }
     print ("type:",type(histograms))
+=======
+        "bdtScore" : Hist(samp,cut,bdtScore,storage=hist.storage.Weight()),
+        "gen_met_noWgt" :  Hist(samp,cut,met,storage=hist.storage.Weight()),
+        "gen_met" :  Hist(samp,cut,met,storage=hist.storage.Weight()),
+        "gen_leadjet_pt" : Hist(samp,cut,jet_pt,storage=hist.storage.Weight()),
+        "gen_leadjet_pt_noWgt" : Hist(samp,cut,jet_pt,storage=hist.storage.Weight())
+
+    }
+>>>>>>> kyungmin/main
     return histograms
 
 subroutines = []
 
 def fillHistos(events,histos,samp,cut,info,sum_wgt=1):
+<<<<<<< HEAD
     
     e1 = events.sel_vtx.e1
     e2 = events.sel_vtx.e2
@@ -31,3 +42,15 @@ def fillHistos(events,histos,samp,cut,info,sum_wgt=1):
     vtx = events.sel_vtx
     histos["sel_vtx_pt"].fill(samp=samp,cut=cut,pt=vtx.pt,weight=wgt)
     #histos["sel_vtx_eta"].fill(samp=samp,cut=cut,eta=vtx.eta,weight=wgt)
+=======
+    wgt = events.eventWgt/sum_wgt
+    if 'BDTScore' in events.fields:
+        histos["bdtScore"].fill(samp=samp,cut=cut,score=events.BDTScore,weight=wgt)
+    if info['type'] == "signal":
+        histos['gen_met_noWgt'].fill(samp=samp,cut=cut,met=events.GenMET.pt,weight=1)
+        histos['gen_met'].fill(samp=samp,cut=cut,met=events.GenMET.pt,weight=wgt)
+        histos['gen_leadjet_pt'].fill(samp=samp,cut=cut,pt=events.GenJet.pt[:,0],weight=wgt)
+        histos['gen_leadjet_pt_noWgt'].fill(samp=samp,cut=cut,pt=events.GenJet.pt[:,0],weight=1)
+
+
+>>>>>>> kyungmin/main

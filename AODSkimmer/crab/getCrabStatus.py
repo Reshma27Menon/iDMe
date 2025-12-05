@@ -11,6 +11,10 @@ directories = glob.glob('./crab_*/')
 
 list_completed = []
 list_failed = []
+<<<<<<< HEAD
+=======
+list_submitfailed = []
+>>>>>>> kyungmin/main
 list_running = []
 
 now = datetime.datetime.now()
@@ -35,6 +39,13 @@ for idx, directory in enumerate(directories):
         f.write("\nJobs FAILED! Failed job IDs = ")
         for j in failedJobs:
             f.write(j + ", ")
+<<<<<<< HEAD
+=======
+    elif s['status'] == 'SUBMITFAILED':
+         list_submitfailed.append(directory)
+         os.system("mv {} ./SUBMITFAILED_JOBS".format(directory))
+         f.write("\nJobs SUBMITFAILED!")
+>>>>>>> kyungmin/main
     else:
         list_running.append(directory)
         f.write("\nJobs still running!")
@@ -52,6 +63,13 @@ flist.write("\n\nProcess with crab job failed: \n")
 for p in list_failed:
     flist.write(p + "\n")
 
+<<<<<<< HEAD
+=======
+flist.write("\n\nProcess with crab job submitfailed: \n")
+for p in list_submitfailed:
+     flist.write(p + "\n")
+
+>>>>>>> kyungmin/main
 flist.write("\n\nProcess with crab job still running: \n")
 for p in list_running:
     flist.write(p + "\n")
