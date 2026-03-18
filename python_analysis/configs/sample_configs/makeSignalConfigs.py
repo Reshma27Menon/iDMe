@@ -43,121 +43,119 @@ if mode != "sig" and mode != "bkg" and mode != "data":
 
 xrdClient = client.FileSystem("root://cmseos.fnal.gov")
 
-# # <<<<<<< HEAD
-# # if mode == "sig":
-# #     output = []
-# #     if prefix.endswith(".root"):
-# #         # Local file case
-# #         fname = os.path.basename(prefix)
-# #         mchi = float(fname.split("_")[1].split("-")[1].replace("p","."))
-# #         dmchi = float(fname.split("_")[2].split("-")[1].replace("p","."))
-# #         ctau = int(fname.split("_")[3].split("-")[1].replace("p","."))
+# <<<<<<< HEAD
+# if mode == "sig":
+#     output = []
+#     if prefix.endswith(".root"):
+#         # Local file case
+#         fname = os.path.basename(prefix)
+#         mchi = float(fname.split("_")[1].split("-")[1].replace("p","."))
+#         dmchi = float(fname.split("_")[2].split("-")[1].replace("p","."))
+#         ctau = int(fname.split("_")[3].split("-")[1].replace("p","."))
         
-# #         info = {
-# #             "location": prefix,
-# #             "Mchi": mchi,
-# #             "dMchi": dmchi,
-# #             "ctau": ctau,
-# #             "name": name,
-# #             "sum_wgt": 0.0,
-# #             "type": "signal",
-# #             "year": int(year),
-# #             "alphaD": alpha,
-# #             "xsec": 0.0,
-# #             "nFiles": 1
-# #         }
-# #         output.append(info)
-# #         out_json = f"signal_{year}_{name}_{alpha}.json"
-# #         with open(out_json, "w") as outfile:
-# #             json.dump(output, outfile, indent=4)
-# #         print(f"Wrote output to {out_json} with {len(output)} entries.")
+#         info = {
+#             "location": prefix,
+#             "Mchi": mchi,
+#             "dMchi": dmchi,
+#             "ctau": ctau,
+#             "name": name,
+#             "sum_wgt": 0.0,
+#             "type": "signal",
+#             "year": int(year),
+#             "alphaD": alpha,
+#             "xsec": 0.0,
+#             "nFiles": 1
+#         }
+#         output.append(info)
+#         out_json = f"signal_{year}_{name}_{alpha}.json"
+#         with open(out_json, "w") as outfile:
+#             json.dump(output, outfile, indent=4)
+#         print(f"Wrote output to {out_json} with {len(output)} entries.")
 
-# # if mode == "sig":
-# #     output=[]
-# #     if os.path.isdir(prefix):
-# #     # Case: prefix is a directory containing multiple .root files
-# #         root_files = glob.glob(os.path.join(prefix, "*.root"))
-# #         for rf in root_files:
-# #             fname = os.path.basename(rf)
-# #             if not fname.startswith("Signal_Mchi"): continue  # optional filter
-# #             mchi = float(fname.split("_")[1].split("-")[1].replace("p","."))
-# #             dmchi = float(fname.split("_")[2].split("-")[1].replace("p","."))
-# #             ctau = int(fname.split("_")[3].split("-")[1].replace("p","."))
+# if mode == "sig":
+#     output=[]
+#     if os.path.isdir(prefix):
+#     # Case: prefix is a directory containing multiple .root files
+#         root_files = glob.glob(os.path.join(prefix, "*.root"))
+#         for rf in root_files:
+#             fname = os.path.basename(rf)
+#             if not fname.startswith("Signal_Mchi"): continue  # optional filter
+#             mchi = float(fname.split("_")[1].split("-")[1].replace("p","."))
+#             dmchi = float(fname.split("_")[2].split("-")[1].replace("p","."))
+#             ctau = int(fname.split("_")[3].split("-")[1].replace("p","."))
             
-# #             info = {
-# #                 "location": rf,
-# #                 "Mchi": mchi,
-# #                 "dMchi": dmchi,
-# #                 "ctau": ctau,
-# #                 "name": f"Mchi-{mchi}_dMchi-{dmchi}_ctau-{ctau}",
-# #                 "sum_wgt": 0.0,
-# #                 "type": "signal",
-# #                 "year": int(year),
-# #                 "alphaD": alpha,
-# #                 "xsec": 0.0,
-# #                 "nFiles": 1
-# #             }
-# #             output.append(info)
-# #     output = sorted(output, key=lambda x: x["Mchi"])
-# #     out_json = f"signal_{year}_{name}_{alpha}.json"
-# #     with open(out_json, "w") as outfile:
-# #         json.dump(output, outfile, indent=4)
-# #     print(f"Wrote output to {out_json} with {len(output)} entries.")
+#             info = {
+#                 "location": rf,
+#                 "Mchi": mchi,
+#                 "dMchi": dmchi,
+#                 "ctau": ctau,
+#                 "name": f"Mchi-{mchi}_dMchi-{dmchi}_ctau-{ctau}",
+#                 "sum_wgt": 0.0,
+#                 "type": "signal",
+#                 "year": int(year),
+#                 "alphaD": alpha,
+#                 "xsec": 0.0,
+#                 "nFiles": 1
+#             }
+#             output.append(info)
+#     output = sorted(output, key=lambda x: x["Mchi"])
+#     out_json = f"signal_{year}_{name}_{alpha}.json"
+#     with open(out_json, "w") as outfile:
+#         json.dump(output, outfile, indent=4)
+#     print(f"Wrote output to {out_json} with {len(output)} entries.")
             
             
     
     
-# #     # points = [item.name for item in points]
-# #     # output = []
-# #     # for p in points:
-# #     #     if skimmed:
-# #     #         mchi = float(p.split("_")[2].split("-")[1].replace("p","."))
-# #     #         dmchi = float(p.split("_")[3].split("-")[1].replace("p","."))
-# #     #         ctau = int(p.split("_")[4].split("-")[1].replace("p","."))
-# #     #         for ref_pt in ref_json:
-# #     #             if ref_pt['Mchi'] == mchi and ref_pt['dMchi'] == dmchi and ref_pt['ctau'] == ctau:
-# #     #                 entry = ref_pt
-# #     #                 entry['location'] = f"{prefix}/{p}/"
-# #     #                 output.append(entry)
-# #     #     else:
-# #     #         mchi = float(p.split("_")[0].split("-")[1].replace("p","."))
-# #     #         dmchi = float(p.split("_")[1].split("-")[1].replace("p","."))
-# #     #         if 'mZD' in p:
-# #     #             mzd = p.split("_")[2]
-# #     #         else:
-# #     #             mzd = ""
-# #     #         status, lifetimes = xrdClient.dirlist(f"{prefix}/{year}/{p}")
-# #     #         lifetimes = [l.name for l in lifetimes]
+#     # points = [item.name for item in points]
+#     # output = []
+#     # for p in points:
+#     #     if skimmed:
+#     #         mchi = float(p.split("_")[2].split("-")[1].replace("p","."))
+#     #         dmchi = float(p.split("_")[3].split("-")[1].replace("p","."))
+#     #         ctau = int(p.split("_")[4].split("-")[1].replace("p","."))
+#     #         for ref_pt in ref_json:
+#     #             if ref_pt['Mchi'] == mchi and ref_pt['dMchi'] == dmchi and ref_pt['ctau'] == ctau:
+#     #                 entry = ref_pt
+#     #                 entry['location'] = f"{prefix}/{p}/"
+#     #                 output.append(entry)
+#     #     else:
+#     #         mchi = float(p.split("_")[0].split("-")[1].replace("p","."))
+#     #         dmchi = float(p.split("_")[1].split("-")[1].replace("p","."))
+#     #         if 'mZD' in p:
+#     #             mzd = p.split("_")[2]
+#     #         else:
+#     #             mzd = ""
+#     #         status, lifetimes = xrdClient.dirlist(f"{prefix}/{year}/{p}")
+#     #         lifetimes = [l.name for l in lifetimes]
             
-# #     #         for l in lifetimes:
-# #     #             ct = int(l.split("-")[1])
-# #     #             info = {}
-# #     #             info["location"] = f"{prefix}/{year}/{p}/{l}/"
-# #     #             info["Mchi"] = mchi
-# #     #             info["dMchi"] = dmchi
-# #     #             info["ctau"] = ct
-# #     #             if mzd != "":
-# #     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}_{3}".format(info["Mchi"],info["dMchi"],info["ctau"],mzd)
-# #     #             else:
-# #     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}".format(info["Mchi"],info["dMchi"],info["ctau"])
-# #     #             info["sum_wgt"] = 0.0
-# #     #             info["type"] = "signal"
-# #     #             info["year"] = int(year)
-# #     #             info["alphaD"] = alpha
-# #     #             info["xsec"] = 0.0
-# #     #             rootFiles = [rf.name for rf in xrdClient.dirlist(info["location"])[1] if '.root' in rf.name]
-# #     #             info["nFiles"] = len(rootFiles)
-# #     #             output.append(info)
+#     #         for l in lifetimes:
+#     #             ct = int(l.split("-")[1])
+#     #             info = {}
+#     #             info["location"] = f"{prefix}/{year}/{p}/{l}/"
+#     #             info["Mchi"] = mchi
+#     #             info["dMchi"] = dmchi
+#     #             info["ctau"] = ct
+#     #             if mzd != "":
+#     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}_{3}".format(info["Mchi"],info["dMchi"],info["ctau"],mzd)
+#     #             else:
+#     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}".format(info["Mchi"],info["dMchi"],info["ctau"])
+#     #             info["sum_wgt"] = 0.0
+#     #             info["type"] = "signal"
+#     #             info["year"] = int(year)
+#     #             info["alphaD"] = alpha
+#     #             info["xsec"] = 0.0
+#     #             rootFiles = [rf.name for rf in xrdClient.dirlist(info["location"])[1] if '.root' in rf.name]
+#     #             info["nFiles"] = len(rootFiles)
+#     #             output.append(info)
 
-# #     # if skimmed:
+#     # if skimmed:
 
-# #     #     out_json = "skimmed_signal_{0}_{1}_{2}.json".format(year,name,alpha)
-# #     # else:
-# #     #     out_json = "signal_{0}_{1}_{2}.json".format(year,name,alpha)
-# #     # with open(out_json,"w") as outfile:
-# #     #     json.dump(output,outfile,indent=4)
-
-
+#     #     out_json = "skimmed_signal_{0}_{1}_{2}.json".format(year,name,alpha)
+#     # else:
+#     #     out_json = "signal_{0}_{1}_{2}.json".format(year,name,alpha)
+#     # with open(out_json,"w") as outfile:
+#     #     json.dump(output,outfile,indent=4)
 
 
 
@@ -165,51 +163,53 @@ xrdClient = client.FileSystem("root://cmseos.fnal.gov")
 
 
 
-# # #ONLY WHEN FILES ARE ON EOS (submitted through condor jobs)
-# # # if mode == "sig":    
-# #     # if skimmed:
-# #     #     status, points = xrdClient.dirlist(f"{prefix}/")
-# #     # else:
-# #     #     status, points = xrdClient.dirlist(f"{prefix}/{year}/")
+
+
+# #ONLY WHEN FILES ARE ON EOS (submitted through condor jobs)
+# # if mode == "sig":    
+#     # if skimmed:
+#     #     status, points = xrdClient.dirlist(f"{prefix}/")
+#     # else:
+#     #     status, points = xrdClient.dirlist(f"{prefix}/{year}/")
     
-# #     # if points is None:
-# #     #     print(f"ERROR: Failed to list directory!")
-# #     # sys.exit(1)  # or handle gracefully
+#     # if points is None:
+#     #     print(f"ERROR: Failed to list directory!")
+#     # sys.exit(1)  # or handle gracefully
     
-# #     # points = [item.name for item in points]
-# #     # output = []
-# #     # for p in points:
-# #     #     if skimmed:
-# #     #         mchi = float(p.split("_")[2].split("-")[1].replace("p","."))
-# #     #         dmchi = float(p.split("_")[3].split("-")[1].replace("p","."))
-# #     #         ctau = int(p.split("_")[4].split("-")[1].replace("p","."))
-# #     #         for ref_pt in ref_json:
-# #     #             if ref_pt['Mchi'] == mchi and ref_pt['dMchi'] == dmchi and ref_pt['ctau'] == ctau:
-# #     #                 entry = ref_pt
-# #     #                 entry['location'] = f"{prefix}/{p}/"
-# #     #                 output.append(entry)
-# #     #     else:
-# #     #         mchi = float(p.split("_")[0].split("-")[1].replace("p","."))
-# #     #         dmchi = float(p.split("_")[1].split("-")[1].replace("p","."))
-# #     #         if 'mZD' in p:
-# #     #             mzd = p.split("_")[2]
-# #     #         else:
-# #     #             mzd = ""
-# #     #         status, lifetimes = xrdClient.dirlist(f"{prefix}/{year}/{p}")
-# #     #         lifetimes = [l.name for l in lifetimes]
+#     # points = [item.name for item in points]
+#     # output = []
+#     # for p in points:
+#     #     if skimmed:
+#     #         mchi = float(p.split("_")[2].split("-")[1].replace("p","."))
+#     #         dmchi = float(p.split("_")[3].split("-")[1].replace("p","."))
+#     #         ctau = int(p.split("_")[4].split("-")[1].replace("p","."))
+#     #         for ref_pt in ref_json:
+#     #             if ref_pt['Mchi'] == mchi and ref_pt['dMchi'] == dmchi and ref_pt['ctau'] == ctau:
+#     #                 entry = ref_pt
+#     #                 entry['location'] = f"{prefix}/{p}/"
+#     #                 output.append(entry)
+#     #     else:
+#     #         mchi = float(p.split("_")[0].split("-")[1].replace("p","."))
+#     #         dmchi = float(p.split("_")[1].split("-")[1].replace("p","."))
+#     #         if 'mZD' in p:
+#     #             mzd = p.split("_")[2]
+#     #         else:
+#     #             mzd = ""
+#     #         status, lifetimes = xrdClient.dirlist(f"{prefix}/{year}/{p}")
+#     #         lifetimes = [l.name for l in lifetimes]
             
-# #     #         for l in lifetimes:
-# #     #             ct = int(l.split("-")[1])
-# #     #             info = {}
-# #     #             info["location"] = f"{prefix}/{year}/{p}/{l}/"
-# #     #             info["Mchi"] = mchi
-# #     #             info["dMchi"] = dmchi
-# #     #             info["ctau"] = ct
-# #     #             if mzd != "":
-# #     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}_{3}".format(info["Mchi"],info["dMchi"],info["ctau"],mzd)
-# #     #             else:
-# #     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}".format(info["Mchi"],info["dMchi"],info["ctau"])
-# #     #             info["sum_wgt"] = 0.0
+#     #         for l in lifetimes:
+#     #             ct = int(l.split("-")[1])
+#     #             info = {}
+#     #             info["location"] = f"{prefix}/{year}/{p}/{l}/"
+#     #             info["Mchi"] = mchi
+#     #             info["dMchi"] = dmchi
+#     #             info["ctau"] = ct
+#     #             if mzd != "":
+#     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}_{3}".format(info["Mchi"],info["dMchi"],info["ctau"],mzd)
+#     #             else:
+#     #                 info["name"] = "sig_Mchi-{0}_dMchi-{1}_ct-{2}".format(info["Mchi"],info["dMchi"],info["ctau"])
+#     #             info["sum_wgt"] = 0.0
 # #     #             info["type"] = "signal"
 # #     #             info["year"] = int(year)
 # #     #             info["alphaD"] = alpha
