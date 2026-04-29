@@ -97,7 +97,7 @@ def electronID(events,info):
     events['LptElectron','IDscore'] = lpt_eles.ID # use the actual MVA score for low-pT electrons
 
     # lowpT ID
-    lpt_ele_kinematic_cut = (lpt_eles.pt > 1) & (np.abs(lpt_eles.eta) < 2.4)
+    lpt_ele_kinematic_cut = (lpt_eles.pt > 0) & (np.abs(lpt_eles.eta) < 2.4)
     lpt_ele_id_cut = lpt_eles.pt > 0 # dummy always True
     events["LptElectron","passID"] = lpt_ele_kinematic_cut & lpt_ele_id_cut & (lpt_eles.mindRj > 0.4)
     events["LptElectron","passIDBasic"] = lpt_ele_kinematic_cut & lpt_ele_id_cut
@@ -122,7 +122,7 @@ def electronID(events,info):
         ele_id_cut = eles.IDcutLoose==1
         events["Electron","passID"] = ele_kinematic_cut & ele_id_cut & (eles.mindRj > 0.4)
         events["Electron","passIDBasic"] = ele_kinematic_cut & ele_id_cut"""
-    ele_kinematic_cut = (eles.pt > 1) & (np.abs(eles.eta) < 2.4)
+    ele_kinematic_cut = (eles.pt > 0) & (np.abs(eles.eta) < 2.4)
 # <<<<<<< HEAD
     ele_id_cut = eles.IDcutLoose == 1
 # =======
@@ -225,7 +225,7 @@ def getBtagInfo(events):
      events["PFJet","btagNum"] = btagNum
      events["PFJet","btagDenom"] = btagDenom
 
-def defineGoodVertices(events,version='v9',ele_id='dR'):
+def defineGoodVertices(events,version='none',ele_id='basic'):
 # >>>>>>> kyungmin/main
     # Selecting electrons that pass basic pT and eta cuts
     if ele_id == 'basic':
@@ -283,8 +283,6 @@ def defineGoodVertices(events,version='v9',ele_id='dR'):
         events['vtx','isGood'] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto # v7 definition
     if version == 'v8':
         events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition   
-
-
     if version == "v9":
         events["vtx","isGood"] = IDcut & ossf & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
     if version == "v10":
@@ -325,6 +323,7 @@ def defineGoodVertices(events,version='v9',ele_id='dR'):
 def selectBestVertex(events):
     sel_vtx = ak.flatten(events.good_vtx[ak.argmin(events.good_vtx.reduced_chi2,axis=1,keepdims=True)])
     events.__setitem__("sel_vtx",sel_vtx)
+    
     
      
 
