@@ -17,9 +17,6 @@ import awkward as ak
 import vector
 # vector.register_awkward()
 
-import vector
-# vector.register_awkward()
-
 import numpy as np
 import matplotlib.pyplot as plt
 import json
@@ -45,16 +42,10 @@ vxy_range = {1:[0,20],10:[0,50],100:[0,50],1000:[0,50]}
 vxy_rebin = {1:5,10:20,100:20,1000:20}
 
 class Analyzer:
-# <<<<<<< HEAD
-#     def __init__(self,fileList,histoList,cuts,model_json,max_samples=-1,max_files_per_samp=-1,newCoffea=False):
-#         # flag to see if we're using new coffea
-#         self.newCoffea = newCoffea
-       
-# =======
-    def __init__(self,fileList,histoList,cuts,model_json=None,systematics=None,max_samples=-1,max_files_per_samp=-1,newCoffea=False,nJet_isNominal=None,isSFstudies=False,good_vtx='v11'):
+
+    def __init__(self,fileList,histoList,cuts,model_json=None,systematics=None,max_samples=-1,max_files_per_samp=-1,newCoffea=False,nJet_isNominal=None,isSFstudies=False,good_vtx='none'):
         # flag to see if we're using new coffea
         self.newCoffea = newCoffea
-# >>>>>>> kyungmin/main
 
         # load in file config
         if type(fileList) == str and ".json" in fileList:
@@ -100,10 +91,11 @@ class Analyzer:
         self.totalEvents = 0
         self.mode = None
 
-        self.model = model_json # BDT model for inference (if used in selections)
+        # self.model = model_json # BDT model for inference (if used in selections)
 
         self.nJet_isNom = nJet_isNominal # nomial njet range of NJet > 0 and NJet < 3
         self.good_vtx = good_vtx
+        print ("good_vtx:", good_vtx)
         
         self.loadFiles()
     
@@ -195,7 +187,7 @@ class Analyzer:
     def process(self,treename='ntuples/outT',execr="iterative",workers=4,merging=False,dask_client=None,procType='default',**kwargs):
         fileset = self.sample_locs
         if procType == 'default':
-            proc = iDMeProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,model_json=self.model,nJet_isNom=self.nJet_isNom,isSFstudies=self.isSFstudies,good_vtx=self.good_vtx,systematics=self.systematics,**kwargs)
+            proc = iDMeProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,nJet_isNom=self.nJet_isNom,isSFstudies=self.isSFstudies,good_vtx=self.good_vtx,systematics=self.systematics,**kwargs)
 # >>>>>>> kyungmin/main
         elif procType == 'gen':
             proc = genProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,**kwargs)
@@ -206,6 +198,7 @@ class Analyzer:
         
         if not self.newCoffea:
             if execr == "iterative":
+                print ("Iterative")
 # <<<<<<< HEAD
 #                 print ("iterative:)")
 #                 executor = processor.IterativeExecutor()
@@ -253,13 +246,13 @@ class iDMeProcessor(processor.ProcessorABC):
 # <<<<<<< HEAD
 #     def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,model_json,mode='bkg',**kwargs):
 # =======
-    def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='signal',model_json=None,nJet_isNom=None,isSFstudies=False,good_vtx='v11',systematics=None,**kwargs):
+    def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='signal',model_json=None,nJet_isNom=None,isSFstudies=False,good_vtx='none',systematics=None,**kwargs):
 # >>>>>>> kyungmin/main
         self.samples = samples
         self.sampleInfo = sampleInfo
         self.sampleLocs = fileSet
         self.mode = mode
-        self.model = model_json
+        # self.model = model_json
 # <<<<<<< HEAD
         
 #         # Import module by its file name (without extension)
@@ -310,7 +303,7 @@ class iDMeProcessor(processor.ProcessorABC):
         
 # <<<<<<< HEAD
         
-        #histObj = self.histoMod.make_histograms(info)
+        # histObj = self.histoMod.make_histograms(info)
         histObj = self.histoMod.make_histograms()  #Commented when using a different histo
         cutDesc = defaultdict(str)
 # =======
@@ -354,7 +347,9 @@ class iDMeProcessor(processor.ProcessorABC):
 
         # Initial number of events
         if isMC:
+                      
             cutflow['all'] += ak.sum(events.genWgt)/sum_wgt
+            print ("cutflow 'all' after fill:", cutflow)
         else:
             cutflow['all'] += len(events)/sum_wgt
         cutflow_nevts['all'] += len(events)
@@ -409,7 +404,6 @@ class iDMeProcessor(processor.ProcessorABC):
 
         apply_vtx_SF = False
         if self.systematics != None:
-            #print('systematics')
             
             if self.systematics['PU'] != 'None':
                 if isMC:
@@ -496,15 +490,27 @@ class iDMeProcessor(processor.ProcessorABC):
 
         # needs a good vertex
         routines.defineGoodVertices(events,version=self.good_vtx) # define "good" vertices based on whether associated electrons pass ID cuts
-        events = events[events.nGoodVtx > 0]
+        
+
+        # events = events[events.nGoodVtx > 0]
+        
+
+        
+
         # define "selected" vertex based on selection criteria in the routine (nominally: lowest chi2)
         #routines.selectBestVertex(events)
         if info['type'] == "signal":
-             events = routines.selectTrueVertex(events,events.good_vtx)
+            print ("All good!")
+            
+            #  # events = routines.selectTrueVertex(events,events.good_vtx)
+            # routines.selectBestVertex(events)
+            
+            
              #routines.selectBestVertex(events)
         else:
-             routines.selectBestVertex(events)
-        routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
+            routines.selectBestVertex(events)
+        # routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
+        # routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
 
         # Vtx SF related stuff (shitty hack)
         if apply_vtx_SF == True:
@@ -513,7 +519,15 @@ class iDMeProcessor(processor.ProcessorABC):
 
         # Fill cutflow after baseline selection
         if isMC:
+            print ("cutflow before hasVtx:", cutflow)
+            print ("len(events) before hasVtx:",len(events))
+            print ("Ratio:", ak.sum(events.genWgt)/sum_wgt)
+            
             cutflow['hasVtx'] += ak.sum(events.genWgt)/sum_wgt
+            
+            print ("cutflow after hasVtx:", cutflow)
+            print ("len(events) after hasVtx:",len(events))
+            print ("Ratio after hasVtx:", ak.sum(events.genWgt)/sum_wgt)
         else:
             cutflow['hasVtx'] += len(events)/sum_wgt
         cutflow_nevts['hasVtx'] += len(events)
@@ -525,8 +539,8 @@ class iDMeProcessor(processor.ProcessorABC):
             routines.projectGenLxy(events)
 
 
-            vtx_matched_events = events[events.sel_vtx.isMatched]
-            cutflow_vtx_matched['hasVtx'] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
+            # vtx_matched_events = events[events.sel_vtx.isMatched]
+            # cutflow_vtx_matched['hasVtx'] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
 
         # computing any extra quantities specified in the histogram config file
         for subroutine in self.subroutines:
@@ -574,8 +588,9 @@ class iDMeProcessor(processor.ProcessorABC):
 # =======
             cutflow_nevts[cutName] += len(events)            
             if info['type'] == "signal":
-                vtx_matched_events = events[events.sel_vtx.isMatched]
-                cutflow_vtx_matched[cutName] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
+                print ("Good!")
+                # vtx_matched_events = events[events.sel_vtx.isMatched]
+                # cutflow_vtx_matched[cutName] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
 # >>>>>>> kyungmin/main
             cutDesc[cutName] += cutDescription + "@"
 
@@ -673,6 +688,8 @@ class genProcessor(iDMeProcessor):
         cutflow['hasVtx'] += ak.sum(events.genWgt)/sum_wgt
         cutflow_nevts['hasVtx'] += len(events)
         cutDesc['hasVtx'] = 'Baseline Selection'
+        print ("cutflow after baseline selection:", cutflow)
+
 
         # computing any extra quantities specified in the histogram config file
         for subroutine in self.subroutines:
