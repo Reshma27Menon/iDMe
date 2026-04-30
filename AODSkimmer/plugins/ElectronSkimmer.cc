@@ -810,14 +810,13 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
          float dR = reco::deltaR(ele.p4(), reg_good_eles[ireg]->p4());
          if (dR < mindR) 
          {
-
             mindR = dR;
-            //iMatch_reg = ireg;
+            
          }
       }
       nt.recoLowPtElectronIsXCleaned_.push_back(false);   //CROSS
       nt.recoLowPtElectronGEDidx_.push_back(-999);
-       //The CROSS-CLEANING part :// can optionally not skip and save whether or not the lpt electron *should* be x-cleaned
+       // The CROSS-CLEANING part :// can optionally not skip and save whether or not the lpt electron *should* be x-cleaned
       // if (mindR < PFmatch_threshold) 
       // {         
       //    ilpt_all++;
@@ -994,7 +993,6 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       //// CROSS-CLEAN aspect
       // if (mindR < PFmatch_threshold) {
       //    allLptEles_isXcleaned.push_back(true);
-      //    // allLptEles_isXcleaned.push_back(false);
       // }
       // else {
       //    allLptEles_isXcleaned.push_back(false);
