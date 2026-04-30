@@ -124,6 +124,8 @@ class ElectronSkimmer : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::on
 
    private:
       bool getCollections(const edm::Event&);
+      // Run3 added
+      bool passesDisplacedID(const reco::Track&) const;
       virtual void beginJob() override;
       virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
@@ -141,7 +143,8 @@ class ElectronSkimmer : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::on
       bool isSignal;
       std::string year;
       const std::string triggerProcessName_;
-      const std::string metFilterName_;
+      // Run3 modified
+      std::string metFilterName_;
       std::vector<std::string> metFilters_;
       std::vector<std::string> trigPaths_;
       // Electron isolation effective areas
@@ -172,8 +175,12 @@ class ElectronSkimmer : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::on
       const edm::EDGetTokenT<vector<pat::IsolatedTrack> > isoTrackToken_;
       const edm::EDGetTokenT<vector<pat::Muon> > pfRecoMuToken_;
       // Run3 additions
-      const edm::EDGetTokenT<vector<reco::Track> > dsaMuonToken_;
       const edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> ttkToken_;
+      const edm::EDGetTokenT<vector<reco::Track> > dsaMuonToken_;
+      // Added to allow "RECO" or "PAT" tags
+      edm::EDGetTokenT<vector<reco::Conversion> > conversionsAltToken_;
+      edm::EDGetTokenT<edm::TriggerResults> metFilterResultsAltToken_;
+      edm::EDGetTokenT<vector<pat::IsolatedTrack> > isoTrackAltToken_;
 
       // Handles
       edm::Handle<vector<pat::Electron> > recoElectronHandle_;
@@ -199,7 +206,9 @@ class ElectronSkimmer : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::on
       edm::Handle<edm::TriggerResults> metFilterResultsHandle_;
       edm::Handle<vector<pat::IsolatedTrack> > isoTrackHandle_;
       edm::Handle<vector<pat::Muon> > pfRecoMuHandle_;
-
+      // Run3 addition
+      edm::Handle<vector<reco::Track>> dsaMuonHandle_;
+  
       // Trigger variables
       std::vector<std::string> trigPathsWithVersion_;
       std::vector<bool> trigExist_;
@@ -252,7 +261,14 @@ ElectronSkimmer::ElectronSkimmer(const edm::ParameterSet& ps)
    pfRecoMuToken_(consumes<vector<pat::Muon> >(ps.getParameter<edm::InputTag>("pfRecoMu"))),
    // Run3 additions
    ttkToken_(esConsumes(edm::ESInputTag{"", "TransientTrackBuilder"})),
-   dsaMuonToken_(consumes<vector<reco::Track> >(ps.getParameter<edm::InputTag>("displacedStandAloneMuons")))
+   dsaMuonToken_(consumes<vector<reco::Track> >(ps.getParameter<edm::InputTag>("displacedStandAloneMuons"))),
+   // Added to allow "RECO" or "PAT" tags
+   conversionsAltToken_(mayConsume<vector<reco::Conversion> >(edm::InputTag("reducedEgamma","reducedConversions",
+       ps.getParameter<edm::InputTag>("conversions").process() == "PAT" ? "RECO" : "PAT"))),
+   metFilterResultsAltToken_(mayConsume<edm::TriggerResults>(edm::InputTag("TriggerResults", "",
+       ps.getParameter<edm::InputTag>("metFilterResults").process() == "PAT" ? "RECO" : "PAT"))),
+   isoTrackAltToken_(mayConsume<vector<pat::IsolatedTrack> >(edm::InputTag("isolatedTracks","",
+       ps.getParameter<edm::InputTag>("isoTracks").process() == "PAT" ? "RECO" : "PAT")))
 {
    usesResource("TFileService");
    m_random_generator = std::mt19937(37428479);
@@ -296,8 +312,16 @@ ElectronSkimmer::beginRun(edm::Run const& iRun, edm::EventSetup const& iSetup)
       }
    }
    else {
-      LogError("HLTConfig") << "iDMAnalyzer::beginRun: config extraction failure with metFilterName -> " << metFilterName_;
-      return;
+      // Run3 modified to allow "RECO" or "PAT" tags
+      std::string altName = (metFilterName_ == "PAT") ? "RECO" : "PAT";
+      if (metFilterConfig_.init(iRun,iSetup,altName,changed)) {
+         metFilterName_ = altName;
+         LogInfo("HLTConfig") << "iDMAnalyzer::beginRun: metFilterConfig init succeeded with alternate process name: " << altName;
+      }
+      else {
+         LogError("HLTConfig") << "iDMAnalyzer::beginRun: config extraction failure for both PAT and RECO process names";
+         return;
+      }
    }
 
    // Add trigger paths if they exist
@@ -438,6 +462,13 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    iEvent.getByToken(pfRecoMuToken_,pfRecoMuHandle_);
    // Run3 additions
    iEvent.getByToken(dsaMuonToken_,dsaMuonHandle_);
+   // Added to allow "RECO" or "PAT" tags
+   if (!conversionsHandle_.isValid())
+      iEvent.getByToken(conversionsAltToken_,conversionsHandle_);
+   if (!metFilterResultsHandle_.isValid())
+      iEvent.getByToken(metFilterResultsAltToken_,metFilterResultsHandle_);
+   if (!isoTrackHandle_.isValid())
+      iEvent.getByToken(isoTrackAltToken_,isoTrackHandle_);
    
    if (!isData) { 
       iEvent.getByToken(genEvtInfoToken_,genEvtInfoHandle_);
@@ -756,12 +787,12 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       float mindR = 999;
       reco::GsfTrackRef track = ele.gsfTrack();
       float PFmatch_threshold = 0.05; // dR threshold for throwing away low-pT electron in favor of PF electron
-      //int iMatch_reg;
+      int iMatch_reg;
       for (size_t ireg = 0; ireg < reg_good_eles.size(); ireg++) {
          float dR = reco::deltaR(ele.p4(), reg_good_eles[ireg]->p4());
          if (dR < mindR) {
             mindR = dR;
-            //iMatch_reg = ireg;
+            iMatch_reg = ireg;
          }
       }
       // can optionally not skip and save whether or not the lpt electron *should* be x-cleaned

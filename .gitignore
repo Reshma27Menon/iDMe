@@ -17,3 +17,5 @@ MCSampleProduction/
 *.log
 *.lhe
 CMSSW*
+*.csv
+*.txt
