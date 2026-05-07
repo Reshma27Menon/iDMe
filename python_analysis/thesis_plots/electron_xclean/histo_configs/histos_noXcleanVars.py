@@ -98,9 +98,9 @@ class myHisto:
         self.sigReco = self.parse_axis(('reco',[0,1]))
         self.vtxMatch = self.parse_axis(('match',[0,1]))
 
-        self.dRCategories = self.parse_axis(('dRCat',['0to0p1','0p1to0p5','0p5toInf']))
-        self.vxyCategories = self.parse_axis(('vxyCat',['0to1','1to5','5to10','10to15','15toInf']))
-        self.ptCategories = self.parse_axis(('ptCat',['0to5','5to10','10to20','20toInf']))
+        # self.dRCategories = self.parse_axis(('dRCat',['0to0p1','0p1to0p5','0p5toInf']))
+        # self.vxyCategories = self.parse_axis(('vxyCat',['0to1','1to5','5to10','10to15','15toInf']))
+        # self.ptCategories = self.parse_axis(('ptCat',['0to5','5to10','10to20','20toInf']))
 
     def make(self,name,*args,**hist_kwargs):
         if name in self.histograms.keys():
@@ -229,7 +229,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         # np= ak.count(events.GenPos.pt)
         # n=ne+np
         
-        # print ("GenpT:", events.GenEle.pt)
+        print ("GenpT:", events.GenEle.pt)
         # print ("Number of gen electrons per event:", ak.count(events.Electron.pt,axis=1))
         # print ("Total number of gen electrons:", ne)
         # print ("Total number of gen positrons:", np)
@@ -284,7 +284,6 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         genObj_lpt = ak.flatten(genObj_lpt)
         match_lpt_passID = ak.values_astype(match_lpt.passID,int)
 
-<<<<<<< HEAD
 
         
 
