@@ -12,7 +12,7 @@ from Configuration.ProcessModifiers.run2_miniAOD_UL_cff import run2_miniAOD_UL
 #Run3 imports
 from Configuration.Eras.Era_Run3_cff import Run3                   #corresponds to Run3 2022 (maybe)
 from Configuration.Eras.Era_Run3_2023_cff import Run3_2023         #corresponds to Run3 2023
-from Configuration.Eras.Era_Run3_2024_cff import Run3_2024         # 2024
+# from Configuration.Eras.Era_Run3_2024_cff import Run3_2024         # 2024
 
 import json
 import sys
@@ -100,10 +100,10 @@ elif options.year == '2023':
     era = Run3_2023
     recoEgammaTools_era = '2018-UL' #XYZ FIX
 
-elif options.year == '2024': #XYZ FIX
-    globaltag = '' if options.data else '150X_mcRun3_2024_realistic_v2'
-    era = Run3_2024
-    recoEgammaTools_era = '2018-UL' #XYZ FIX
+# elif options.year == '2024': #XYZ FIX
+#     globaltag = '' if options.data else '150X_mcRun3_2024_realistic_v2'
+#     era = Run3_2024
+#     recoEgammaTools_era = '2018-UL' #XYZ FIX
 
 
 else:
@@ -250,6 +250,8 @@ process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+
+
 
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 
