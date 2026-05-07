@@ -95,7 +95,7 @@ class Analyzer:
         
         self.loadFiles()
     
-    def loadFiles(self):
+     def loadFiles(self):
         loaded = 0
         for sample in self.fileList:
             if self.max_samples > 0 and loaded == self.max_samples:
@@ -156,7 +156,7 @@ class Analyzer:
             self.sample_info[name] = sample
             self.sample_names.append(name)
             loaded += 1
-    def process(self,treename='ntuples/outT',execr="iterative",workers=4,merging=False,dask_client=None,procType='default',**kwargs):
+     def process(self,treename='ntuples/outT',execr="iterative",workers=4,merging=False,dask_client=None,procType='default',**kwargs):
         fileset = self.sample_locs
         if procType == 'default':
             proc = iDMeProcessor(self.sample_names,self.sample_info,self.sample_locs,self.histoFile,self.cuts,mode=self.mode,nJet_isNom=self.nJet_isNom,isSFstudies=self.isSFstudies,good_vtx=self.good_vtx,systematics=self.systematics,**kwargs)
@@ -492,14 +492,10 @@ class iDMeProcessor(processor.ProcessorABC):
                 print ("Good!")
                 # vtx_matched_events = events[events.sel_vtx.isMatched]
                 # cutflow_vtx_matched[cutName] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
-
-
-
-            
-            if info['type'] == "signal":
-                vtx_matched_events = events[events.sel_vtx.isMatched]
-                cutflow_vtx_matched[cutName] += ak.sum(vtx_matched_events.genWgt)/ak.sum(events.genWgt)
             cutDesc[cutName] += cutDescription + "@"
+
+
+
 
             # Fill histograms
             if savePlots and len(events) > 0: # fixes some bugginess trying to fill histograms with empty arrays
