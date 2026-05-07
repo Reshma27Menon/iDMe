@@ -124,23 +124,31 @@ def electronID(events,info):
     events["Electron","passID"] = ele_kinematic_cut & ele_id_cut & (eles.mindRj > 0.4)
     events["Electron","passIDBasic"] = ele_kinematic_cut & ele_id_cut
     
+# def jetBtag(events,year):
+#     year = str(year)
+#     loose,med,tight = getBtagWPs(year)
+#     events["PFJet","passLooseID"] = events.PFJet.bTag > loose
+#     events["PFJet","passMedID"] = events.PFJet.bTag > med
+#     events["PFJet","passTightID"] = events.PFJet.bTag > tight
+
 def jetBtag(events,year):
-    year = str(year)
     loose,med,tight = getBtagWPs(year)
     events["PFJet","passLooseID"] = events.PFJet.bTag > loose
     events["PFJet","passMedID"] = events.PFJet.bTag > med
     events["PFJet","passTightID"] = events.PFJet.bTag > tight
 
+
 def getBtagWPs(year):
-    year = str(year)
-    if year == '2018':
+    if year == 2022:
+       loose,med,tight = 0.0583, 0.3086, 0.7183
+    if year == 2018:
         loose,med,tight = 0.0490, 0.2783, 0.7100
-    if year == '2017':
+    if year == 2017:
         loose,med,tight = 0.0532, 0.3040, 0.7476
-    if year == '2016':
+    if year == 2016:
         loose,med,tight = 0.0480, 0.2489, 0.6377
-    if year == '2016APV':
-        loose,med,tight = 0.0508, 0.2598, 0.6502
+    if year == "2016APV":
+         loose,med,tight = 0.0508, 0.2598, 0.6502
     return loose,med,tight
 
 def electronIsoConePtSum(events):
