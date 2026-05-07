@@ -125,7 +125,9 @@ class ElectronSkimmer : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::on
    private:
       bool getCollections(const edm::Event&);
       // Run3 added
-      bool passesDisplacedID(const reco::Track&) const;
+      bool passesDisplacedID(const reco::Track& dsaMuon) const;
+
+      // bool passesDisplacedID(const reco::Track&) const;
       virtual void beginJob() override;
       virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
@@ -555,14 +557,25 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       nt.CaloMET_ET_ = met.caloMETSumEt();
    }
 
+
+    
    // Handling Jets
    for (auto & jet : *recoJetHandle_) {
       nt.PFNJetAll_++;
+      cout<<"Total number of jets1:"<<nt.PFNJetAll_<<endl;
+
       if (helper.JetID(jet,year) && jet.pt() > 30) {
+         cout<<"Is this loop happening?"<<endl;
+         cout<<"Total number of jets2:"<<nt.PFNJetAll_<<endl;
+          
          nt.PFNJet_++;
+         cout<<"Total number of jets3:"<<nt.PFNJetAll_<<endl;
+         
          nt.PFJetPt_.push_back(jet.pt());
          nt.PFJetEta_.push_back(jet.eta());
          nt.PFJetPhi_.push_back(jet.phi());
+         cout << "Jet pt: " << jet.pt() << " eta: " << jet.eta() << " phi: " << jet.phi() << endl;
+         cout<<"Something interesting!"<<endl;
          auto bTag = jet.bDiscriminator("pfDeepFlavourJetTags:probb") + 
 
                      jet.bDiscriminator("pfDeepFlavourJetTags:probbb") + 
