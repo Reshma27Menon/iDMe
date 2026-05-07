@@ -14,10 +14,25 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 from matplotlib.colors import Normalize, LogNorm
 import utils
+# <<<<<<< HEAD
+import boost_histogram as bh
 
 from mplhep.styles.cms import cmap_petroff
 
-cmap = ["#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"] # cms-recommended version of 10-color scheme
+cmap = ["#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"] 
+# cms-recommended version of 10-color scheme
+# =======
+
+# from mplhep.styles.cms import cmap_petroff
+
+# cmap = ["#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"] # cms-recommended version of 10-color scheme
+# >>>>>>> kyungmin/main
+# # =======
+
+# from mplhep.styles.cms import cmap_petroff
+
+# cmap = ["#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"] # cms-recommended version of 10-color scheme
+# >>>>>>> Andrew/ACR_Run3
 
 bkg_cmap = {
     "QCD":cmap_petroff[0],
@@ -46,18 +61,46 @@ bkg_cmap = {
 }
 '''
 
-selected_signals = [
-    "sig_2018_Mchi-10p5_dMchi-1p0_ctau-1",
-    "sig_2018_Mchi-11p0_dMchi-2p0_ctau-100",
-    "sig_2018_Mchi-52p5_dMchi-5p0_ctau-10",
-    "sig_2018_Mchi-77p0_dMchi-14p0_ctau-100"
-]
-selected_signals_cmap = {
-    "sig_2018_Mchi-10p5_dMchi-1p0_ctau-1":"k",
-    "sig_2018_Mchi-11p0_dMchi-2p0_ctau-100":"g",
-    "sig_2018_Mchi-52p5_dMchi-5p0_ctau-10":"c",
-    "sig_2018_Mchi-77p0_dMchi-14p0_ctau-100":"b"
-}
+# <<<<<<< HEAD
+# # <<<<<<< HEAD
+# # selected_signals = [
+# #     "signal_2022_Mchi-10p5_dMchi-1p0_ctau-10",
+# #     "signal_2022_Mchi-31p5_dMchi-3p0_ctau-10",
+# #     "signal_2022_Mchi-52p5_dMchi-5p0_ctau-10"    
+# # ]
+# # selected_signals_cmap = {
+# #     "signal_2022_Mchi-10p5_dMchi-1p0_ctau-10":"r",
+# #     "signal_2022_Mchi-31p5_dMchi-3p0_ctau-10":"b",
+# #     "signal_2022_Mchi-52p5_dMchi-5p0_ctau-10":"g"
+# # }
+# # =======
+# # selected_signals = [
+# #     "sig_2018_Mchi-10p5_dMchi-1p0_ctau-1",
+# #     "sig_2018_Mchi-11p0_dMchi-2p0_ctau-100",
+# #     "sig_2018_Mchi-52p5_dMchi-5p0_ctau-10",
+# #     "sig_2018_Mchi-77p0_dMchi-14p0_ctau-100"
+# # ]
+# # selected_signals_cmap = {
+# #     "sig_2018_Mchi-10p5_dMchi-1p0_ctau-1":"k",
+# #     "sig_2018_Mchi-11p0_dMchi-2p0_ctau-100":"g",
+# #     "sig_2018_Mchi-52p5_dMchi-5p0_ctau-10":"c",
+# #     "sig_2018_Mchi-77p0_dMchi-14p0_ctau-100":"b"
+# # }
+# # >>>>>>> kyungmin/main
+# =======
+# selected_signals = [
+#     "sig_2018_Mchi-10p5_dMchi-1p0_ctau-1",
+#     "sig_2018_Mchi-11p0_dMchi-2p0_ctau-100",
+#     "sig_2018_Mchi-52p5_dMchi-5p0_ctau-10",
+#     "sig_2018_Mchi-77p0_dMchi-14p0_ctau-100"
+# ]
+# selected_signals_cmap = {
+#     "sig_2018_Mchi-10p5_dMchi-1p0_ctau-1":"k",
+#     "sig_2018_Mchi-11p0_dMchi-2p0_ctau-100":"g",
+#     "sig_2018_Mchi-52p5_dMchi-5p0_ctau-10":"c",
+#     "sig_2018_Mchi-77p0_dMchi-14p0_ctau-100":"b"
+# }
+# >>>>>>> Andrew/ACR_Run3
 
 class histContainer:
     def __init__(self,path,noMeta=False,bkg=False):
@@ -279,8 +322,17 @@ def plot_signal_efficiency(sig_histo, df, plot_dict_sig_eff):
     'doLog': True,
     
     'ylabel': 'Events', # None for default
+<<<<<<< HEAD
+<<<<<<< HEAD
+    'title': rf"Cutflow: $\Delta$ = {deltas[0]}, c$\tau$ = {ctaus[0]}mm", 
+=======
     'title': rf"Cutflow: $\Delta$ = {deltas[0]}, c$\tau$ = {ctaus[0]}mm",
     'label': None,
+>>>>>>> kyungmin/main
+=======
+    'title': rf"Cutflow: $\Delta$ = {deltas[0]}, c$\tau$ = {ctaus[0]}mm",
+    'label': None,
+>>>>>>> Andrew/ACR_Run3
 
     # Plot saving
     'doSave': False,
@@ -311,11 +363,13 @@ def plot_signal_efficiency(sig_histo, df, plot_dict_sig_eff):
         
         if (m1 in plot_dict_sig_eff['m1s']) and (delta in plot_dict_sig_eff['deltas']):
             if ctau in plot_dict_sig_eff['ctaus']:
+
                 if plot_dict_sig_eff['label'] == None:
                     label = rf"($M_{1}$, $\Delta$) = ({m1:.0f}, {dmchi:.0f}) GeV, c$\tau$ = {int(ctau)}mm"
                 else:
                     label = plot_dict_sig_eff['label']
                 plt.plot(cuts, df.loc[point], label=label)
+
 
     if plot_dict_sig_eff['doLog']:
         plt.yscale('log')
@@ -340,6 +394,9 @@ def plot_signal_efficiency(sig_histo, df, plot_dict_sig_eff):
         print(f"Saved: {plot_dict_sig_eff['outDir']}/{plot_dict_sig_eff['outName']}")
     
 
+    plt.show()
+
+
 def plot_bkg_efficiency(bkg_histos, df, plot_dict_bkg_eff):
     """
     Example:
@@ -355,6 +412,10 @@ def plot_bkg_efficiency(bkg_histos, df, plot_dict_bkg_eff):
     
     'ylabel': 'Events', # None for default
     'title': rf"Cutflow", 
+<<<<<<< HEAD
+
+=======
+>>>>>>> Andrew/ACR_Run3
     'label': None,
     'color': None,
 
@@ -373,6 +434,7 @@ def plot_bkg_efficiency(bkg_histos, df, plot_dict_bkg_eff):
 
     # Color map for each process
     for process in processes:
+
         if plot_dict_bkg_eff['label'] != None:
             label = plot_dict_bkg_eff['label']
         else:
@@ -386,6 +448,7 @@ def plot_bkg_efficiency(bkg_histos, df, plot_dict_bkg_eff):
             plt.plot(cuts, df.loc[process], label=label, color=color)
         else:
             plt.plot(cuts, df.loc[process], label=label, color = bkg_cmap[process])
+
 
     if plot_dict_bkg_eff['doLog']:
         plt.yscale('log')
@@ -481,7 +544,17 @@ def plot_signal_1D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
     fig = style_dict['fig']
     ax = style_dict['ax']
     
-    hep.cms.label('', data=False, year=plot_dict['year'])
+# <<<<<<< HEAD
+# <<<<<<< HEAD
+    hep.cms.label('Private Work', data=False, year=plot_dict['year'], com='13.6')
+    # hep.cms.label('Preliminary', data=False, year=plot_dict['year'], com='13.6')
+
+# # =======
+# #     hep.cms.label('', data=False, year=plot_dict['year'])
+# # >>>>>>> kyungmin/main
+# =======
+#     hep.cms.label('', data=False, year=plot_dict['year'])
+# >>>>>>> Andrew/ACR_Run3
     
     # get signal point info
     si = utils.get_signal_point_dict(sig_histo)
@@ -493,6 +566,7 @@ def plot_signal_1D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
     dmchi = samp_df.dmchi[0]
     ctau = samp_df.ctau[0]
     label = rf"$(m_\chi, \Delta m_\chi) = ({m1:.0f}, {dmchi:.0f})$ GeV"
+
 
     if style_dict['label'] != None:
         label = style_dict['label']
@@ -528,7 +602,7 @@ def plot_signal_1D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
     if style_dict['doLogy']:
         ax.set_yscale('log')
 
-    # Plot
+
     hep.histplot(histo, yerr=style_dict['doYerr'], density=style_dict['doDensity'], ax=ax, histtype='step', flow=style_dict['flow'], label = label)
 
     plt.legend()
@@ -539,6 +613,245 @@ def plot_signal_1D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
         plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
         print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
     
+
+#Used for Electron Reconstruction Efficiency when projecting pT
+def plot_signal_1D_match(sig_histo, m1, delta, ctau, plot_dict, style_dict, match_type='R', passID='1'):
+    """
+    Example:
+
+    plot_dict = {
+    'variable': 'sel_vtx_vxy10',
+    'cut': 'cut7',
+    'year': 2018
+    }
+    
+    style_dict = {
+        'fig': fig,
+        'ax': ax,
+        'rebin': 1j,
+        'xlim': None,     # if None, the default will show up; otherwise give as a list, i.e. [0, 10]
+        'doLogy': True, 
+        'doLogx': False,
+        'doDensity': False,
+        'doYerr': False, 
+        'xlabel': r"$L_{xy}$ [cm]",   # if None, the default will show up; otherwise give as a string, i.e. 'Electron dxy'
+        'ylabel': 'Events/0.1cm',   # if None, the default will show up; otherwise give as a string, i.e. 'Efficiency'
+        'label': None,    # if None, the default will show up; otherwise give as a string, i.e. 'Highest ctau signal samples'
+        'flow': None,     # overflow
+        'doSave': False,
+        'outDir': './plots/',
+        'outName': f'background_cut7_Lxy_max10.png'
+    }
+
+    """
+
+    fig = style_dict['fig']
+    ax = style_dict['ax']
+    
+    hep.cms.label('Preliminary', data=False, year=plot_dict['year'], com='13.6')
+    
+    # get signal point info
+    si = utils.get_signal_point_dict(sig_histo)
+    samp_df = si[(si.m1 == m1) & (si.delta == delta) & (si.ctau == ctau)]
+    
+    samp = samp_df.name[0]
+
+    m1 = samp_df.m1[0]
+    dmchi = samp_df.dmchi[0]
+    ctau = samp_df.ctau[0]
+    label = rf"$(m_\chi, \Delta m_\chi) = ({m1:.0f}, {dmchi:.0f})$ GeV, ctau= {0.1*ctau:.0f} cm"
+
+    if style_dict['label'] != None:
+        label = style_dict['label']
+    
+    # get histogram from coffea output
+    histo = sig_histo[plot_dict['variable']][{"samp":samp, "cut": plot_dict['cut']}]
+
+    # Project categorical axes to pt
+    histo_sel = histo
+    #PART for match "pT" or "vxy" plots
+    if "match_type" in histo.axes.name:
+        histo_sel = histo_sel[{"match_type": match_type}]
+    if "passID" in histo.axes.name:
+        histo_sel = histo_sel[{"passID": passID}]
+
+    # Project to numeric axis
+    histo_proj = histo_sel.project("pt")
+    # histo_proj = histo_sel.project("vxy")
+
+
+    # rebinning
+    # histo_proj = histo_proj[::style_dict['rebin']]
+    # rebin = style_dict.get('rebin', 1)
+    # if isinstance(rebin, (int, complex)):
+    #     histo_proj = histo_proj[::rebin]
+    # elif isinstance(rebin, (list, np.ndarray)):
+    #     histo_proj = bh.rebin(rebin)
+
+    # Apply x range
+    if style_dict.get('xlim') is not None:
+        xlim = style_dict['xlim']
+        xbin_range = np.where((histo_proj.axes.edges[0] > xlim[0]) & (histo_proj.axes.edges[0] < xlim[1]))[0]
+        histo_proj = histo_proj[int(xbin_range[0])-1:int(xbin_range[-1]+1)]
+
+
+    # if style_dict.get('xlim') is not None:
+    #      unequal_edges = histo_proj[]
+    #      hist_proj = bh.Histogram(bh.axis.Variable(unequal_edges))
+                          
+ 
+      
+    ax.set_xlabel(style_dict.get('xlabel', histo_proj.name))
+    if style_dict.get('ylabel') is not None:
+        ax.set_ylabel(style_dict['ylabel'])
+    else:
+        binwidth = histo_proj.axes.widths[0][0]
+        ylabel = f'Events/{binwidth:.3f}'
+        if style_dict.get('doDensity', False):
+            ylabel = f'A.U./{binwidth:.3f}'
+        ax.set_ylabel(ylabel)
+
+    # Log scales
+    if style_dict.get('doLogx', False):
+        ax.set_xscale('log')
+    if style_dict.get('doLogy', False):
+        ax.set_yscale('log')
+ 
+    count = histo_proj.values()
+    edges = histo_proj.axes[0].edges
+   
+    # edges_1 = histo_proj.axes.edges[1]
+    hep.histplot(histo_proj, yerr=style_dict['doYerr'], density=style_dict['doDensity'], ax=ax, histtype='step', flow=style_dict['flow'], label = label)
+    
+
+    plt.legend()
+    
+    if style_dict['doSave']:
+        os.makedirs(style_dict['outDir'], exist_ok=True)
+        plt.tight_layout()
+        plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
+        print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+    return count, edges
+
+#Used for Electron Reconstruction Efficiency when projecting Lxy
+def plot_signal_1D_lxy(sig_histo, m1, delta, ctau, plot_dict, style_dict, match_type='R', passID='1'):
+    """
+    Example:
+
+    plot_dict = {
+    'variable': 'sel_vtx_vxy10',
+    'cut': 'cut7',
+    'year': 2018
+    }
+    
+    style_dict = {
+        'fig': fig,
+        'ax': ax,
+        'rebin': 1j,
+        'xlim': None,     # if None, the default will show up; otherwise give as a list, i.e. [0, 10]
+        'doLogy': True, 
+        'doLogx': False,
+        'doDensity': False,
+        'doYerr': False, 
+        'xlabel': r"$L_{xy}$ [cm]",   # if None, the default will show up; otherwise give as a string, i.e. 'Electron dxy'
+        'ylabel': 'Events/0.1cm',   # if None, the default will show up; otherwise give as a string, i.e. 'Efficiency'
+        'label': None,    # if None, the default will show up; otherwise give as a string, i.e. 'Highest ctau signal samples'
+        'flow': None,     # overflow
+        'doSave': False,
+        'outDir': './plots/',
+        'outName': f'background_cut7_Lxy_max10.png'
+    }
+
+    """
+
+    fig = style_dict['fig']
+    ax = style_dict['ax']
+    
+    hep.cms.label('Preliminary', data=False, year=plot_dict['year'], com='13.6')
+    
+    # get signal point info
+    si = utils.get_signal_point_dict(sig_histo)
+    samp_df = si[(si.m1 == m1) & (si.delta == delta) & (si.ctau == ctau)]
+    
+    samp = samp_df.name[0]
+
+    m1 = samp_df.m1[0]
+    dmchi = samp_df.dmchi[0]
+    ctau = samp_df.ctau[0]
+    label = rf"$(m_\chi, \Delta m_\chi) = ({m1:.0f}, {dmchi:.0f})$ GeV, ctau= {0.1*ctau:.0f} cm"
+
+    if style_dict['label'] != None:
+        label = style_dict['label']
+    
+    # get histogram from coffea output
+    histo = sig_histo[plot_dict['variable']][{"samp":samp, "cut": plot_dict['cut']}]
+
+    # Project categorical axes to pt
+    histo_sel = histo
+    #PART for match "pT" or "vxy" plots
+    if "match_type" in histo.axes.name:
+        histo_sel = histo_sel[{"match_type": match_type}]
+    if "passID" in histo.axes.name:
+        histo_sel = histo_sel[{"passID": passID}]
+
+    # Project to numeric axis
+    histo_proj = histo_sel.project("vxy")
+    # histo_proj = histo_sel.project("vxy")
+
+
+    # rebinning
+    # histo_proj = histo_proj[::style_dict['rebin']]
+    # rebin = style_dict.get('rebin', 1)
+    # if isinstance(rebin, (int, complex)):
+    #     histo_proj = histo_proj[::rebin]
+    # elif isinstance(rebin, (list, np.ndarray)):
+    #     histo_proj = bh.rebin(rebin)
+
+    # Apply x range
+    if style_dict.get('xlim') is not None:
+        xlim = style_dict['xlim']
+        xbin_range = np.where((histo_proj.axes.edges[0] > xlim[0]) & (histo_proj.axes.edges[0] < xlim[1]))[0]
+        histo_proj = histo_proj[int(xbin_range[0])-1:int(xbin_range[-1]+1)]
+
+
+    # if style_dict.get('xlim') is not None:
+    #      unequal_edges = histo_proj[]
+    #      hist_proj = bh.Histogram(bh.axis.Variable(unequal_edges))
+                          
+ 
+      
+    ax.set_xlabel(style_dict.get('xlabel', histo_proj.name))
+    if style_dict.get('ylabel') is not None:
+        ax.set_ylabel(style_dict['ylabel'])
+    else:
+        binwidth = histo_proj.axes.widths[0][0]
+        ylabel = f'Events/{binwidth:.3f}'
+        if style_dict.get('doDensity', False):
+            ylabel = f'A.U./{binwidth:.3f}'
+        ax.set_ylabel(ylabel)
+
+    # Log scales
+    if style_dict.get('doLogx', False):
+        ax.set_xscale('log')
+    if style_dict.get('doLogy', False):
+        ax.set_yscale('log')
+ 
+    count = histo_proj.values()
+    edges = histo_proj.axes[0].edges
+   
+    # edges_1 = histo_proj.axes.edges[1]
+    hep.histplot(histo_proj, yerr=style_dict['doYerr'], density=style_dict['doDensity'], ax=ax, histtype='step', flow=style_dict['flow'], label = label)
+    
+
+    plt.legend()
+    
+    if style_dict['doSave']:
+        os.makedirs(style_dict['outDir'], exist_ok=True)
+        plt.tight_layout()
+        plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
+        print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+    return count, edges
+
 
 def plot_signal_2D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
     """
@@ -630,7 +943,115 @@ def plot_signal_2D(sig_histo, m1, delta, ctau, plot_dict, style_dict):
         plt.tight_layout()
         plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
         print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+    count = histo.values()
+    edges0 = histo.axes[0].edges
+    edges1 = histo.axes[1].edges
+    return count, edges0, edges1
 
+def plot_signal_2D_match(sig_histo, m1, delta, ctau, plot_dict, style_dict,match_type='L', passID=1):
+    """
+    Example:
+
+    plot_dict = {
+        'variable': 'sel_vtx_vx_vs_vy',
+        'cut': 'cut9',
+        'year': 2018
+    }
+    
+    style_2d_dict = {
+        'fig': fig,
+        'ax': ax,
+        'xrebin': 1j,
+        'yrebin': 1j,
+        'xlim': None,     # if None, the default will show up; otherwise give as a list, i.e. [0, 10]  
+        'ylim': None,     # if None, the default will show up; otherwise give as a list, i.e. [0, 10]
+        'doLogy': False, 
+        'doLogx': False,
+        'doLogz': True,
+        'xlabel': r"$v_{x}$ [cm]",   # if None, the default will show up; otherwise give as a string, i.e. 'Electron dxy'
+        'ylabel': r"$v_{y}$ [cm]",   # if None, the default will show up; otherwise give as a string, i.e. 'Efficiency'
+        'zlabel': 'Events',   
+        'flow': None,     # overflow
+        'doSave': True,
+        'outDir': './plots/',
+        'outName': f'signal_cut7_vx_vs_vy_m1_{m1}_delta_{delta}_ctau_{ctau}.png'
+    }
+
+    """
+
+    fig = style_dict['fig']
+    ax = style_dict['ax']
+    
+    hep.cms.label('', data=False, year=plot_dict['year'])
+    
+    # get signal point info
+    si = utils.get_signal_point_dict(sig_histo)
+    samp_df = si[(si.m1 == m1) & (si.delta == delta) & (si.ctau == ctau)]
+    
+    samp = samp_df.name[0]
+
+    m1 = samp_df.m1[0]
+    dmchi = samp_df.dmchi[0]
+    ctau = samp_df.ctau[0]
+    label = f'({m1}, {dmchi}) GeV, ctau = {int(ctau)}mm'
+    
+    # get histogram from coffea output
+    histo = sig_histo[plot_dict['variable']][{"samp":samp, "cut": plot_dict['cut']}]
+
+    # Project categorical axes to pt
+    # histo_sel = histo
+    #PART for match "pT" or "vxy" plots
+    if "match_type" in histo.axes.name:
+        histo = histo[{"match_type": match_type}]
+    if "passID" in histo.axes.name:
+        histo = histo[{"passID": passID}]
+
+
+    # rebinning
+    # histo = histo[::style_dict['xrebin'],::style_dict['yrebin']]
+
+    # set x range manually
+    if style_dict['xlim'] != None:
+        xlim = style_dict['xlim']
+        xbin_range = np.where((histo.axes.edges[0] > xlim[0]) & (histo.axes.edges[0] < xlim[1]))[0]
+        histo = histo[ int(xbin_range[0])-1:int(xbin_range[-1]+1), : ]
+    if style_dict['ylim'] != None:
+        ylim = style_dict['ylim']
+        ybin_range = np.where((histo.axes.edges[1] > ylim[0]) & (histo.axes.edges[1] < ylim[1]))[1]
+        histo = histo[ :, int(ybin_range[0]):int(ybin_range[-1]+1) ]
+    
+    # x and y labels
+    if style_dict['xlabel'] != None:
+        ax.set_xlabel(style_dict['xlabel'])
+    if style_dict['ylabel'] != None:
+        ax.set_ylabel(style_dict['ylabel'])
+
+    # x,y scale
+    if style_dict['doLogx']:
+        ax.set_xscale('log')
+    if style_dict['doLogy']:
+        ax.set_yscale('log')
+    
+    # Plot
+    if style_dict['doLogz']:
+        hep.hist2dplot(histo, flow=style_dict['flow'], norm=mpl.colors.LogNorm(), ax=ax, cbarextend=True)
+    else:
+        hep.hist2dplot(histo, flow=style_dict['flow'], ax=ax, cbarextend=True)
+
+    # z label
+    if style_dict['zlabel'] != None:
+        fig.get_axes()[-1].set_ylabel(style_dict['zlabel'])
+    
+    if style_dict['doSave']:
+        os.makedirs(style_dict['outDir'], exist_ok=True)
+        plt.tight_layout()
+        plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
+        print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+
+    count = histo.values()
+    edges0 = histo.axes[0].edges
+    edges1 = histo.axes[1].edges
+    return count, edges0, edges1
 
 
 def get_bkg_histo_1d(bkg_histos, plot_dict, style_dict, processes = 'all'):
@@ -715,13 +1136,11 @@ def get_bkg_histo_stacked_1d(bkg_histos, plot_dict, style_dict, processes = 'all
 
     return bkg_stack
 
-
-
-
 def get_data_histo_1d(data_histo, plot_dict, style_dict):
     runs = list(data_histo['cutflow_cts'].keys())
 
     for idx, run in enumerate(runs):
+
         try:
             if idx == 0:
                 histo = data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
@@ -729,6 +1148,7 @@ def get_data_histo_1d(data_histo, plot_dict, style_dict):
                 histo += data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
         except:
             print('No run')
+
 
     # rebinning
     histo = histo[::style_dict['rebin']]
@@ -775,7 +1195,15 @@ def plot_bkg_1d(bkg_histos, plot_dict, style_dict, isLegacy = False, processes =
 
     # CMS styling
     #hep.cms.label(r"$\mathrm{Private Work}$", data=False, year=plot_dict['year'])
-    hep.cms.label('', data=False, year=plot_dict['year'])
+# <<<<<<< HEAD
+# <<<<<<< HEAD
+    hep.cms.label('Preliminary', data=False, year=plot_dict['year'], com='13.6')
+# # =======
+# #     hep.cms.label('', data=False, year=plot_dict['year'])
+# # >>>>>>> kyungmin/main
+# =======
+#     hep.cms.label('', data=False, year=plot_dict['year'])
+# >>>>>>> Andrew/ACR_Run3
     
     if isLegacy:
         return plot_bkg_1d_legacy(ax, bkg_histos, plot_dict, style_dict, processes, isLegacy)
@@ -807,6 +1235,7 @@ def plot_bkg_1d(bkg_histos, plot_dict, style_dict, isLegacy = False, processes =
         
         # add histos to stack after rebinning and range setting
         for process in sorted_entries.keys():
+
             bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][plot_dict['cut'],::style_dict['rebin']]
         
             # set x range manually
@@ -1318,6 +1747,7 @@ def plot_data_1d(data_histo, plot_dict, style_dict):
     runs = list(data_histo['cutflow_cts'].keys())
 
     for idx, run in enumerate(runs):
+
         try:
             if idx == 0:
                 histo = data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
@@ -1402,8 +1832,9 @@ def plot_data_2D(data_histo, plot_dict, style_dict):
     fig = style_dict['fig']
     ax = style_dict['ax']
     
-    #hep.cms.label('', data=True, year=plot_dict['year'])
-    hep.cms.label('', data=False, llabel='Private Work', rlabel='')
+
+    hep.cms.label('', data=True, year=plot_dict['year'])
+
     
     # Get list of data
     runs = list(data_histo['cutflow_cts'].keys())
@@ -1455,6 +1886,7 @@ def plot_data_2D(data_histo, plot_dict, style_dict):
         plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
         print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
 
+
 def plot_data_MC_ratio(data_histo, bkg_histo, plot_dict, style_dict):
     """
     Plot data and background MC
@@ -1464,6 +1896,7 @@ def plot_data_MC_ratio(data_histo, bkg_histo, plot_dict, style_dict):
     ax = style_dict['ax']
     
     plot_bkg_1d(bkg_histo, plot_dict, style_dict, processes = 'all')
+
     plot_bkg_1d_stacked_errbar(bkg_histo, plot_dict, style_dict, processes = 'all')
     plot_data_1d(data_histo, plot_dict, style_dict)
 
@@ -1492,6 +1925,7 @@ def plot_data_MC_ratio(data_histo, bkg_histo, plot_dict, style_dict):
     ax_ratio.set_ylabel('Data/MC')
     ax_ratio.set_ylim([0,2.5])
 
+
     xbin_centers = hist_bkg.axes.edges[0][:-1] + hist_bkg.axes.widths[0]/2
     
     # data error bar
@@ -1514,15 +1948,18 @@ def plot_data_MC_ratio(data_histo, bkg_histo, plot_dict, style_dict):
     }
     ax_ratio.stairs(y_upper, baseline=y_lower, **error_band_args)
     ax_ratio.stairs(y_upper, baseline=y_lower, **error_band_args)
+
     
     ax_ratio.axhline(y=1, color='black', linestyle='--', linewidth=0.8)
 
     extent = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+
     
     if style_dict['doSave']:
         os.makedirs(style_dict['outDir'], exist_ok=True)
         plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}", bbox_inches='tight', bbox_extra_artists=[ax_ratio], pad_inches=0.3)
         print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+
 
 def plot_samples_sigBkg(loader_sig,loader_bkg,hname,selection,samples,labels,outName,outD,
                  xlabel=None,ylabel=None,title=None,xlim=None,ylim=None,
@@ -1721,4 +2158,525 @@ def summedBkgCutflow(loader_bkg,cfname,cut):
     for key,value in cf.items():
         cat = key.split("_")[2]
         output[cat] += value[cut]
+
     return output
+
+
+
+
+#         if style_dict['ylabel'] != None:
+#             ax.set_ylabel(style_dict['ylabel'])
+    
+#         # x,y scale
+#         if style_dict['doLogx']:
+#             ax.set_xscale('log')
+#         if style_dict['doLogy']:
+#             ax.set_yscale('log')
+        
+#         # Plot
+#         if style_dict['doLogz']:
+#             hep.hist2dplot(bkg_stack, flow=style_dict['flow'], norm=mpl.colors.LogNorm(), ax=ax, cbarextend=True)
+#         else:
+#             hep.hist2dplot(bkg_stack, flow=style_dict['flow'], ax=ax, cbarextend=True)
+
+
+#         # z label
+#         if style_dict['zlabel'] != None:
+#             fig.get_axes()[-1].set_ylabel(style_dict['zlabel'])
+        
+#         # legend
+#         #handles, labels = ax.get_legend_handles_labels()
+#         #ax.legend(handles[::-1], labels[::-1])
+
+#         if style_dict['doSave']:
+#             os.makedirs(style_dict['outDir'], exist_ok=True)
+#             plt.tight_layout()
+#             plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
+#             print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+
+
+# def plot_bkg_2D_legacy(ax, bkg_histos, plot_dict, style_dict, processes = 'all', isLegacy = True):  
+
+#     processes_list = processes
+    
+#     if processes == 'all':
+#         #processes = bkg_histos.keys()
+
+#         list_cut_index = utils.get_bkg_list_of_cuts(bkg_histos, get_cut_idx=True, isLegacy = isLegacy)
+#         list_cut_name = utils.get_bkg_list_of_cuts(bkg_histos, get_cut_idx=False, isLegacy = isLegacy)
+        
+#         cut_name = plot_dict['cut']
+        
+#         df = utils.get_bkg_cutflow_df(bkg_histos, 'cutflow_cts', isLegacy = isLegacy).iloc[:-1]
+        
+#         df = df[list_cut_name[list_cut_index.index(cut_name)]]
+        
+#         processes = df.index[df != 0].to_list()
+#     # if process is given as a list, i.e. ['DY', 'W+jets'], plot only these processes in the list; otherwise, plot all as default
+    
+#     bkg={}
+#     bkg[plot_dict['variable']] = {process:bkg_histos[process][plot_dict['variable']][{"samp":sum}] for process in processes}
+    
+#     # sort the histograms by the entries and stack
+#     for process in processes:
+#         entries = {process: bkg[plot_dict['variable']][process].sum().value for process in processes}
+    
+#     sorted_entries = dict(sorted(entries.items(), key=lambda x:x[1], reverse = False))
+
+#     # histogram
+#     # add histos to stack after rebinning and range setting
+#     for idx, process in enumerate(sorted_entries.keys()):
+#         bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][plot_dict['cut'], ::style_dict['xrebin'], ::style_dict['yrebin']]
+    
+#         if style_dict['xlim'] != None:
+#             xlim = style_dict['xlim']
+#             xbin_range = np.where((bkg[plot_dict['variable']][process].axes.edges[0] > xlim[0]) & (bkg[plot_dict['variable']][process].axes.edges[0] < xlim[1]))[0]
+#             bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][ int(xbin_range[0])-1:int(xbin_range[-1]+1), : ]
+#         if style_dict['ylim'] != None:
+#             ylim = style_dict['ylim']
+#             ybin_range = np.where((bkg[plot_dict['variable']][process].axes.edges[1] > ylim[0]) & (bkg[plot_dict['variable']][process].axes.edges[1] < ylim[1]))[1]
+#             bkg[plot_dict['variable']][process] = bkg[plot_dict['variable']][process][ :, int(ybin_range[0]):int(ybin_range[-1]+1) ]
+            
+#         if idx == 0:
+#             bkg_stack = bkg[plot_dict['variable']][process]
+#         else:
+#             bkg_stack += bkg[plot_dict['variable']][process]
+
+#     # x and y labels
+#     if style_dict['xlabel'] != None:
+#         ax.set_xlabel(style_dict['xlabel'])
+
+#     if style_dict['ylabel'] != None:
+#         ax.set_ylabel(style_dict['ylabel'])
+
+#     # x,y scale
+#     if style_dict['doLogx']:
+#         ax.set_xscale('log')
+#     if style_dict['doLogy']:
+#         ax.set_yscale('log')
+    
+#     # Plot
+#     if style_dict['doLogz']:
+#         hep.hist2dplot(bkg_stack, flow=style_dict['flow'], norm=mpl.colors.LogNorm(), ax=ax)
+#     else:
+#         hep.hist2dplot(bkg_stack, flow=style_dict['flow'], ax=ax)
+    
+#     # legend
+#     handles, labels = ax.get_legend_handles_labels()
+#     ax.legend(handles[::-1], labels[::-1])
+
+# def plot_data_1d(data_histo, plot_dict, style_dict):
+        
+#     #hep.cms.label('', data=False, year=plot_dict['year'])
+
+#     fig = style_dict['fig']
+#     ax = style_dict['ax']
+
+#     # Get list of data
+#     runs = list(data_histo['cutflow_cts'].keys())
+
+#     for idx, run in enumerate(runs):
+#         try:
+#             if idx == 0:
+#                 histo = data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
+#             else:
+#                 histo += data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
+#         except:
+#             print('No run')
+
+#     # rebinning
+#     histo = histo[::style_dict['rebin']]
+
+#     # set x range manually
+#     if style_dict['xlim'] != None:
+#         xlim = style_dict['xlim']
+#         xbin_range = np.where((histo.axes.edges[0] > xlim[0]) & (histo.axes.edges[0] < xlim[1]))[0]
+#         histo = histo[ int(xbin_range[0])-1:int(xbin_range[-1]+1) ]
+
+#     # x and y labels
+#     if style_dict['xlabel'] != None:
+#         ax.set_xlabel(style_dict['xlabel'])
+
+#     if style_dict['ylabel'] != None:
+#         ax.set_ylabel(style_dict['ylabel'])
+#     else:    
+#         binwidth = histo.axes.widths[0][0]
+#         if style_dict['doDensity']:
+#             ax.set_ylabel(f'A.U./{binwidth:.3f}')
+#         else:
+#             ax.set_ylabel(f'Events/{binwidth:.3f}')
+
+#     # x,y scale
+#     if style_dict['doLogx']:
+#         ax.set_xscale('log')
+#     if style_dict['doLogy']:
+#         ax.set_yscale('log')
+
+#     # Plot
+#     hep.histplot(histo, yerr=style_dict['doYerr'], density=style_dict['doDensity'], ax=ax, histtype='errorbar', flow=style_dict['flow'], label = style_dict['label'], color='black')
+
+#     # legend
+#     handles, labels = ax.get_legend_handles_labels()
+#     ax.legend(handles[::-1], labels[::-1])
+
+
+# def get_data_histo_2D(data_histo, plot_dict, style_dict):
+#     fig = style_dict['fig']
+#     ax = style_dict['ax']
+    
+#     #hep.cms.label('', data=True, year=plot_dict['year'])
+    
+#     # Get list of data
+#     runs = list(data_histo['cutflow_cts'].keys())
+
+#     for idx, run in enumerate(runs):
+#         try:
+#             if idx == 0:
+#                 histo = data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
+#             else:
+#                 histo += data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
+#         except:
+#             print('No run')
+
+#     # set x range manually
+#     if style_dict['xlim'] != None:
+#         xlim = style_dict['xlim']
+#         xbin_range = np.where((histo.axes.edges[0] > xlim[0]) & (histo.axes.edges[0] < xlim[1]))[0]
+#         histo = histo[ int(xbin_range[0])-1:int(xbin_range[-1]+1), : ]
+#     if style_dict['ylim'] != None:
+#         ylim = style_dict['ylim']
+#         ybin_range = np.where((histo.axes.edges[1] > ylim[0]) & (histo.axes.edges[1] < ylim[1]))[1]
+#         histo = histo[ :, int(ybin_range[0]):int(ybin_range[-1]+1) ]
+
+#     return histo
+
+
+# def plot_data_2D(data_histo, plot_dict, style_dict):
+#     """
+#     Example:
+
+#     """
+
+#     fig = style_dict['fig']
+#     ax = style_dict['ax']
+    
+#     #hep.cms.label('', data=True, year=plot_dict['year'])
+#     hep.cms.label('', data=False, llabel='Private Work', rlabel='')
+    
+#     # Get list of data
+#     runs = list(data_histo['cutflow_cts'].keys())
+
+#     for idx, run in enumerate(runs):
+#         if idx == 0:
+#             histo = data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
+#         else:
+#             histo += data_histo[plot_dict['variable']][{"samp":run, "cut": plot_dict['cut']}]
+
+#     # rebinning
+#     histo = histo[::style_dict['xrebin'],::style_dict['yrebin']]
+
+#     # set x range manually
+#     if style_dict['xlim'] != None:
+#         xlim = style_dict['xlim']
+#         xbin_range = np.where((histo.axes.edges[0] > xlim[0]) & (histo.axes.edges[0] < xlim[1]))[0]
+#         histo = histo[ int(xbin_range[0])-1:int(xbin_range[-1]+1), : ]
+#     if style_dict['ylim'] != None:
+#         ylim = style_dict['ylim']
+#         ybin_range = np.where((histo.axes.edges[1] > ylim[0]) & (histo.axes.edges[1] < ylim[1]))[1]
+#         histo = histo[ :, int(ybin_range[0]):int(ybin_range[-1]+1) ]
+    
+#     # x and y labels
+#     if style_dict['xlabel'] != None:
+#         ax.set_xlabel(style_dict['xlabel'])
+#     if style_dict['ylabel'] != None:
+#         ax.set_ylabel(style_dict['ylabel'])
+
+#     # x,y scale
+#     if style_dict['doLogx']:
+#         ax.set_xscale('log')
+#     if style_dict['doLogy']:
+#         ax.set_yscale('log')
+    
+#     # Plot
+#     if style_dict['doLogz']:
+#         hep.hist2dplot(histo, flow=style_dict['flow'], norm=mpl.colors.LogNorm(), ax=ax, cbarextend=True)
+#     else:
+#         hep.hist2dplot(histo, flow=style_dict['flow'], ax=ax, cbarextend=True)
+
+#     # z label
+#     if style_dict['zlabel'] != None:
+#         fig.get_axes()[-1].set_ylabel(style_dict['zlabel'])
+    
+#     if style_dict['doSave']:
+#         os.makedirs(style_dict['outDir'], exist_ok=True)
+#         plt.tight_layout()
+#         plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}")
+#         print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+
+# def plot_data_MC_ratio(data_histo, bkg_histo, plot_dict, style_dict):
+#     """
+#     Plot data and background MC
+#     """
+    
+#     fig = style_dict['fig']
+#     ax = style_dict['ax']
+    
+#     plot_bkg_1d(bkg_histo, plot_dict, style_dict, processes = 'all')
+#     plot_bkg_1d_stacked_errbar(bkg_histo, plot_dict, style_dict, processes = 'all')
+#     plot_data_1d(data_histo, plot_dict, style_dict)
+
+#     """
+#     Ratio plot
+#     """
+#     # Calculate ratio
+#     hist_bkg = get_bkg_histo_stacked_1d(bkg_histo, plot_dict, style_dict, processes = 'all')
+#     hist_data = get_data_histo_1d(data_histo, plot_dict, style_dict)
+
+#     ratio = hist_data.values()/hist_bkg.values()
+#     ratio[np.isnan(ratio)] = 0
+#     ratio[ratio == 0] = np.inf
+
+#     # Add axis for ratio
+#     ratio_length = (ax.get_position().y1 - ax.get_position().y0) / 3
+    
+#     ax_ratio = fig.add_axes([ax.get_position().x0, ax.get_position().y0 - ratio_length * 1.2, \
+#                              ax.get_position().x1 - ax.get_position().x0, ratio_length]) 
+
+#     ax.get_shared_x_axes().join(ax, ax_ratio)
+#     ax.xaxis.set_ticklabels([])
+
+#     ax_ratio.set_xlabel(ax.get_xlabel())
+#     ax.set_xlabel('')
+#     ax_ratio.set_ylabel('Data/MC')
+#     ax_ratio.set_ylim([0,2.5])
+
+#     xbin_centers = hist_bkg.axes.edges[0][:-1] + hist_bkg.axes.widths[0]/2
+    
+#     # data error bar
+#     data_err = np.sqrt(hist_data.values())/hist_data.values()
+#     ax_ratio.errorbar(xbin_centers, ratio, yerr=data_err, fmt='o', color='black')
+#     #ax_ratio.plot(xbin_centers, ratio, 'o', color='black')
+
+#     # bkg Error bars
+#     bkg_err = np.sqrt(hist_bkg.values())/hist_bkg.values()
+#     bkg_err[np.isnan(bkg_err)] = 0
+
+#     y_upper = np.ones(len(bkg_err)) + bkg_err
+#     y_lower = np.ones(len(bkg_err)) - bkg_err
+
+#     error_band_args = { 
+#         #"edges": (range(len(ratio)+1) * binwidth) + xmin, "facecolor": "none", "linewidth": 0.5,
+#         "edges": hist_bkg.axes.edges[0], 
+#         "facecolor": "none", "linewidth": 0.5,
+#         "alpha": .5, "color": "grey", "hatch": "///"
+#     }
+#     ax_ratio.stairs(y_upper, baseline=y_lower, **error_band_args)
+#     ax_ratio.stairs(y_upper, baseline=y_lower, **error_band_args)
+    
+#     ax_ratio.axhline(y=1, color='black', linestyle='--', linewidth=0.8)
+
+#     extent = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+    
+#     if style_dict['doSave']:
+#         os.makedirs(style_dict['outDir'], exist_ok=True)
+#         plt.savefig(f"{style_dict['outDir']}/{style_dict['outName']}", bbox_inches='tight', bbox_extra_artists=[ax_ratio], pad_inches=0.3)
+#         print(f"Saved: {style_dict['outDir']}/{style_dict['outName']}")
+
+# def plot_samples_sigBkg(loader_sig,loader_bkg,hname,selection,samples,labels,outName,outD,
+#                  xlabel=None,ylabel=None,title=None,xlim=None,ylim=None,
+#                  ncol_leg=1,figsize=None,logy=False,logx=False,rebin=1j,
+#                  save=True,show=False,density=False,yerr=True,histtype='errorbar',heplabel="Private Work",
+#                  legend_loc='best',legend_fontsize=12,label_fontsize=16,bkgOnly=False,sigOnly=False):
+#     if not figsize:
+#         figsize=(8,6)
+#     plt.figure(figsize=figsize)
+#     if not bkgOnly:
+#         # load signal histograms
+#         h_sig = loader_sig.load(hname)[selection]
+#         histos_sig = [h_sig[{"samp":s}][::rebin] for s in samples]
+#         labels_sig = labels
+#         colors_sig = ['k','g','b','c']
+#         if len(labels_sig) < len(colors_sig):
+#             colors_sig = colors_sig[:len(labels_sig)]
+#     if not sigOnly:
+#         # load bkg histograms
+#         h_bkg = loader_bkg.load(hname)[selection]
+#         labels_bkg = loader_bkg.cats
+#         histos_bkg = []
+#         counts_bkg = []
+#         colors_bkg = []
+#         for cat in labels_bkg:
+#             trueSel = getPresentSamples(h_bkg,loader_bkg.catSamps[cat])
+#             hsel = h_bkg[{"samp":trueSel}][{"samp":sum}]
+#             if hsel.sum(flow=True).value == 0:
+#                 continue
+#             histos_bkg.append(hsel[::rebin])
+#             colors_bkg.append(bkg_cmap[cat])
+#             counts_bkg.append(hsel.sum(flow=True).value)
+#         histos_bkg = [h for h,_ in sorted(zip(histos_bkg,counts_bkg),key=lambda p: p[1],reverse=True)]
+#         colors_bkg = [c for c,_ in sorted(zip(colors_bkg,counts_bkg),key=lambda p: p[1],reverse=True)]
+#         labels_bkg = [l for l,_ in sorted(zip(labels_bkg,counts_bkg),key=lambda p: p[1],reverse=True)]
+#     # plot histograms
+#     if not sigOnly:
+#         hep.histplot(histos_bkg,label=labels_bkg,density=density,yerr=yerr,stack=True,histtype='fill',color=colors_bkg)
+#     if not bkgOnly:
+#         hep.histplot(histos_sig,label=labels_sig,density=density,yerr=yerr,color=colors_sig,histtype=histtype,lw=2)
+#     if xlabel:
+#         plt.xlabel(xlabel,fontsize=label_fontsize)
+#     if ylabel:
+#         plt.ylabel(ylabel,fontsize=label_fontsize)
+#     else:
+#         if density:
+#             plt.ylabel("A.U.",fontsize=label_fontsize)
+#         else:
+#             plt.ylabel("Events",fontsize=label_fontsize)
+#     if xlim:
+#         plt.xlim(xlim)
+#     if ylim:
+#         plt.ylim(ylim)
+#     if title:
+#         plt.title(title)
+#     if logy:
+#         plt.yscale('log')
+#     if logx:
+#         plt.xscale('log')
+#     plt.legend(ncol=ncol_leg,fontsize=legend_fontsize,loc=legend_loc)
+#     hep.cms.text(heplabel)
+#     #hep.cms.label("Simulation", data=False, year=2018)
+#     plt.tight_layout()
+#     if save:
+#         os.makedirs(outD,exist_ok=True)
+#         if density:
+#             plt.savefig(f"{outD}/{outName}_density.pdf")
+#         else:
+#             plt.savefig(f"{outD}/{outName}.pdf")
+#     if not show:
+#         plt.close()
+
+# def make_cdf_summary_sigVsBkg(dfs,loader_sig,loader_bkg,hname_sig,hname_bkg,selection,outName,outD,right=True,
+#                  xlabel=None,ylabel=None,title=None,xlim=None,ylim=None,
+#                  ncol_leg=1,figsize=None,logy=False,logx=False,alpha=1,
+#                  save=True,show=False,legend_loc='best',category=False,bkgOnly=False,sigOnly=False):
+#     if not figsize:
+#         figsize=(8,6)
+#     fig,axes = plt.subplots(1,1,figsize=figsize)
+#     handles = []
+#     if not bkgOnly:
+#         hsig = loader_sig.load(hname_sig)[selection]
+#         for s in dfs.name:
+#             hsamp = hsig[{"samp":s}]
+#             if xlim:
+#                 edges = xlim
+#             else:
+#                 edges = hsamp.axes[0].edges[:-1] if right else hsamp.axes[0].edges[1:]
+#             x,eff_real = makeCDF(hsamp,edges[0],edges[-1],right=right,category=category)
+#             plt.plot(x,eff_real,color='green',alpha=0.5,lw=2)
+#         handles.append(Line2D([],[],lw=2,color='green',label="Signals"))
+#     if not sigOnly:
+#         hbkg = loader_bkg.load(hname_bkg)[selection]
+#         for bkg_cat in loader_bkg.cats:
+#             trueSel = getPresentSamples(hbkg,loader_bkg.catSamps[bkg_cat])
+#             hsamp = hbkg[{"samp":trueSel}][{"samp":sum}]
+#             x,eff_fake = makeCDF(hsamp,edges[0],edges[-1],right=right,category=category)
+#             h, = plt.plot(x,eff_fake,alpha=1,lw=2,label=bkg_cat,color=bkg_cmap[bkg_cat])
+#             handles.append(h)
+#     plt.legend(handles=handles,loc=legend_loc,ncol=ncol_leg)
+#     if xlabel:
+#         plt.xlabel(xlabel)
+#     if right:
+#         plt.ylabel("Cumulative Distribution (Right)")
+#     else:
+#         plt.ylabel("Cumulative Distribution (Left)")
+#     if ylim:
+#         plt.ylim(ylim)
+#     if title:
+#         plt.title(title)
+#     if logy:
+#         plt.yscale('log')
+#     if logx:
+#         plt.xscale('log')
+#     plt.grid()
+#     plt.tight_layout()
+#     if save:
+#         os.makedirs(outD,exist_ok=True)
+#         plt.savefig(f"{outD}/{outName}.pdf")
+#     if not show:
+#         plt.close()
+
+# def make_Nminus1_sigVsBkg(dfs,loader_sig,loader_bkg,hname_sig,hname_bkg,selection,outName,outD,right=True,
+#                  xlabel=None,ylabel=None,title=None,xlim=None,ylim=None,
+#                  ncol_leg=1,figsize=None,logy=False,logx=False,alpha=1,
+#                  save=True,show=False,legend_loc='best',category=False):
+#     if not figsize:
+#         figsize=(8,6)
+#     fig,axes = plt.subplots(1,1,figsize=figsize)
+#     hsig = loader_sig.load(hname_sig)[selection]
+#     hbkg = loader_bkg.load(hname_bkg)[selection]
+    
+#     # get bkg yields as a function of cut
+#     bkg_yields = []
+#     for bkg_cat in loader_bkg.cats:
+#         trueSel = getPresentSamples(hbkg,loader_bkg.catSamps[bkg_cat])
+#         hsamp = hbkg[{"samp":trueSel}][{"samp":sum}]
+#         if xlim:
+#             edges = xlim
+#         else:
+#             edges = hsamp.axes[0].edges[:-1] if right else hsamp.axes[0].edges[1:]
+#         x,nbkg = makeCDF(hsamp,edges[0],edges[-1],right=right,category=category,nevents=True)
+#         bkg_yields.append(nbkg)
+#     tot_bkg = sum(bkg_yields)
+    
+#     for s in dfs.name:
+#         hsamp = hsig[{"samp":s}]
+#         if xlim:
+#             edges = xlim
+#         else:
+#             edges = hsamp.axes[0].edges[:-1] if right else hsamp.axes[0].edges[1:]
+#         x,sig_yields = makeCDF(hsamp,edges[0],edges[-1],right=right,category=category,nevents=True)
+#         plt.plot(x,sig_yields/tot_bkg,color='green',alpha=0.5,lw=2)
+        
+#     handles = [Line2D([],[],lw=2,color='green',label="Signals")]
+#     plt.legend(handles=handles,loc=legend_loc,ncol=ncol_leg)
+#     if xlabel:
+#         plt.xlabel(xlabel)
+#     if right:
+#         plt.ylabel(r"$S/\sqrt{B}$ (Right)")
+#     else:
+#         plt.ylabel(r"$S/\sqrt{B}$ (Left)")
+#     if ylim:
+#         plt.ylim(ylim)
+#     if title:
+#         plt.title(title)
+#     if logy:
+#         plt.yscale('log')
+#     if logx:
+#         plt.xscale('log')
+#     plt.grid()
+#     plt.tight_layout()
+#     if save:
+#         os.makedirs(outD,exist_ok=True)
+#         plt.savefig(f"{outD}/{outName}.pdf")
+#     if not show:
+#         plt.close()
+
+# def getBkgComposition(loader_bkg,hname,selection):
+#     h_bkg = loader_bkg.load(hname)[selection]
+#     labels_bkg = loader_bkg.cats
+#     histos_bkg = []
+#     counts_bkg = []
+#     for cat in labels_bkg:
+#         trueSel = getPresentSamples(h_bkg,loader_bkg.catSamps[cat])
+#         histos_bkg.append(h_bkg[{"samp":trueSel}][{"samp":sum}])
+#         counts_bkg.append(h_bkg[{"samp":trueSel}][{"samp":sum}].value)
+#     print("Background Composition is:")
+#     for ct, label in zip(counts_bkg,labels_bkg):
+#         print(f"\t{label} : {ct:.4f} ({100*ct/np.sum(counts_bkg):.4f}%)")
+
+# def summedBkgCutflow(loader_bkg,cfname,cut):
+#     labels_bkg = loader_bkg.cats
+#     cf = loader_bkg.load(cfname)
+#     output = {cat:0 for cat in labels_bkg}
+#     for key,value in cf.items():
+#         cat = key.split("_")[2]
+#         output[cat] += value[cut]
+#     return output
