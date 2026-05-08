@@ -24,7 +24,8 @@ class myHisto:
         self.match_type = self.parse_axis(('match_type',['L','R']))
         self.match = self.parse_axis(('match',[0,1]))
         self.met = self.parse_axis(('met',60,50,300))
-        self.dR = self.parse_axis(('dR',80,0,5)) 
+        self.dR = self.parse_axis(('dR',200,0,1)) 
+        self.mindR = self.parse_axis(('mindR',60,0,0.06)) 
         # self.ctauchi2 = self.parse_axis(('ctauchi2', 10, 0,10))        
        
         # self.vxy1 = self.parse_axis(('vxy',[0,2,4,7,10,15,20]))  #LPT 2D
@@ -44,18 +45,19 @@ class myHisto:
         # self.vxy10 = self.parse_axis(('vxy',[0,4,8,12,16,22,28,34,40,50,60,70,80]))  #Lxy 1000
         # self.vxy10 = self.parse_axis(('vxy',[0,2,4,6,8,10,14,18,24]))  #Lxy 10, 100
 
+        self.vxy100 = self.parse_axis(('vxy',[0,2,4,6,8,10,14,18,24,30,40,50]))  #Lxy 10, 100
         
 
  
         
        
-        self.vxy100 = self.parse_axis(('vxy',[0,2,4,7,9,10]))
+        # self.vxy100 = self.parse_axis(('vxy',[0,2,4,7,9,10]))
         
         # self.ele_pt = self.parse_axis(("pt",25,0,50))   #LPT 2D
 
-        self.ele_pt = self.parse_axis(("pt",40,0,40))   #LPT 2D
+        # self.ele_pt = self.parse_axis(("pt",40,0,40))   #LPT 2D
 
-        # self.ele_pt = self.parse_axis(("pt",[0,2,4,10,20]))  #Good for low pT electrons for 1000mm
+        self.ele_pt = self.parse_axis(("pt",[0,1,2,3,4,5,8,10,12,14,16,18,20,25,30]))  #Good for low pT electrons for 1000mm
         # # self.ele_pt = self.parse_axis(("pt",[0,2,4,8,10,14,16,18,20,22,25,27,29,33,38,40]))   #Good for GED electrons
         # self.ele_pt = self.parse_axis(("pt",[0,4,8,12,16,20]))   #Good for GED electrons
         # self.ele_pt = self.parse_axis(("pt",[0,4,8,12,16,22,30,35,40,45,50,60,70,80]))  #10mm
@@ -164,6 +166,8 @@ def make_histograms():
     h.make('gen_ele_vxy1','vxy1')
     h.make('gen_ele_vxy10','vxy10')
     h.make('gen_ele_vxy100','vxy100')
+    h.make("mindR", 'mindR')
+
     
     
    
@@ -225,9 +229,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         match_pf = events[hasMatch_pf].Electron
         match_pf = match_pf[match_pf.genMatched]
 
-        # ne=ak.count(events.GenEle.pt)
-        # np= ak.count(events.GenPos.pt)
-        # n=ne+np
+        
         
         print ("GenpT:", events.GenEle.pt)
         # print ("Number of gen electrons per event:", ak.count(events.Electron.pt,axis=1))
@@ -310,6 +312,9 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         
         h.fill("gen_ele_dR", dR=events.GenEle.dr)
         h.fill("gen_ele_dR", dR=events.GenPos.dr)
+
+        h.fill("mindR", mindR=ak.flatten(events.LptElectron.minDRtoReg))
+        
         
         
       
