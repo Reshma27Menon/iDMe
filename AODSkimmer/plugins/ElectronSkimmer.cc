@@ -788,10 +788,12 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    int ilpt = 0; // track index (in output tree) of lpt electrons for x-cleaning purposes
    vector<int> iSaved_lpt;
    int ilpt_all = 0;
-   for (auto & ele : *lowPtNanoElectronHandle_) {
+   for (auto & ele : *lowPtNanoElectronHandle_) 
+   {
       // basic cut (should be applied by default in miniAOD stage, but repeating here)
       // Run3 syntax updated - XYZ do we want the ele.pt() < 1 part?
-      if (ele.pt() < 1 || ele.electronID("ID") < -0.25) {
+      if (ele.pt() < 1 || ele.electronID("ID") < -0.25) 
+      {
          ilpt_all++;
          continue;
       }
@@ -805,6 +807,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
          float dR = reco::deltaR(ele.p4(), reg_good_eles[ireg]->p4());
          if (dR < mindR) {
             mindR = dR;
+            cout<<"mindR="<<mindR<<endl;
             iMatch_reg = ireg;
          }
       }
@@ -814,6 +817,7 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 // 	 // Run3 uncommended below four lines because they seemed useful
 // 	 nt.recoLowPtElectronIsXCleaned_.push_back(true);
 // =======
+         cout<<"mindR<PFmatch case="<<mindR<<endl; 
          nt.recoLowPtElectronIsXCleaned_.push_back(true);
 // >>>>>>> 47aa92c (no cross cleaning for efficiency studies)
          nt.recoLowPtElectronGEDidx_.push_back(iMatch_reg);
