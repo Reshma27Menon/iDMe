@@ -812,9 +812,10 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       int iMatch_reg;
       for (size_t ireg = 0; ireg < reg_good_eles.size(); ireg++) {
          float dR = reco::deltaR(ele.p4(), reg_good_eles[ireg]->p4());
-         if (dR < mindR) {
+         if (dR < mindR) 
+         {
             mindR = dR;
-            cout<<"mindR="<<mindR<<endl;
+           
             iMatch_reg = ireg;
          }
       }
@@ -824,7 +825,6 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 // 	 // Run3 uncommended below four lines because they seemed useful
 // 	 nt.recoLowPtElectronIsXCleaned_.push_back(true);
 // =======
-         cout<<"mindR<PFmatch case="<<mindR<<endl; 
          nt.recoLowPtElectronIsXCleaned_.push_back(true);
 // >>>>>>> 47aa92c (no cross cleaning for efficiency studies)
          nt.recoLowPtElectronGEDidx_.push_back(iMatch_reg);
@@ -833,7 +833,8 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
          ilpt_all++;
          //continue; // "remove" cross cleaning
       }
-      else {
+      else 
+      {
          nt.recoLowPtElectronIsXCleaned_.push_back(false);
          nt.recoLowPtElectronGEDidx_.push_back(-999);
       }
