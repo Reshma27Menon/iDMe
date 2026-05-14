@@ -4,6 +4,12 @@ import sys
 
 import analysisSubroutines as routines
 
+# def cut0(events,info):
+#     name = "cut0"
+#     desc = r"Pass $\vec{p}_T^{miss}$ Filters"
+#     plots = True
+#     cut = events.METFiltersFailBits == 0
+#     return events[cut], name, desc, plots
 
 def cut0(events,info):
     name = "cut0"
