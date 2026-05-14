@@ -87,7 +87,6 @@ class Analyzer:
 
         self.nJet_isNom = nJet_isNominal # nomial njet range of NJet > 0 and NJet < 3
         self.good_vtx = good_vtx
-        print ("good_vtx:", good_vtx)
 
         # self.model = model_json # BDT model for inference (if used in selections)
         # self.nJet_isNom = nJet_isNominal # nomial njet range of NJet > 0 and NJet < 3
@@ -284,9 +283,8 @@ class iDMeProcessor(processor.ProcessorABC):
 
         # Initial number of events
         if isMC:
-            print ("Before=", ak.sum(events.genWgt))
+           
             cutflow['all'] += ak.sum(events.genWgt)/sum_wgt
-            print ("cutflow 'all' after fill:", cutflow)
 
         else:
             cutflow['all'] += len(events)/sum_wgt
@@ -309,7 +307,6 @@ class iDMeProcessor(processor.ProcessorABC):
         ## Calculating Additional Vars ##
         #################################
         events = routines.computeExtraVariables(events,info)
-        print ("len(events)=", len(events))
 
         #################################
         ## HEM Veto for 2018 ##
@@ -365,11 +362,9 @@ class iDMeProcessor(processor.ProcessorABC):
         #################################
         # 1 or 2 jets in the event
         nJets = ak.count(events.PFJet.pt,axis=1)
-        print ("Before nJets cut=", len(events))
         #events = events[(nJets>0) & (nJets<3)] # Nominal NJet requirement for SR
         events["nJets"] = nJets
         events = events[nJets>0]
-        print ("After nJets cut=", len(events))
 
 
         if self.nJet_isNom != None: # If applying Njet cut (legacy: deprecated after fixing the nJet bug in pythia)
@@ -437,16 +432,10 @@ class iDMeProcessor(processor.ProcessorABC):
 
         # Fill cutflow after baseline selection
         if isMC:
-            print ("cutflow before hasVtx:", cutflow)
-            print ("len(events) before hasVtx:",len(events))
-            print ("Ratio:", ak.sum(events.genWgt)/sum_wgt)
+         
             
             cutflow['hasVtx'] += ak.sum(events.genWgt)/sum_wgt
-            
-            print ("cutflow after hasVtx:", cutflow)
-            print ("len(events) after hasVtx:",len(events))
-            print ("Ratio after hasVtx:", ak.sum(events.genWgt)/sum_wgt)
-
+           
 
 
 

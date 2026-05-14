@@ -219,6 +219,8 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     wgt = events.eventWgt/sum_wgt
     
     if info["type"] == "signal":
+        array = [[1],[3],[4],[5,5]]
+        print ("sample:", ak.num(array, axis=1))
         # defining stuff
         hasMatch_pf = (ak.count(events.Electron.pt,axis=1)>0) &\
                       (ak.count_nonzero(events.Electron.genMatched,axis=1)>0)
@@ -226,56 +228,16 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         hasMatch_lpt = (ak.count(events.LptElectron.pt,axis=1)>0) &\
                        (ak.count_nonzero(events.LptElectron.genMatched,axis=1)>0)
 
+        print ("events[hasMatch_pf].GenEle:", events[hasMatch_pf].GenEle)
         match_pf = events[hasMatch_pf].Electron
-        match_pf = match_pf[match_pf.genMatched]
+        match_pf = match_pf[match_pf.genMatched]        
+        print (" match_pf = match_pf[match_pf.genMatched]:", match_pf)
 
-        
-        
-        print ("GenpT:", events.GenEle.pt)
-        # print ("Number of gen electrons per event:", ak.count(events.Electron.pt,axis=1))
-        # print ("Total number of gen electrons:", ne)
-        # print ("Total number of gen positrons:", np)
-        # print ("Total number of gen electron (gen ele+pos):", n)
-
-        array=[[1],[2,2],[3],[4],[5]]
-        n= ak.count(array, axis=1)
-        sum_e=ak.sum(n)  
-        print (n)
-        print (sum_e) #6
-
-        # nele_event= ak.count(events.Electron.pt,axis=1)
-
-        print ("GenEle.pt :", events.GenEle.pt)
-        ngen_event= ak.count(events.GenEle.pt)
-        print ("Total number of Gen Electrons:", ngen_event)
-
-        print ("Ele.pt :", events.Electron.pt)
-        nele_event= ak.count(events.Electron.pt,axis=1)
-        print ("Number of Electrons per event:", nele_event)
-        print ("Total number of Electrons:", ak.sum(nele_event))
-
-        print ("LowEle.pt :", events.LptElectron.pt)
-        nLptele_event= ak.count(events.LptElectron.pt,axis=1)
-        print ("Number of LptElectrons per event:", nLptele_event)
-        print ("Total number of LptElectrons:", ak.sum(nLptele_event))
-        
-
-
-        
-        # print ("Electron:", events.Electron.pt)
-        # print ("Total number of R electrons:", ak.count(events.Electron.pt))
-        # print ("LowpT:", events.LptElectron.pt)
-        # print ("Total number of L electrons:", ak.count(events.LptElectron.pt))
-        
-        # MASK1= events.GenEle.pt <5
-        
-        # print ("Mask len:", len(MASK1))
-        
-        # print ("len(match_pf):",len(match_pf))
 
         genObj_pf = ak.where(match_pf.matchType==-1,events[hasMatch_pf].GenEle,events[hasMatch_pf].GenPos)
         match_pf = ak.flatten(match_pf)
         genObj_pf = ak.flatten(genObj_pf)
+
         match_pf_passID = ak.values_astype(match_pf.passID,int)
 
 
@@ -313,13 +275,10 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("gen_ele_dR", dR=events.GenEle.dr)
         h.fill("gen_ele_dR", dR=events.GenPos.dr)
 
-        h.fill("mindR", mindR=ak.flatten(events.LptElectron.minDRtoReg))
-        
-        
-        
+        h.fill("mindR", mindR=ak.flatten(events.LptElectron.minDRtoReg))              
       
                
-        #
+
         h.fill("match_ele_gen_pt",match_type='R',passID=match_pf_passID,pt=genObj_pf.pt)       
         h.fill("match_ele_gen_pt",match_type='L',passID=match_lpt_passID,pt=genObj_lpt.pt)    
 
