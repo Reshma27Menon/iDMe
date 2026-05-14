@@ -790,20 +790,12 @@ ElectronSkimmer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
    int ilpt_all = 0;
    for (auto & ele : *lowPtNanoElectronHandle_) 
    {
-      // basic cut (should be applied by default in miniAOD stage, but repeating here)
-// <<<<<<< HEAD
-//       // Run3 syntax updated - XYZ do we want the ele.pt() < 1 part?
-//       if (ele.pt() < 1 || ele.electronID("ID") < -0.25) 
-//       {
-// =======
-      //if (ele.userFloat("ID") < -0.25) std::cout << "ALL Low pT ID < -0.25: ID = " << ele.userFloat("ID") << std::endl;
-      //if (ele.pt() < 1 || ele.userFloat("ID") < -0.25) {
-      if (ele.pt() < 1) {
-// >>>>>>> df33eab (no cross cleaning (enable gen matching for both collections simult.) + resolution and vertexing efficiency stuff)
+      
+      if (ele.pt() < 1) 
+      {
          ilpt_all++;
          continue;
       }
-      //if (ele.userFloat("ID") < -0.25) std::cout << "After Low pT ID < -0.25: ID = " << ele.userFloat("ID") << std::endl;
 
       // Checking against GED electrons
       float mindR = 999;
