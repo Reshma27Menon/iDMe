@@ -1,1 +1,0 @@
-DIRNAME=P1_gq_qzp_zp_chi2chi1_chi2_chi1epem

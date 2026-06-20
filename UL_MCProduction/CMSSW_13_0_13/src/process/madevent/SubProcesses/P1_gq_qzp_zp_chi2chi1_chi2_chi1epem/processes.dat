@@ -1,8 +1,0 @@
-1       g u > u chi1 e+ e- chi1
-mirror  u g > u chi1 e+ e- chi1
-2       g d > d chi1 e+ e- chi1,g s > s chi1 e+ e- chi1
-mirror  d g > d chi1 e+ e- chi1,s g > s chi1 e+ e- chi1
-3       g u~ > u~ chi1 e+ e- chi1
-mirror  u~ g > u~ chi1 e+ e- chi1
-4       g d~ > d~ chi1 e+ e- chi1,g s~ > s~ chi1 e+ e- chi1
-mirror  d~ g > d~ chi1 e+ e- chi1,s~ g > s~ chi1 e+ e- chi1

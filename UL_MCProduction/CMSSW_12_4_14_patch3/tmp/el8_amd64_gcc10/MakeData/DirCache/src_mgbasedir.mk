@@ -1,3 +1,0 @@
-ALL_SUBSYSTEMS+=mgbasedir
-subdirs_src_mgbasedir = src_mgbasedir_bin src_mgbasedir_input src_mgbasedir_mg5decay src_mgbasedir_PLUGIN src_mgbasedir_Template src_mgbasedir_MadSpin src_mgbasedir_models src_mgbasedir_madgraph src_mgbasedir_aloha src_mgbasedir_HELAS src_mgbasedir_vendor
-subdirs_src += src_mgbasedir

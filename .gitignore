@@ -12,3 +12,8 @@
 **/*.tar.gz
 **/*.pyc
 MCSampleProduction/
+
+*~
+*.log
+*.lhe
+CMSSW*

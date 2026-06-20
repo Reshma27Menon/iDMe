@@ -1,7 +1,0 @@
-ALL_TOOLS      += tbb
-tbb_EX_INCLUDE := /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/tbb/v2021.5.0-e966a5acb1e4d5fd7605074bafbb079c/include
-tbb_EX_LIB := tbb
-tbb_EX_USE := root_cxxdefaults
-tbb_EX_FLAGS_CPPDEFINES  := -DTBB_USE_GLIBCXX_VERSION=100300 -DTBB_SUPPRESS_DEPRECATED_MESSAGES -DTBB_PREVIEW_RESUMABLE_TASKS=1
-tbb_EX_FLAGS_SYSTEM_INCLUDE  := 1
-

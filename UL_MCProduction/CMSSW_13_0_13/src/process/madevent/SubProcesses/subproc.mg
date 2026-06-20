@@ -1,4 +1,0 @@
-P1_gq_qzp_zp_chi2chi1_chi2_chi1epem
-P1_gc_czp_zp_chi2chi1_chi2_chi1epem
-P1_qq_gzp_zp_chi2chi1_chi2_chi1epem
-P1_ccx_gzp_zp_chi2chi1_chi2_chi1epem
