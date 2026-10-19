@@ -61,6 +61,11 @@ class myHisto:
         self.pt_LR = self.parse_axis(('pt_LR',[0,5,10,20,100])) 
         self.vxy_LR = self.parse_axis(('vxy_LR',[0,1,5,10,15,20]))  
         self.eta_LR = self.parse_axis(('eta_LR', 50, -5, 5))
+        
+        
+        self.pt_AA = self.parse_axis(('pt_AA',[0,5,10,20,100])) 
+        self.vxy_AA = self.parse_axis(('vxy_AA',[0,1,5,10,15,20])) 
+        self.eta_AA = self.parse_axis(('eta_AA', 50, -5, 5))
 
 
         self.pt_den = self.parse_axis(('pt_den',[0,5,10,20,100])) 
@@ -127,6 +132,8 @@ def make_histograms():
     h.make("genvtx_pt_vxy_eta_LL",'pt_LL','vxy_LL','eta_LL') 
     h.make("genvtx_pt_vxy_eta_RR",'pt_RR','vxy_RR', 'eta_RR')
     h.make("genvtx_pt_vxy_eta_LR",'pt_LR','vxy_LR', 'eta_LR')
+    h.make("genvtx_pt_vxy_eta_AA",'pt_AA','vxy_AA', 'eta_AA')
+
     
     h.make("genvtx_pt_vxy_eta_den",'pt_den','vxy_den', 'eta_den')
 
@@ -201,3 +208,20 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         
 
         h.fill("genvtx_pt_vxy_eta_LR",pt_LR=gen_ee_pt_LR,vxy_LR=gen_vxy_LR, eta_LR=gen_eta_LR)   #numerator: Only the gen vertices matched to LR
+
+
+        maskAA =  ( (events.GenEle.matchedAllLowPt) & (events.GenPos.matchedAllLowPt) )
+
+        evAA  = events[maskAA]
+
+        mask2AA =  ak.any(evAA.vtx.isMatched, axis=1)
+        ev_newAA = evAA[mask2AA] #Events which has atleast one matched vertex
+
+        gen_vxy_AA = ev_newAA.genEE.vxy
+        gen_ee_pt_AA = ev_newAA.genEE.pt
+        gen_eta_AA = ev_newAA.genEE.eta
+
+        
+        h.fill("genvtx_pt_vxy_eta_AA",pt_AA=gen_ee_pt_AA, vxy_AA=gen_vxy_AA, eta_AA =gen_eta_AA)   #numerator: Only the gen vertices matched to LL 
+
+
