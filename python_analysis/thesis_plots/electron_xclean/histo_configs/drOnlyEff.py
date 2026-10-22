@@ -130,7 +130,7 @@ def make_histograms():
     #Resolution in bins of a quantity:
       
     
-    h.make("genvtx_pt_vxy_dr_LL",'dr_LL') 
+    h.make("genvtx_dr_LL",'dr_LL') 
     # h.make("genvtx_pt_vxy_dr_RR",'pt_RR','vxy_RR', 'dr_RR')
     # h.make("genvtx_pt_vxy_dr_LR",'pt_LR','vxy_LR', 'dr_LR')
     

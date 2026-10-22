@@ -32,6 +32,23 @@ def deltaPhi(v1,v2):
     output = fine*dPhi + under*(dPhi + 2.0*M_PI) + over*(dPhi - 2.0*M_PI)
     return output
 
+def gen_deta(events,absolute=False):
+    """Electron η minus positron η; optionally return |Δη|."""
+    deta = events.GenEle.eta - events.GenPos.eta
+    return abs(deta) if absolute else deta
+
+def gen_dphi(events, absolute=False):
+    """Electron φ minus positron φ, wrapped into [-π, π)."""
+    dphi = events.GenEle.phi - events.GenPos.phi
+    dphi = (dphi + np.pi) % (2 * np.pi) - np.pi
+    return abs(dphi) if absolute else dphi
+
+def gen_dr(events):
+    """Generated electron–positron ΔR."""
+    deta = gen_deta(events)
+    dphi = gen_dphi(events)
+    return np.sqrt(deta**2 + dphi**2)
+
 def deltaR(eta1,phi1,eta2,phi2):
     return np.sqrt((eta1-eta2)**2 + deltaPhi(phi1,phi2)**2)
 
