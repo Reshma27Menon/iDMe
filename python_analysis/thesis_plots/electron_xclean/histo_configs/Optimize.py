@@ -129,33 +129,39 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     wgt = events.eventWgt/sum_wgt
     
     if info["type"] == "signal":
-        print (events.fields)
-        print (events.vtx.fields)
-        
-        # #Fill the denominator: All the gen vertices passing the dr cut
-        h.fill("genvtx_pt_vxy_dr_den",pt_den=events.genEE.pt,vxy_den=events.genEE.vxy, dr_den =events.genEE.dr) 
 
-        #Have the basic quantities as well:
+        print(
+    f"Histogram stage: {cut}; "
+    f"good_vtx exists: {'good_vtx' in events.fields}; "
+    f"isGood exists: {'isGood' in events.vtx.fields}"
+)
         Lxy = events.GenEle.vxy  
         Pt =  events.genEE.pt
         dR =  events.genEE.dr
-        eta = events.genEE.eta
-        phi = events.genEE.phi
-        metdphi = events.genEE.METdPhi
-        
 
+        MASK = ( (Lxy <10) & (Pt < 20) & (dR<1) )
+        events = events[MASK]
+
+        #Denominator count:
+        den_count = len (events)
+        print ("Denominator count=", den_count)        
+
+        
         #Start the numerator:        
         
         maskAA =  ( (events.GenEle.matchedAllLowPt) & (events.GenPos.matchedAllLowPt) )
 
         evAA  = events[maskAA]
 
-        mask2AA =  ak.any(evAA.vtx.isMatched, axis=1)
+        mask2AA =  ak.any(     evAA.vtx.isMatched & evAA.vtx.isGood,    axis=1)
+
         ev_newAA = evAA[mask2AA] #Events which has atleast one matched vertex
+        num_count = len(ev_newAA)
+        print ("Numerator count=", num_count)
+        
 
         gen_vxy_AA = ev_newAA.genEE.vxy
         gen_ee_pt_AA = ev_newAA.genEE.pt
         gen_dr_AA = ev_newAA.genEE.dr
-
         
-        h.fill("genvtx_pt_vxy_dr_AA",pt_AA=gen_ee_pt_AA, vxy_AA=gen_vxy_AA, dr_AA =gen_dr_AA)   #numerator: Only the gen vertices matched to LL 
+        # h.fill("genvtx_pt_vxy_dr_AA",pt_AA=gen_ee_pt_AA, vxy_AA=gen_vxy_AA, dr_AA =gen_dr_AA)   #numerator: Only the gen vertices matched to LL 

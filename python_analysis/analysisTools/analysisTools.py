@@ -190,9 +190,7 @@ class Analyzer:
         
         return accumulator
 class iDMeProcessor(processor.ProcessorABC):
-# <<<<<<< HEAD
-#     def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,model_json,mode='bkg',**kwargs):
-# =======
+
     def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='signal',model_json=None,nJet_isNom=None,isSFstudies=False,good_vtx='none',systematics=None,**kwargs):
 # class iDMeProcessor(processor.ProcessorABC):
 #     def __init__(self,samples,sampleInfo,fileSet,histoFile,cutFile,mode='signal',model_json=None,nJet_isNom=None,isSFstudies=False,good_vtx='v11',systematics=None,**kwargs):

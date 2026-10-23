@@ -4,11 +4,15 @@ import sys
 
 import analysisSubroutines as routines
 
-def cut0(events,info):
-    name = "cut0"
-    desc = "Dummy cut"
-    plots = True
-    return events, name, desc, plots
+def cut0(events, info):
+    routines.defineGoodVertices(events, version="none", ele_id="dR" )
+    return events, "cut0", "Good vertex: none", True
+    
+# def cut0(events,info):
+#     name = "cut0"
+#     desc = "Dummy cut"
+#     plots = True
+#     return events, name, desc, plots
 
 # def cut1(events,info):
 #     name = "cut1"
