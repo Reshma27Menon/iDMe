@@ -117,6 +117,9 @@ def make_histograms():
     
     h.make("genvtx_pt_vxy_dr_den",'pt_den','vxy_den', 'dr_den')
 
+    h.make("eff_num", ("count", 1, 0, 1))
+    h.make("eff_den", ("count", 1, 0, 1))
+
     
     return h
 
@@ -130,21 +133,20 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     
     if info["type"] == "signal":
 
-        print(
-    f"Histogram stage: {cut}; "
-    f"good_vtx exists: {'good_vtx' in events.fields}; "
-    f"isGood exists: {'isGood' in events.vtx.fields}"
-)
+        print(f"Histogram stage: {cut}; " f"good_vtx exists: {'good_vtx' in events.fields}; " f"isGood exists: {'isGood' in events.vtx.fields}")
+        
         Lxy = events.GenEle.vxy  
         Pt =  events.genEE.pt
         dR =  events.genEE.dr
 
+        #Main mask:
         MASK = ( (Lxy <10) & (Pt < 20) & (dR<1) )
         events = events[MASK]
 
         #Denominator count:
         den_count = len (events)
-        print ("Denominator count=", den_count)        
+        print ("Denominator count=", den_count)  
+        h.fill("eff_den", count=0.5, weight=den_count)
 
         
         #Start the numerator:        
@@ -158,6 +160,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         ev_newAA = evAA[mask2AA] #Events which has atleast one matched vertex
         num_count = len(ev_newAA)
         print ("Numerator count=", num_count)
+        h.fill("eff_num", count=0.5, weight=num_count)
         
 
         gen_vxy_AA = ev_newAA.genEE.vxy
