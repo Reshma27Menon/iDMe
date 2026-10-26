@@ -73,26 +73,4 @@ def cut11(events, info):
 def cut12(events, info):
     return _apply_version(events, 'v11', "cut12", 'Good vertex v11: Existing good-vertex definition v11')
 
-def cut13(events, info):
-    return _apply_version(events, 'v11_LL', "cut13", 'Good vertex v11_LL: v11 with LL reconstructed vertex type')
 
-def cut14(events, info):
-    return _apply_version(events, 'v11_RR', "cut14", 'Good vertex v11_RR: v11 with RR reconstructed vertex type')
-
-def cut15(events, info):
-    return _apply_version(events, 'v11_RL', "cut15", 'Good vertex v11_RL: Existing v11_RL implementation; type mask currently unused')
-
-def cut16(events, info):
-    return _apply_version(events, 'v12', "cut16", 'Good vertex v12: Existing good-vertex definition v12')
-
-def cut17(events, info):
-    return _apply_version(events, 'v13', "cut17", 'Good vertex v13: Existing good-vertex definition v13')
-
-def cut18(events, info):
-    return _apply_version(events, 'v14', "cut18", 'Good vertex v14: Existing good-vertex definition v14')
-
-def cut19(events, info):
-    return _apply_version(events, 'v15', "cut19", 'Good vertex v15: Existing good-vertex definition v15')
-
-def cut20(events, info):
-    return _apply_version(events, 'v40', "cut20", 'Good vertex v40: Existing v40 scale-factor-study definition')

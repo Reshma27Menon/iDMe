@@ -133,7 +133,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     
     if info["type"] == "signal":
 
-        print(f"Histogram stage: {cut}; " f"good_vtx exists: {'good_vtx' in events.fields}; " f"isGood exists: {'isGood' in events.vtx.fields}")
+        print(f"Histogram stage: {cut}; " f"good_vtx exists: {'good_vtx' in events.fields}; " f"isGood exists: {'isGood' in events.vtx.fields}")   
         
         Lxy = events.GenEle.vxy  
         Pt =  events.genEE.pt
@@ -146,6 +146,10 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         #Denominator count:
         den_count = len (events)
         print ("Denominator count=", den_count)  
+
+        # Lxy_new = events.GenEle.vxy 
+        # print ("len(Lxy_new)=", len(Lxy_new) )
+        
         h.fill("eff_den", count=0.5, weight=den_count)
 
         
@@ -159,12 +163,30 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
 
         ev_newAA = evAA[mask2AA] #Events which has atleast one matched vertex
         num_count = len(ev_newAA)
+        
         print ("Numerator count=", num_count)
-        h.fill("eff_num", count=0.5, weight=num_count)
         
+        h.fill("eff_num", count=0.5, weight=num_count)    
 
-        gen_vxy_AA = ev_newAA.genEE.vxy
-        gen_ee_pt_AA = ev_newAA.genEE.pt
-        gen_dr_AA = ev_newAA.genEE.dr
+
+        print ("Your cuts:")
+        print ("events.vtx.sign=", ev_newAA.vtx.sign)
+        print ("events.vtx.reduced_chi2=", ev_newAA.vtx.reduced_chi2)
+
+        ossf = events.vtx.sign
+        chi2 = events.vtx.reduced_chi2
+        mass = events.vtx.refit_m
+        eleDphi = events.vtx.eleDphi
+        dxy =  events.vtx.dxy
+        mindxy = events.vtx.min_dxy
+
+        h.fill("ossf", Ossf = ossf)
+        h.fill("chi2", Chi2 = chi2)
+        h.fill("mass", Mass = mass)
+
+
+
+
+
+
         
-        # h.fill("genvtx_pt_vxy_dr_AA",pt_AA=gen_ee_pt_AA, vxy_AA=gen_vxy_AA, dr_AA =gen_dr_AA)   #numerator: Only the gen vertices matched to LL 

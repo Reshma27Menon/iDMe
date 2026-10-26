@@ -257,7 +257,6 @@ def getBtagInfo(events):
      btagDenom = ak.count_nonzero(isTrueB)
      btagEff = btagNum / btagDenom
  
-     #print(f'b tagging eff: {btagNum}/{btagDenom}={btagEff}')
  
      events["PFJet","btagNum"] = btagNum
      events["PFJet","btagDenom"] = btagDenom
