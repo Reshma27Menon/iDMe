@@ -25,6 +25,7 @@ class myHisto:
         self.match = self.parse_axis(('match',[0,1]))
         self.met = self.parse_axis(('met',60,50,300))
         self.dR = self.parse_axis(('dR',50,0,5)) 
+        # self.ID = self.parse_axis(('ID',100,0,10)) 
         self.mindR = self.parse_axis(('mindR',60,0,0.06))         
         
         self.dxy_gen = self.parse_axis(('dxy_gen',500,-3,3))  
@@ -65,6 +66,17 @@ class myHisto:
         self.phi_genEE = self.parse_axis(('phi_genEE',500,-5,5))
         
         self.METdPhi = self.parse_axis(('METdPhi',500,-5,5))
+
+
+        self.Ossf = self.parse_axis(("Ossf", [-1, 1]))
+        self.Chi2 = self.parse_axis(("Chi2", 100, 0, 20))
+        self.Mass = self.parse_axis(("Mass", 100, 0, 1))
+        self.EleDphi = self.parse_axis(("EleDphi", 64, -np.pi, np.pi))
+        self.Dxy = self.parse_axis(("Dxy", 800, -5, 5))
+        self.Mindxy = self.parse_axis(("Mindxy", 800, -5, 5))
+
+        self.IDcut = self.parse_axis(("IDcut", [0, 5]))
+        self.MaxMiniIso = self.parse_axis(("MaxMiniIso", 500, 0, 10))
 
     def make(self,name,*args,**hist_kwargs):
         if name in self.histograms.keys():
@@ -120,6 +132,16 @@ def make_histograms():
     h.make("eff_num", ("count", 1, 0, 1))
     h.make("eff_den", ("count", 1, 0, 1))
 
+    h.make("ossf", "Ossf")
+    h.make("chi2", "Chi2")
+    h.make("mass", "Mass")
+    h.make("eleDphi", "EleDphi")
+    h.make("dxy", "Dxy")
+    h.make("mindxy", "Mindxy")
+
+    h.make("IDcut", "IDcut")
+    h.make("maxMiniIso", "MaxMiniIso")
+
     
     return h
 
@@ -145,10 +167,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
 
         #Denominator count:
         den_count = len (events)
-        print ("Denominator count=", den_count)  
-
-        # Lxy_new = events.GenEle.vxy 
-        # print ("len(Lxy_new)=", len(Lxy_new) )
+        print ("Denominator count=", den_count)    
         
         h.fill("eff_den", count=0.5, weight=den_count)
 
@@ -167,26 +186,24 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         print ("Numerator count=", num_count)
         
         h.fill("eff_num", count=0.5, weight=num_count)    
-
-
-        print ("Your cuts:")
-        print ("events.vtx.sign=", ev_newAA.vtx.sign)
-        print ("events.vtx.reduced_chi2=", ev_newAA.vtx.reduced_chi2)
-
-        ossf = events.vtx.sign
-        chi2 = events.vtx.reduced_chi2
-        mass = events.vtx.refit_m
-        eleDphi = events.vtx.eleDphi
-        dxy =  events.vtx.dxy
-        mindxy = events.vtx.min_dxy
-
-        h.fill("ossf", Ossf = ossf)
-        h.fill("chi2", Chi2 = chi2)
-        h.fill("mass", Mass = mass)
-
-
-
-
-
-
         
+
+        # Flatten the per-event vertex lists into one list of vertices.
+        ossf = ak.flatten(ev_newAA.vtx.sign, axis=1)
+        chi2 = ak.flatten(ev_newAA.vtx.reduced_chi2, axis=1)
+        mass = ak.flatten(ev_newAA.vtx.refit_m, axis=1)
+        eleDphi = ak.flatten(ev_newAA.vtx.eleDphi, axis=1)
+        mindxy = ak.flatten(ev_newAA.vtx.min_dxy, axis=1)
+        dxy = ak.flatten(ev_newAA.vtx.e1.dxy, axis=1)
+        IDcut = ak.flatten(ev_newAA.vtx.e1.passID & ev_newAA.vtx.e2.passID)
+        maxMiniIso = ak.flatten(ev_newAA.vtx.e1.miniRelIsoEleCorr)
+
+        h.fill("ossf", Ossf=ossf)
+        h.fill("chi2", Chi2=chi2)
+        h.fill("mass", Mass=mass)
+        h.fill("eleDphi", EleDphi=eleDphi)
+        h.fill("mindxy", Mindxy=mindxy)                
+        h.fill("dxy", Dxy=dxy)
+        h.fill("IDcut", IDcut=IDcut)
+        h.fill("maxMiniIso", MaxMiniIso=maxMiniIso)
+

@@ -38,39 +38,23 @@ def cut0(events, info):
     return _apply_version(events, 'none', "cut0", 'Good vertex none: All vertices')
 
 def cut1(events, info):
-    return _apply_version(events, 'default', "cut1", 'Good vertex default: ID + opposite sign')
+    return _apply_version(events, 'default', "cut1", 'Good vertex default:  IDcut')
 
 def cut2(events, info):
-    return _apply_version(events, 'v1', "cut2", 'Good vertex v1: Existing good-vertex definition v1')
+    return _apply_version(events, 'v1', "cut2", 'Good vertex v1: IDcut & chi2')
 
 def cut3(events, info):
-    return _apply_version(events, 'v2', "cut3", 'Good vertex v2: Existing good-vertex definition v2')
+    return _apply_version(events, 'v2', "cut3", 'Good vertex v2: IDcut & chi2 & mass_lo_refit')
 
 def cut4(events, info):
-    return _apply_version(events, 'v3', "cut4", 'Good vertex v3: Existing good-vertex definition v3')
+    return _apply_version(events, 'v3', "cut4", 'Good vertex v3: IDcut & chi2 & mass_lo_refit & maxMiniIso')
 
 def cut5(events, info):
-    return _apply_version(events, 'v4', "cut5", 'Good vertex v4: Existing good-vertex definition v4')
+    return _apply_version(events, 'v4', "cut5", 'Good vertex v4: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit')
 
 def cut6(events, info):
-    return _apply_version(events, 'v5', "cut6", 'Good vertex v5: Existing good-vertex definition v5')
+    return _apply_version(events, 'v5', "cut6", 'Good vertex v5: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto')
 
 def cut7(events, info):
-    return _apply_version(events, 'v6', "cut7", 'Good vertex v6: Existing good-vertex definition v6')
-
-def cut8(events, info):
-    return _apply_version(events, 'v7', "cut8", 'Good vertex v7: Existing good-vertex definition v7')
-
-def cut9(events, info):
-    return _apply_version(events, 'v8', "cut9", 'Good vertex v8: Existing good-vertex definition v8')
-
-def cut10(events, info):
-    return _apply_version(events, 'v9', "cut10", 'Good vertex v9: Existing good-vertex definition v9')
-
-def cut11(events, info):
-    return _apply_version(events, 'v10', "cut11", 'Good vertex v10: Existing good-vertex definition v10')
-
-def cut12(events, info):
-    return _apply_version(events, 'v11', "cut12", 'Good vertex v11: Existing good-vertex definition v11')
-
+    return _apply_version(events, 'v6', "cut7", 'Good vertex v6: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto & logdxydz_loose')
 
