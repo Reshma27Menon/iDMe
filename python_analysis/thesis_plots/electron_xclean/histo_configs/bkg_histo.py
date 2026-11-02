@@ -13,10 +13,15 @@ cut = StrCategory([],name="cut",label="Cut Applied",growth=True)
 # functions to make histograms
 class myHisto:
     def __init__(self):
+        
         self.histograms = {}
         self.samp = "NO_SAMPLE"
         self.cut = "NO_CUT"
 
+        # axis compendium
+        self.samp = StrCategory([],name="samp",label="Sample Name",growth=True)
+        self.cut = StrCategory([],name="cut",label="Cut Applied",growth=True)
+        
         self.vxy = self.parse_axis(('vxy',[0,1,5,10,15,20] )) 
         self.pt = self.parse_axis(('pt',[0,5,10,20,100] )) 
         self.dr = self.parse_axis(('dr',[0,0.01,0.1,1,5] ))  
@@ -75,6 +80,16 @@ class myHisto:
 
 def make_histograms():
     h = myHisto()
+
+    h.make("vxy", "vxy")
+    h.make("pt", "pt")
+    h.make("dr", "dr")
+    h.make("eta", "eta")
+    h.make("phi", "phi")
+
+    h.make("ossf", "Ossf")
+    h.make("chi2", "Chi2")
+    h.make("mass", "Mass")
     
     
     
@@ -90,25 +105,28 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     
     if info["type"] == "signal":
 
-        Lxy = events.lptvtx.vxy
-        Pt = events.lptvtx.pt
+        vtx = events.lptvtx
 
+        # Vertex quantities
+        Lxy = ak.flatten(vtx.vxy, axis=1)
+        Pt = ak.flatten(vtx.pt, axis=1)
+        dR = ak.flatten(vtx.dR, axis=1)
+        eta = ak.flatten(vtx.eta, axis=1)
+        phi = ak.flatten(vtx.phi, axis=1)
 
+        ossf = ak.flatten(vtx.sign, axis=1)
+        chi2 = ak.flatten(vtx.reduced_chi2, axis=1)
+        mass = ak.flatten(vtx.refit_m, axis=1)
+        
 
+        
         h.fill("vxy", vxy=Lxy)
         h.fill("pt", pt=Pt)
+        h.fill("dr", dr=dR)
+        h.fill("eta", eta=eta)
+        h.fill("phi", phi=phi)
 
-        
-
-        
-
-
-
-
-
-
-
-
-        
-
-        
+        h.fill("ossf", Ossf=ossf)
+        h.fill("chi2", Chi2=chi2)
+        h.fill("mass", Mass=mass)
+     

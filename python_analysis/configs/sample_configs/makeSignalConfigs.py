@@ -217,13 +217,17 @@ if mode == "sig":
 
 
 elif mode == "bkg":
+    
 
     if skimmed:
         status, bkgs = xrdClient.dirlist(f"{prefix}/")
+        
     else:
         status, bkgs = xrdClient.dirlist(f"{prefix}/{year}/")
+        print (status, bkgs)
 
     bkgs = [bkg.name for bkg in bkgs]
+    print (bkgs)
 
     output = []
 
