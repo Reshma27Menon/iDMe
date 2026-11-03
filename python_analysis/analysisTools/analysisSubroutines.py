@@ -189,6 +189,8 @@ def jetBtag(events,year):
 def getBtagWPs(year):
     if year == 2022:
        loose,med,tight = 0.0583, 0.3086, 0.7183
+    if year == 2024:
+       loose,med,tight = 0.0583, 0.3086, 0.7183
     if year == 2018:
         loose,med,tight = 0.0490, 0.2783, 0.7100
     if year == 2017:

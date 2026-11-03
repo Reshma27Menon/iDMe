@@ -37,24 +37,24 @@ def _apply_version(events, version, name, description):
 def cut0(events, info):
     return _apply_version(events, 'none', "cut0", 'Good vertex none: All vertices')
 
-def cut1(events, info):
-    return _apply_version(events, 'default', "cut1", 'Good vertex default:  IDcut')
+# def cut1(events, info):
+#     return _apply_version(events, 'default', "cut1", 'Good vertex default:  IDcut')
 
-def cut2(events, info):
-    return _apply_version(events, 'v1', "cut2", 'Good vertex v1: IDcut & chi2')
+# def cut2(events, info):
+#     return _apply_version(events, 'v1', "cut2", 'Good vertex v1: IDcut & chi2')
 
-def cut3(events, info):
-    return _apply_version(events, 'v2', "cut3", 'Good vertex v2: IDcut & chi2 & mass_lo_refit')
+# def cut3(events, info):
+#     return _apply_version(events, 'v2', "cut3", 'Good vertex v2: IDcut & chi2 & mass_lo_refit')
 
-def cut4(events, info):
-    return _apply_version(events, 'v3', "cut4", 'Good vertex v3: IDcut & chi2 & mass_lo_refit & maxMiniIso')
+# def cut4(events, info):
+#     return _apply_version(events, 'v3', "cut4", 'Good vertex v3: IDcut & chi2 & mass_lo_refit & maxMiniIso')
 
-def cut5(events, info):
-    return _apply_version(events, 'v4', "cut5", 'Good vertex v4: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit')
+# def cut5(events, info):
+#     return _apply_version(events, 'v4', "cut5", 'Good vertex v4: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit')
 
-def cut6(events, info):
-    return _apply_version(events, 'v5', "cut6", 'Good vertex v5: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto')
+# def cut6(events, info):
+#     return _apply_version(events, 'v5', "cut6", 'Good vertex v5: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto')
 
-def cut7(events, info):
-    return _apply_version(events, 'v6', "cut7", 'Good vertex v6: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto & logdxydz_loose')
+# def cut7(events, info):
+#     return _apply_version(events, 'v6', "cut7", 'Good vertex v6: IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto & logdxydz_loose')
 
