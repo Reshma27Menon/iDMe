@@ -401,7 +401,7 @@ class iDMeProcessor(processor.ProcessorABC):
             
              #routines.selectBestVertex(events)
         else:
-            routines.selectBestVertex(events)
+            print ("Bkg!")
         # routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
         # routines.prepareBDT(events, self.model) # prepare BDT inference if the cuts include BDT-based cut
 
