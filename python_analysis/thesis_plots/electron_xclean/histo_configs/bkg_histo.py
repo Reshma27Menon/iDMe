@@ -90,6 +90,12 @@ def make_histograms():
     h.make("ossf", "Ossf")
     h.make("chi2", "Chi2")
     h.make("mass", "Mass")
+
+    h.make("eleDphi", "EleDphi")
+    h.make("mindxy", "Mindxy")
+    h.make("dxy", "Dxy")
+    h.make("IDcut", "IDcut")
+    h.make("maxMiniIso", "MaxMiniIso")
     
     
     
@@ -104,23 +110,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
     wgt = events.eventWgt/sum_wgt
 
     if info["type"] == "signal":
-
-        print(f"Histogram stage: {cut}; " f"good_vtx exists: {'good_vtx' in events.fields}; " f"isGood exists: {'isGood' in events.vtx.fields}")   
         
-        Lxy = events.GenEle.vxy  
-        Pt =  events.genEE.pt
-        dR =  events.genEE.dr
-
-        #Main mask:
-        MASK = ( (Lxy <10) & (Pt < 20) & (dR<1) )
-        events = events[MASK]
-
-        #Denominator count:
-        den_count = len (events)
-        print ("Denominator count=", den_count)    
-        
-        h.fill("eff_den", count=0.5, weight=den_count)
-
         
         #Start the numerator:        
         
@@ -135,7 +125,7 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         
         print ("Numerator count=", num_count)
         
-        h.fill("eff_num", count=0.5, weight=num_count)    
+        # h.fill("eff_num", count=0.5, weight=num_count)    
         
 
         # Flatten the per-event vertex lists into one list of vertices.
@@ -148,6 +138,13 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         IDcut = ak.flatten(ev_newAA.vtx.e1.passID & ev_newAA.vtx.e2.passID)
         maxMiniIso = ak.flatten(ev_newAA.vtx.e1.miniRelIsoEleCorr)
 
+        LXY = ak.flatten(ev_newAA.vtx.vxy, axis=1)
+        PT = ak.flatten(ev_newAA.vtx.pt, axis=1)
+        DR = ak.flatten(ev_newAA.vtx.dR, axis=1)
+
+
+        
+
         h.fill("ossf", Ossf=ossf)
         h.fill("chi2", Chi2=chi2)
         h.fill("mass", Mass=mass)
@@ -157,18 +154,16 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
         h.fill("IDcut", IDcut=IDcut)
         h.fill("maxMiniIso", MaxMiniIso=maxMiniIso)
 
+        
+        h.fill("vxy", vxy=LXY)
+        h.fill("pt", pt=PT)
+        h.fill("dr", dr=DR)
+        
+
 
     
     if info["type"] == "bkg":
-
-        # Vertex quantities
-        Lxy = ak.flatten(events.lptvtx.vxy, axis=1)
-        Pt = ak.flatten(events.lptvtx.pt, axis=1)
-        dR = ak.flatten(events.lptvtx.dR, axis=1)
-
-        MASK_bkg = ( (Lxy <10) & (Pt < 20) & (dR<1) )
-        events = events[MASK_bkg]        
-
+        
         Vtx = events.lptvtx
 
         LXY = ak.flatten(Vtx.vxy, axis=1)

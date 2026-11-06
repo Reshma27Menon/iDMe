@@ -145,6 +145,20 @@ def electronID(events,info):
     lpt_ele_id_cut = lpt_eles.pt > 0 # dummy always True
     events["LptElectron","passID"] = lpt_ele_kinematic_cut & lpt_ele_id_cut & (lpt_eles.mindRj > 0.4)
     events["LptElectron","passIDBasic"] = lpt_ele_kinematic_cut & lpt_ele_id_cut
+
+     # AllLptElectron ID (same definition as LptElectron) -- needed for lptvtx good-vertex selection,
+    # since lptvtx.e1/e2 are always drawn from AllLptElectron rather than LptElectron.
+    # Not present in every ntuple era (e.g. 2018) -- skip rather than crash.
+    if 'AllLptElectron' in events.fields:
+        all_lpt_eles = events.AllLptElectron
+        events['AllLptElectron','mindRj'] = ak.fill_none(ak.min(all_lpt_eles.dRJets,axis=-1),999)
+        
+        alpt_ele_kinematic_cut = (all_lpt_eles.pt > 1) & (np.abs(all_lpt_eles.eta) < 2.4)
+        
+        alpt_ele_id_cut = all_lpt_eles.pt > 0 # dummy always True
+        events["AllLptElectron","passID"] = alpt_ele_kinematic_cut & alpt_ele_id_cut & (events.AllLptElectron.mindRj > 0.4)
+        events["AllLptElectron","passIDBasic"] = alpt_ele_kinematic_cut & alpt_ele_id_cut
+
     
     # regular ID
     """if info['type'] == 'signal':
@@ -172,12 +186,6 @@ def electronID(events,info):
     events["Electron","passID"] = ele_kinematic_cut & ele_id_cut & (eles.mindRj > 0.4)
     events["Electron","passIDBasic"] = ele_kinematic_cut & ele_id_cut
     
-# def jetBtag(events,year):
-#     year = str(year)
-#     loose,med,tight = getBtagWPs(year)
-#     events["PFJet","passLooseID"] = events.PFJet.bTag > loose
-#     events["PFJet","passMedID"] = events.PFJet.bTag > med
-#     events["PFJet","passTightID"] = events.PFJet.bTag > tight
 
 def jetBtag(events,year):
     loose,med,tight = getBtagWPs(year)
@@ -233,6 +241,25 @@ def vtxElectronConnection(events):
     events["vtx","e1","refit_dxy"] = vtx.e1_refit_dxy
     events["vtx","e2","refit_dxy"] = vtx.e2_refit_dxy
 
+
+def lptvtxElectronConnection(events):
+    """
+    Associate electrons to lptvtx candidates (the all-low-pT-only vertex pool),
+    so they can be accessed as lptvtx.e1 and lptvtx.e2.
+
+    Unlike vtx (which mixes Electron and LptElectron via e1_typ/e2_typ), every
+    lptvtx leg is always drawn from AllLptElectron (ElectronSkimmer fills
+    lptvtx_e{1,2}_typ_ as "A" for every entry) -- so e{1,2}_idx index directly
+    into events.AllLptElectron with no type check or index offset needed.
+    """
+    lptvtx = events.lptvtx
+
+    events["lptvtx","e1"] = events.AllLptElectron[lptvtx.e1_idx]
+    events["lptvtx","e2"] = events.AllLptElectron[lptvtx.e2_idx]
+
+    events["lptvtx","e1","refit_dxy"] = lptvtx.e1_refit_dxy
+    events["lptvtx","e2","refit_dxy"] = lptvtx.e2_refit_dxy
+
 def getDeltaR(e1, e2):
      dR_sq = (e1.eta - e2.eta)**2 + (e1.phi - e2.phi)**2
      print(dR_sq)
@@ -263,7 +290,7 @@ def getBtagInfo(events):
      events["PFJet","btagNum"] = btagNum
      events["PFJet","btagDenom"] = btagDenom
 
-def defineGoodVertices(events,version='none',ele_id='dR'):
+def defineGoodVertices(events,version='v9',ele_id='dR'):
     # Selecting electrons that pass basic pT and eta cuts
     if ele_id == 'basic':
         IDcut = events.vtx.e1.passIDBasic & events.vtx.e2.passIDBasic
@@ -271,6 +298,7 @@ def defineGoodVertices(events,version='none',ele_id='dR'):
         IDcut = events.vtx.e1.passID & events.vtx.e2.passID
     ossf = events.vtx.sign == -1
     chi2 = events.vtx.reduced_chi2 < 5
+    chi2_loose = events.vtx.reduced_chi2 < 15
     mass = events.vtx.refit_m < 20
     eleDphi = events.vtx.eleDphi < 2
     mindxy = events.vtx.min_dxy > 0.01
@@ -285,28 +313,84 @@ def defineGoodVertices(events,version='none',ele_id='dR'):
     logdxydz_loose = np.minimum(np.log10(np.abs(events.vtx.e1.dxy/events.vtx.e1.dz)), np.log10(np.abs(events.vtx.e2.dxy/events.vtx.e2.dz))) > -2
     if version == 'none':
         events['vtx','isGood'] = ak.values_astype(ak.ones_like(events.vtx.m),bool)
-        
     if version == 'default':
-        events["vtx","isGood"] = IDcut # base definition    
-        
+        events["vtx","isGood"] = IDcut & ossf # base definition
     if version == 'v1':
-        events["vtx","isGood"] = IDcut & chi2 # v1 definition
+        events["vtx","isGood"] = IDcut & ossf & chi2 # v1 definition
     if version == 'v2':
-        events["vtx","isGood"] = IDcut & chi2 & mass_lo_refit # v2 definition
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mass # v2 definition
     if version == 'v3':
-        events["vtx","isGood"] = IDcut & chi2 & mass_lo_refit & maxMiniIso # v3 definition
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mass & mindxy # v3 definition
     if version == 'v4':
-        events["vtx","isGood"] = IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit# v4 definition
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mass & mindxy & maxMiniIso # v4 definition
     if version == 'v5':
-        events['vtx','isGood'] = IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto# v5 definition
+        events['vtx','isGood'] = IDcut & ossf & chi2 & mass & mindxy & maxMiniIso & passConvVeto # v5 definition
     if version == 'v6':
-        events['vtx','isGood'] =  IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto & logdxydz_loose # v6 definition
+        events['vtx','isGood'] = IDcut & ossf & chi2 & mass & mindxy & maxMiniIso & passConvVeto & mass_lo # v6 definition
+    if version == 'v7':
+        events['vtx','isGood'] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto # v7 definition
+    if version == 'v8':
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition
+    if version == "v9":
+        events["vtx","isGood"] = IDcut & ossf & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
+    if version == "v10":
+        events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
+    if version == 'v11':
+         events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit # remove OSSF
     
-    # if version == 'v15':
-    #      events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit & logdxydz_loose # loosen mindxy    
+    
+    if version == 'v15acr':
+        events["vtx","isGood"] = IDcut & maxMiniIso & chi2_loose & mindxy_refit & passConvVeto & mass_lo_refit & logdxydz_loose # up-to-date with AN
+
    
     events.__setitem__("good_vtx",events.vtx[events.vtx.isGood])
     events.__setitem__("nGoodVtx",ak.count(events.good_vtx.vxy,axis=1))
+
+
+# def defineGoodVertices(events,version='none',ele_id='dR'):
+#     # Selecting electrons that pass basic pT and eta cuts
+#     if ele_id == 'basic':
+#         IDcut = events.vtx.e1.passIDBasic & events.vtx.e2.passIDBasic
+#     if ele_id == 'dR':
+#         IDcut = events.vtx.e1.passID & events.vtx.e2.passID
+#     ossf = events.vtx.sign == -1
+#     chi2 = events.vtx.reduced_chi2 < 5
+#     mass = events.vtx.refit_m < 20
+#     eleDphi = events.vtx.eleDphi < 2
+#     mindxy = events.vtx.min_dxy > 0.01
+#     mindxy_refit = np.minimum(np.abs(events.vtx.e1.refit_dxy), np.abs(events.vtx.e2.refit_dxy)) > 0.001
+#     mindxy_refit_tight = np.minimum(np.abs(events.vtx.e1.refit_dxy), np.abs(events.vtx.e2.refit_dxy)) > 0.01
+#     mindxyLoose = events.vtx.min_dxy > 0.005
+#     maxMiniIso = np.maximum(events.vtx.e1.miniRelIsoEleCorr,events.vtx.e2.miniRelIsoEleCorr) < 0.9 
+#     passConvVeto = events.vtx.e1.conversionVeto & events.vtx.e2.conversionVeto
+#     mass_lo = events.vtx.m > 0.325
+#     mass_lo_refit = events.vtx.refit_m > 0.1
+#     logdxydz = np.minimum(np.log10(np.abs(events.vtx.e1.dxy/events.vtx.e1.dz)), np.log10(np.abs(events.vtx.e2.dxy/events.vtx.e2.dz))) > -1.25
+#     logdxydz_loose = np.minimum(np.log10(np.abs(events.vtx.e1.dxy/events.vtx.e1.dz)), np.log10(np.abs(events.vtx.e2.dxy/events.vtx.e2.dz))) > -2
+#     if version == 'none':
+#         events['vtx','isGood'] = ak.values_astype(ak.ones_like(events.vtx.m),bool)
+        
+#     if version == 'default':
+#         events["vtx","isGood"] = IDcut # base definition    
+        
+#     if version == 'v1':
+#         events["vtx","isGood"] = IDcut & chi2 # v1 definition
+#     if version == 'v2':
+#         events["vtx","isGood"] = IDcut & chi2 & mass_lo_refit # v2 definition
+#     if version == 'v3':
+#         events["vtx","isGood"] = IDcut & chi2 & mass_lo_refit & maxMiniIso # v3 definition
+#     if version == 'v4':
+#         events["vtx","isGood"] = IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit# v4 definition
+#     if version == 'v5':
+#         events['vtx','isGood'] = IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto# v5 definition
+#     if version == 'v6':
+#         events['vtx','isGood'] =  IDcut & chi2 & mass_lo_refit & maxMiniIso & mindxy_refit & passConvVeto & logdxydz_loose # v6 definition
+    
+#     # if version == 'v15':
+#     #      events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit & logdxydz_loose # loosen mindxy    
+   
+#     events.__setitem__("good_vtx",events.vtx[events.vtx.isGood])
+#     events.__setitem__("nGoodVtx",ak.count(events.good_vtx.vxy,axis=1))
 # if version == 'none':
 #         events['vtx','isGood'] = ak.values_astype(ak.ones_like(events.vtx.m),bool)
         
@@ -391,6 +475,8 @@ def computeExtraVariables(events,info):
         genMatchRecoQuantities(events)
     # associate electrons to vertices after all electron-related stuff has been computed
     vtxElectronConnection(events) # associate electrons to vertices
+    if (        "AllLptElectron" in events.fields        and "lptvtx" in events.fields    ):
+        lptvtxElectronConnection(events)
     events['vtx','min_dxy'] = np.minimum(np.abs(events.vtx.e1.dxy),np.abs(events.vtx.e2.dxy))
     events['vtx','eleDphi'] = np.abs(deltaPhi(events.vtx.e1.phi,events.vtx.e2.phi))
     events['vtx','vxy_fromPV'] = ((events.vtx.vx-events.PV.x)**2+(events.vtx.vy-events.PV.y)**2)
@@ -399,6 +485,77 @@ def computeExtraVariables(events,info):
         events['GenJetMETdPhi'] = np.abs(deltaPhi(events.GenJet.phi[:,0],events.GenMET.phi))
     return events
 
+def defineGoodLptVertices(events, version="v15acr", ele_id="dR"):
+    """Tag good vertices in the lptvtx collection."""
+    vtx = events.lptvtx
+
+    if ele_id == "basic":
+        IDcut = vtx.e1.passIDBasic & vtx.e2.passIDBasic
+    elif ele_id == "dR":
+        IDcut = vtx.e1.passID & vtx.e2.passID
+    else:
+        raise ValueError(f"Unsupported electron ID: {ele_id}")
+
+    chi2_loose = vtx.reduced_chi2 < 15
+
+    mindxy_refit = np.minimum(
+        np.abs(vtx.e1.refit_dxy),
+        np.abs(vtx.e2.refit_dxy),
+    ) > 0.001
+
+    maxMiniIso = np.maximum(
+        vtx.e1.miniRelIsoEleCorr,
+        vtx.e2.miniRelIsoEleCorr,
+    ) < 0.9
+
+    passConvVeto = vtx.e1.conversionVeto & vtx.e2.conversionVeto
+
+    mass_lo_refit = vtx.refit_m > 0.1
+
+    logdxydz_loose = np.minimum(
+        np.log10(np.abs(vtx.e1.dxy / vtx.e1.dz)),
+        np.log10(np.abs(vtx.e2.dxy / vtx.e2.dz)),
+    ) > -2
+
+    if version == "none":
+        events["lptvtx", "isGood"] = ak.values_astype(
+            ak.ones_like(vtx.m), bool
+        )
+    elif version == "v15acr":
+        events["lptvtx", "isGood"] = (
+            IDcut
+            & maxMiniIso
+            & chi2_loose
+            & mindxy_refit
+            & passConvVeto
+            & mass_lo_refit
+            & logdxydz_loose
+        )
+    else:
+        raise ValueError(f"Unsupported lptvtx version: {version}")
+
+    events["good_lptvtx"] = events.lptvtx[events.lptvtx.isGood]
+    events["nGoodLptVtx"] = ak.count(events.good_lptvtx.vxy, axis=1)
+
+def selectBestLptVertex(events):
+    """Select the good lptvtx vertex with the lowest reduced chi2."""
+    sel_lptvtx = ak.flatten(        events.good_lptvtx[            ak.argmin(                events.good_lptvtx.reduced_chi2,                axis=1,               keepdims=True,
+            )
+        ]
+    )
+
+    events["sel_lptvtx"] = sel_lptvtx
+
+
+def hasGoodLptVertex(events, info, good_vtx="v15acr"):
+    """Keep events with good lptvtx vertices and select the best."""
+    defineGoodLptVertices(events, version=good_vtx)
+
+    events = events[events.nGoodLptVtx > 0]
+
+    selectBestLptVertex(events)
+
+    return events
 def miscExtraVariablesSignal(events):
     # record if signal is reconstructed
     events["signalReco"] = events.GenEle.matched & events.GenPos.matched
