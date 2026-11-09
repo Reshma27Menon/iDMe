@@ -517,10 +517,38 @@ def defineGoodLptVertices(events, version="v15acr", ele_id="dR"):
         np.log10(np.abs(vtx.e2.dxy / vtx.e2.dz)),
     ) > -2
 
-    if version == "none":
-        events["lptvtx", "isGood"] = ak.values_astype(
-            ak.ones_like(vtx.m), bool
-        )
+    # if version == "none":
+    #     events["lptvtx", "isGood"] = ak.values_astype(
+    #         ak.ones_like(vtx.m), bool
+    #     )
+
+    if version == 'none':
+        events['vtx','isGood'] = ak.values_astype(ak.ones_like(events.vtx.m),bool)
+    if version == 'default':
+        events["vtx","isGood"] = IDcut & ossf # base definition
+    if version == 'v1':
+        events["vtx","isGood"] = IDcut & ossf & chi2 # v1 definition
+    if version == 'v2':
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mass # v2 definition
+    if version == 'v3':
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mass & mindxy # v3 definition
+    if version == 'v4':
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mass & mindxy & maxMiniIso # v4 definition
+    if version == 'v5':
+        events['vtx','isGood'] = IDcut & ossf & chi2 & mass & mindxy & maxMiniIso & passConvVeto # v5 definition
+    if version == 'v6':
+        events['vtx','isGood'] = IDcut & ossf & chi2 & mass & mindxy & maxMiniIso & passConvVeto & mass_lo # v6 definition
+    if version == 'v7':
+        events['vtx','isGood'] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto # v7 definition
+    if version == 'v8':
+        events["vtx","isGood"] = IDcut & ossf & chi2 & mindxyLoose & maxMiniIso & passConvVeto & mass_lo_refit # v8 definition
+    if version == "v9":
+        events["vtx","isGood"] = IDcut & ossf & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
+    if version == "v10":
+        events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit
+    if version == 'v11':
+         events["vtx","isGood"] = IDcut & chi2 & maxMiniIso & passConvVeto & mass_lo_refit & mindxy_refit # remove OSSF
+    
     elif version == "v15acr":
         events["lptvtx", "isGood"] = (
             IDcut

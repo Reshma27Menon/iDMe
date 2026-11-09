@@ -163,31 +163,36 @@ def fillHistos(events,h,samp,cut,info,sum_wgt=1):
 
     
     if info["type"] == "bkg":
-        
-        Vtx = events.lptvtx
 
-        LXY = ak.flatten(Vtx.vxy, axis=1)
-        PT = ak.flatten(Vtx.pt, axis=1)
-        DR = ak.flatten(Vtx.dR, axis=1)
+        sub.defineGoodLptVertices(events, version="v15acr", ele_id="dR" )
 
+        print (events.lptvtx.fields )
         
-        eta = ak.flatten(Vtx.eta, axis=1)
-        phi = ak.flatten(Vtx.phi, axis=1)
+        # Vtx = events.lptvtx
+         
 
-        ossf = ak.flatten(Vtx.sign, axis=1)
-        chi2 = ak.flatten(Vtx.reduced_chi2, axis=1)
-        mass = ak.flatten(Vtx.refit_m, axis=1)
-        
-        
+        # LXY = ak.flatten(Vtx.vxy, axis=1)
+        # PT = ak.flatten(Vtx.pt, axis=1)
+        # DR = ak.flatten(Vtx.dR, axis=1)
 
         
-        h.fill("vxy", vxy=LXY)
-        h.fill("pt", pt=PT)
-        h.fill("dr", dr=DR)
-        h.fill("eta", eta=eta)
-        h.fill("phi", phi=phi)
+        # eta = ak.flatten(Vtx.eta, axis=1)
+        # phi = ak.flatten(Vtx.phi, axis=1)
 
-        h.fill("ossf", Ossf=ossf)
-        h.fill("chi2", Chi2=chi2)
-        h.fill("mass", Mass=mass)
+        # ossf = ak.flatten(Vtx.sign, axis=1)
+        # chi2 = ak.flatten(Vtx.reduced_chi2, axis=1)
+        # mass = ak.flatten(Vtx.refit_m, axis=1)
+        
+        
+
+        
+        # h.fill("vxy", vxy=LXY)
+        # h.fill("pt", pt=PT)
+        # h.fill("dr", dr=DR)
+        # h.fill("eta", eta=eta)
+        # h.fill("phi", phi=phi)
+
+        # h.fill("ossf", Ossf=ossf)
+        # h.fill("chi2", Chi2=chi2)
+        # h.fill("mass", Mass=mass)
         
